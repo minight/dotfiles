@@ -1,0 +1,3 @@
+[submodule ".config/nvim/bundle/ag"]
+	path = .config/nvim/bundle/ag
+	url = https://github.com/rking/ag.vim
