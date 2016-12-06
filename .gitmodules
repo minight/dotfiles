@@ -61,3 +61,6 @@
 [submodule ".zprezto"]
 	path = .zprezto
 	url = git@github.com:minight/prezto.git
+[submodule ".apps/z"]
+	path = .apps/z
+	url = https://github.com/rupa/z.git
