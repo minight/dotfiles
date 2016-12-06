@@ -2,14 +2,19 @@
 
 yet another dotfiles repo.
 
+## dependencies
+
+- zsh
+- neovim
+- silversearcher-ag
+
 ## how to use
 
 just git clone into your home directory.
 
-## dependencies
-
-- neovim
-- silversearcher-ag
+```bash
+chsh -s /bin/zsh
+```
 
 ## how to make
 
