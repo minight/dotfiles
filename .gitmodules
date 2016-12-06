@@ -60,4 +60,4 @@
 	url = https://github.com/Valloric/YouCompleteMe.git
 [submodule ".zprezto"]
 	path = .zprezto
-	url = https://github.com/sorin-ionescu/prezto.git
+	url = git@github.com:minight/prezto.git

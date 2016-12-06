@@ -1,0 +1,10 @@
+autoload -Uz promptinit
+promptinit
+prompt steeef
+#PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")'
+
+#archey
+#export PATH=$PATH:/usr/local/m-cli:/Users/sean/bin
+#~/tmp/others/base16-shell/base16-tomorrow.dark.sh
+#. `brew --prefix`/etc/profile.d/z.sh
+. ~/.apps/z/z.sh

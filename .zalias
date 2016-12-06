@@ -1,0 +1,25 @@
+alias bt="wget http://cachefly.cachefly.net/100mb.test -O /dev/null" 
+alias lock="i3lock -i ~/Pictures/wallpaper2.png"
+alias reload="source ~/.zshrc"
+alias pg='ping 8.8.8.8'
+alias burp="java -jar ~/.apps/burpsuite_pro_v1.7.13.jar &; chromium-browser --proxy-server=\"localhost:8080\" --disable-xss-auditor &"
+alias burpo="java -jar ~/.apps/burpsuite_pro_v1.7.13.jar &"
+alias ctftime="docker run -v /Users/sean/ctftime:/root/host-share --privileged -it --workdir=/root ctfhacker/epictreasure"
+alias ls='ls --color=auto'
+alias awk=gawk
+alias myip="curl ifconfig.co"
+
+
+rmdupe() {
+    cat $1 | perl -lne 's/\s*$//; print if ! $x{$_}++'
+}
+
+mmv() {
+    for file in `ls`; do
+        mv $file "$1-$file";
+    done;
+}
+
+rng() {
+    od -tu2 -vAn -N$1 < /dev/urandom | tr '\n' ' ' | sed 's/ //g'
+}
