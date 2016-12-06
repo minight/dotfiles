@@ -58,3 +58,6 @@
 [submodule ".config/nvim/bundle/YouCompleteMe"]
 	path = .config/nvim/bundle/YouCompleteMe
 	url = https://github.com/Valloric/YouCompleteMe.git
+[submodule ".zprezto"]
+	path = .zprezto
+	url = https://github.com/sorin-ionescu/prezto.git
