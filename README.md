@@ -1,10 +1,11 @@
 # dotfiles
 
-yet another dotfiles repo.
+yet another dotfiles repo. should mostly be platform agnostic. might have some osx stuff by accident. 
 
 ## dependencies
 
 - zsh
+- i3
 - neovim
 - silversearcher-ag
 
@@ -13,6 +14,7 @@ yet another dotfiles repo.
 just git clone into your home directory.
 
 ```bash
+bash /home/sean/tmp/dotfiles/.config/fonts/powerline/install.sh
 chsh -s /bin/zsh
 ```
 
