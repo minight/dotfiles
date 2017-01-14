@@ -16,13 +16,13 @@
     - ~/.zshenv:              zsh/zprezto/runcoms/zshenv
     - ~/.zcustom:             zsh/zcustom
     - ~/.zalias:              zsh/zalias
-    - ~/bin/z:                z
-    - ~/.gitconfig:           gitconfig
-    - ~/.config/nvim:         nvim
-    - ~/.config/i3:           i3
-    - ~/.config/i3status:     i3status
-    - ~/.config/shell:        shell
-    - ~/.config/fonts:        fonts
+    - ~/bin/z:                bin/z
+    - ~/.gitconfig:           git/config
+    - ~/.config/nvim:         config/nvim
+    - ~/.config/i3:           config/i3
+    - ~/.config/i3status:     config/i3status
+    - ~/.config/shell:        config/shell
+    - ~/.config/fonts:        config/fonts
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
 
