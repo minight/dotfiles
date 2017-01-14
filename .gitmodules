@@ -1,63 +1,3 @@
-[submodule ".config/nvim/bundle/ag"]
-	path = .config/nvim/bundle/ag
-	url = https://github.com/rking/ag.vim
-[submodule ".config/nvim/bundle/ctrlp"]
-	path = .config/nvim/bundle/ctrlp
-	url = https://github.com/ctrlpvim/ctrlp.vim.git
-[submodule ".config/nvim/bundle/indentpython"]
-	path = .config/nvim/bundle/indentpython
-	url = https://github.com/vim-scripts/indentpython.vim.git
-[submodule ".config/nvim/bundle/jedi"]
-	path = .config/nvim/bundle/jedi
-	url = https://github.com/davidhalter/jedi-vim.git
-[submodule ".config/nvim/bundle/nerdtree"]
-	path = .config/nvim/bundle/nerdtree
-	url = https://github.com/scrooloose/nerdtree.git
-[submodule ".config/nvim/bundle/supertab"]
-	path = .config/nvim/bundle/supertab
-	url = https://github.com/ervandew/supertab.git
-[submodule ".config/nvim/bundle/syntastic"]
-	path = .config/nvim/bundle/syntastic
-	url = https://github.com/scrooloose/syntastic.git
-[submodule ".config/nvim/bundle/unite-tag"]
-	path = .config/nvim/bundle/unite-tag
-	url = https://github.com/tsukkee/unite-tag.git
-[submodule ".config/nvim/bundle/unite"]
-	path = .config/nvim/bundle/unite
-	url = https://github.com/Shougo/unite.vim.git
-[submodule ".config/nvim/bundle/vim-airline"]
-	path = .config/nvim/bundle/vim-airline
-	url = https://github.com/vim-airline/vim-airline.git
-[submodule ".config/nvim/bundle/vim-autotag"]
-	path = .config/nvim/bundle/vim-autotag
-	url = git://github.com/craigemery/vim-autotag.git
-[submodule ".config/nvim/bundle/vim-css-color"]
-	path = .config/nvim/bundle/vim-css-color
-	url = https://github.com/ap/vim-css-color
-[submodule ".config/nvim/bundle/vim-fugitive"]
-	path = .config/nvim/bundle/vim-fugitive
-	url = git://github.com/tpope/vim-fugitive.git
-[submodule ".config/nvim/bundle/vim-markdown"]
-	path = .config/nvim/bundle/vim-markdown
-	url = https://github.com/plasticboy/vim-markdown.git
-[submodule ".config/nvim/bundle/vim-multiple-cursors"]
-	path = .config/nvim/bundle/vim-multiple-cursors
-	url = https://github.com/terryma/vim-multiple-cursors.git
-[submodule ".config/nvim/bundle/vimproc"]
-	path = .config/nvim/bundle/vimproc
-	url = https://github.com/Shougo/vimproc.vim.git
-[submodule ".config/nvim/bundle/vim-pyenv"]
-	path = .config/nvim/bundle/vim-pyenv
-	url = https://github.com/lambdalisue/vim-pyenv.git
-[submodule ".config/nvim/bundle/vim-sensible"]
-	path = .config/nvim/bundle/vim-sensible
-	url = git://github.com/tpope/vim-sensible.git
-[submodule ".config/nvim/bundle/vim-trailing-whitespace"]
-	path = .config/nvim/bundle/vim-trailing-whitespace
-	url = https://github.com/bronson/vim-trailing-whitespace
-[submodule ".config/nvim/bundle/YouCompleteMe"]
-	path = .config/nvim/bundle/YouCompleteMe
-	url = https://github.com/Valloric/YouCompleteMe.git
 [submodule ".zprezto"]
 	path = .zprezto
 	url = git@github.com:minight/prezto.git
@@ -67,3 +7,6 @@
 [submodule ".config/fonts/powerline"]
 	path = .config/fonts/powerline
 	url = https://github.com/powerline/fonts.git
+[submodule "dotbot"]
+	path = dotbot
+	url = https://github.com/anishathalye/dotbot
