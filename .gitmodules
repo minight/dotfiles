@@ -1,11 +1,11 @@
-[submodule ".zprezto"]
+[submodule "zsh/zprezto"]
 	path = zsh/zprezto
 	url = git@github.com:minight/prezto.git
-[submodule ".apps/z"]
-	path = .apps/z
+[submodule "bin/z"]
+	path = bin/z
 	url = https://github.com/rupa/z.git
-[submodule ".config/fonts/powerline"]
-	path = .config/fonts/powerline
+[submodule "config/fonts/powerline"]
+	path = config/fonts/powerline
 	url = https://github.com/powerline/fonts.git
 [submodule "dotbot"]
 	path = dotbot

@@ -6,23 +6,23 @@
     - [mkdir -p ~/.config, Creating .config directory]
     - [mkdir -p ~/bin, Creating bin directory]
 - link:
-    - ~/.dotfiles:            ''
-    - ~/.tmux.conf:           tmux
-    - ~/.zshrc:               zsh/zprezto/runcoms/zshrc
-    - ~/.zpreztorc:           zsh/zprezto/runcoms/zpreztorc
-    - ~/.zlogin:              zsh/zprezto/runcoms/zlogin
-    - ~/.zlogout:             zsh/zprezto/runcoms/zlogout
-    - ~/.zprofile:            zsh/zprezto/runcoms/zprofile
-    - ~/.zshenv:              zsh/zprezto/runcoms/zshenv
-    - ~/.zcustom:             zsh/zcustom
-    - ~/.zalias:              zsh/zalias
-    - ~/bin/z:                bin/z
-    - ~/.gitconfig:           git/config
-    - ~/.config/nvim:         config/nvim
-    - ~/.config/i3:           config/i3
-    - ~/.config/i3status:     config/i3status
-    - ~/.config/shell:        config/shell
-    - ~/.config/fonts:        config/fonts
+    ~/.dotfiles:            ''
+    ~/.tmux.conf:           tmux
+    ~/.zshrc:               zsh/zprezto/runcoms/zshrc
+    ~/.zpreztorc:           zsh/zprezto/runcoms/zpreztorc
+    ~/.zlogin:              zsh/zprezto/runcoms/zlogin
+    ~/.zlogout:             zsh/zprezto/runcoms/zlogout
+    ~/.zprofile:            zsh/zprezto/runcoms/zprofile
+    ~/.zshenv:              zsh/zprezto/runcoms/zshenv
+    ~/.zcustom:             zsh/zcustom
+    ~/.zalias:              zsh/zalias
+    ~/bin/z:                bin/z
+    ~/.gitconfig:           git/config
+    ~/.config/nvim:         config/nvim
+    ~/.config/i3:           config/i3
+    ~/.config/i3status:     config/i3status
+    ~/.config/shell:        config/shell
+    ~/.config/fonts:        config/fonts
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
 
