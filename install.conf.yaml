@@ -7,7 +7,7 @@
     - [mkdir -p ~/bin, Creating bin directory]
 - link:
     ~/.dotfiles:            ''
-    ~/.tmux.conf:           tmux
+    ~/.tmux.conf:           config/tmux
     ~/.zshrc:               zsh/zprezto/runcoms/zshrc
     ~/.zpreztorc:           zsh/zprezto/runcoms/zpreztorc
     ~/.zlogin:              zsh/zprezto/runcoms/zlogin
