@@ -122,6 +122,9 @@ vnoremap L g_
 " More logical Y (default was alias for yy)
 nnoremap Y y$
 
+" More logical paste (does not copy contents of overwritten)
+vnoremap p "_dP
+
 " Write as sudo
 cnoremap w!! w !sudo tee % >/dev/null
 
