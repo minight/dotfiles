@@ -37,6 +37,7 @@ set formatoptions+=o    " Continue comment marker in new lines.
 set autoread
 
 set clipboard=unnamed
+set clipboard+=unnamedplus " so it works with ubuntu
 
 set display+=lastline
 set nostartofline       " Do not jump to first character with page commands.
@@ -215,8 +216,8 @@ endif
 
 call plug#begin('~/.vim/bundle')
     " Autocomplete Engines
-    Plug 'Valloric/YouCompleteMe', { 'dir': '~/.vim/bundle/YouCompleteMe', 'do' : 'python3 install.py --clang-complete --gocode-completer --tern-completer'}
     Plug 'davidhalter/jedi-vim'
+    Plug 'Valloric/YouCompleteMe', { 'dir': '~/.config/nvim/bundle/YouCompleteMe', 'do' : 'python3 install.py --clang-complete --tern-completer'}
 
     " Syntax Checkers
     Plug 'vim-syntastic/syntastic'
@@ -252,6 +253,9 @@ call plug#begin('~/.vim/bundle')
     "Plug 'bling/vim-bufferline'
 call plug#end()
 
+" YCM {
+    let g:ycm_python_binary_path = 'python3'
+" }
 
 " JediVim {
     " Use jedivim for movement. but not for autocomplete
@@ -383,7 +387,6 @@ call plug#end()
     nnoremap <leader>tf :NERDTreeFind<CR>
     autocmd StdinReadPre * let s:std_in=1
     autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-    autocmd StdinReadPre * let s:std_in=1
     autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
     autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " }
@@ -394,10 +397,10 @@ call plug#end()
 
 " vim-multicursor {
     " put here because its hard to remember
-    let g:multi_cursor_next_key='<C-n>'
-    let g:multi_cursor_prev_key='<C-p>'
-    let g:multi_cursor_skip_key='<C-x>'
-    let g:multi_cursor_quit_key='<Esc>'
+    let g:multi_cursor_next_key = '<C-n>'
+    let g:multi_cursor_prev_key = '<C-p>'
+    let g:multi_cursor_skip_key = '<C-x>'
+    let g:multi_cursor_quit_key = '<Esc>'
 " }
 
 " SimpylFold {
