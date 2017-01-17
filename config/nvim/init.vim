@@ -132,8 +132,11 @@ nnoremap <esc> :noh<return><esc>
 " Clean spaces
 nnoremap <leader>ds :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 
+" Most useful snippet binding i've ever made
+nnoremap <leader>p oimport IPython; shell = IPython.terminal.embed.InteractiveShellEmbed(); shell.mainloop()<ESC>
+
 " Toggle Paste mode
-set pastetoggle=<F2>
+nnoremap <leader>pp :setlocal paste!<CR>
 
 " Enable basic mouse behavior such as resizing buffers.
 set mouse=a
@@ -234,6 +237,7 @@ call plug#begin('~/.vim/bundle')
     Plug 'jiangmiao/auto-pairs'
     Plug 'terryma/vim-multiple-cursors'
     Plug 'vim-scripts/indentpython.vim'
+    Plug 'tpope/vim-surround'
 
     " Syntax & Highlighters
     Plug 'Glench/Vim-Jinja2-Syntax'
@@ -422,6 +426,7 @@ call plug#end()
     let g:syntastic_check_on_open = 1
     let g:syntastic_check_on_wq = 0
     let g:syntastic_python_checkers = ['flake8']
+    let g:syntastic_php_checkers = ['php']
 " }
 
 " Tagbar {
