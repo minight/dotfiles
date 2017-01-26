@@ -44,6 +44,22 @@ set esckeys             " Cursor keys in insert mode.
 
 set list listchars=tab:>-,trail:.,extends:>
 
+" speed up syntax highlighting
+set nocursorcolumn
+set nocursorline
+
+syntax sync minlines=256
+set synmaxcol=300
+set re=1
+
+set notimeout
+set ttimeout
+set ttimeoutlen=10
+
+" Better Completion
+set complete=.,w,b,u,t
+set completeopt=longest,menuone
+
 set laststatus=2
 " For when i dont have powerline
 "set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
@@ -389,6 +405,10 @@ call plug#end()
     autocmd StdinReadPre * let s:std_in=1
     autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
     autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+    let NERDTreeShowHidden=1
+
+    let NERDTreeIgnore=['\.vim$', '\~$', '\.git$', '.DS_Store', '\.pyc$']
 " }
 
 " vim-markdown {
@@ -426,4 +446,12 @@ call plug#end()
 
 " Tagbar {
     nnoremap <leader>tb :TagbarToggle<CR>
+" }
+
+" File types {
+    au BufNewFile,BufRead *.json,*.js,*.jsx setlocal expandtab ts=2 sw=2
+    au BufNewFile,BufRead *.html,*.htm setlocal expandtab ts=2 sw=2
+    au BufNewFile,BufRead *.css,*.less,*.scss setlocal expandtab ts=2 sw=2
+    au BufNewFile,BufRead *.yml,*.yaml setlocal expandtab ts=2 sw=2
+
 " }

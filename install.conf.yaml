@@ -25,7 +25,5 @@
     ~/.config/fonts:        config/fonts
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
+    - [pip install neovim]
     - [vim +PluginInstall +qall, Installing vim plugins]
-
-
-
