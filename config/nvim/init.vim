@@ -37,6 +37,7 @@ set formatoptions+=o    " Continue comment marker in new lines.
 set autoread
 
 set clipboard=unnamed
+set clipboard+=unnamedplus " so it works with ubuntu
 
 set display+=lastline
 set nostartofline       " Do not jump to first character with page commands.
@@ -150,8 +151,11 @@ nnoremap <esc> :noh<return><esc>
 " Clean spaces
 nnoremap <leader>ds :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 
+" Most useful snippet binding i've ever made
+nnoremap <leader>p oimport IPython; shell = IPython.terminal.embed.InteractiveShellEmbed(); shell.mainloop()<ESC>
+
 " Toggle Paste mode
-set pastetoggle=<F2>
+nnoremap <leader>pp :setlocal paste!<CR>
 
 " Enable basic mouse behavior such as resizing buffers.
 set mouse=a
@@ -234,8 +238,8 @@ endif
 
 call plug#begin('~/.vim/bundle')
     " Autocomplete Engines
-    Plug 'Valloric/YouCompleteMe', { 'dir': '~/.vim/bundle/YouCompleteMe', 'do' : 'python3 install.py --clang-complete --gocode-completer --tern-completer'}
     Plug 'davidhalter/jedi-vim'
+    Plug 'Valloric/YouCompleteMe', { 'dir': '~/.config/nvim/bundle/YouCompleteMe', 'do' : 'python3 install.py --clang-complete --tern-completer'}
 
     " Syntax Checkers
     Plug 'vim-syntastic/syntastic'
@@ -252,6 +256,7 @@ call plug#begin('~/.vim/bundle')
     Plug 'jiangmiao/auto-pairs'
     Plug 'terryma/vim-multiple-cursors'
     Plug 'vim-scripts/indentpython.vim'
+    Plug 'tpope/vim-surround'
 
     " Syntax & Highlighters
     Plug 'Glench/Vim-Jinja2-Syntax'
@@ -271,6 +276,9 @@ call plug#begin('~/.vim/bundle')
     "Plug 'bling/vim-bufferline'
 call plug#end()
 
+" YCM {
+    let g:ycm_python_binary_path = 'python3'
+" }
 
 " JediVim {
     " Use jedivim for movement. but not for autocomplete
@@ -402,7 +410,6 @@ call plug#end()
     nnoremap <leader>tf :NERDTreeFind<CR>
     autocmd StdinReadPre * let s:std_in=1
     autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-    autocmd StdinReadPre * let s:std_in=1
     autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
     autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
@@ -417,10 +424,10 @@ call plug#end()
 
 " vim-multicursor {
     " put here because its hard to remember
-    let g:multi_cursor_next_key='<C-n>'
-    let g:multi_cursor_prev_key='<C-p>'
-    let g:multi_cursor_skip_key='<C-x>'
-    let g:multi_cursor_quit_key='<Esc>'
+    let g:multi_cursor_next_key = '<C-n>'
+    let g:multi_cursor_prev_key = '<C-p>'
+    let g:multi_cursor_skip_key = '<C-x>'
+    let g:multi_cursor_quit_key = '<Esc>'
 " }
 
 " SimpylFold {
@@ -442,6 +449,7 @@ call plug#end()
     let g:syntastic_check_on_open = 1
     let g:syntastic_check_on_wq = 0
     let g:syntastic_python_checkers = ['flake8']
+    let g:syntastic_php_checkers = ['php']
 " }
 
 " Tagbar {
