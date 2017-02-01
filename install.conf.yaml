@@ -14,9 +14,10 @@
     ~/.zlogout:             zsh/zprezto/runcoms/zlogout
     ~/.zprofile:            zsh/zprezto/runcoms/zprofile
     ~/.zshenv:              zsh/zprezto/runcoms/zshenv
+    ~/.zprezto:             zsh/zprezto
     ~/.zcustom:             zsh/zcustom
     ~/.zalias:              zsh/zalias
-    ~/bin/z:                bin/z
+    ~/.bin/z:               bin/z
     ~/.gitconfig:           git/config
     ~/.config/nvim:         config/nvim
     ~/.config/i3:           config/i3
