@@ -257,6 +257,7 @@ call plug#begin('~/.vim/bundle')
     Plug 'terryma/vim-multiple-cursors'
     Plug 'vim-scripts/indentpython.vim'
     Plug 'tpope/vim-surround'
+    Plug "tpope/vim-fugitive"
 
     " Syntax & Highlighters
     Plug 'Glench/Vim-Jinja2-Syntax'
