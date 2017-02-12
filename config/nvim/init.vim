@@ -157,6 +157,9 @@ nnoremap <leader>p oimport IPython; shell = IPython.terminal.embed.InteractiveSh
 " Toggle Paste mode
 nnoremap <leader>pp :setlocal paste!<CR>
 
+" Terminal mode escaping
+tnoremap <Esc> <C-\><C-n>
+
 " Enable basic mouse behavior such as resizing buffers.
 set mouse=a
 if exists('$TMUX')  " Support resizing in tmux
@@ -416,7 +419,7 @@ call plug#end()
 
     let NERDTreeShowHidden=1
 
-    let NERDTreeIgnore=['\.vim$', '\~$', '\.git$', '.DS_Store', '\.pyc$']
+    let NERDTreeIgnore=['\~$', '\.git$', '.DS_Store', '\.pyc$']
 " }
 
 " vim-markdown {
