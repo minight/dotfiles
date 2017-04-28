@@ -87,6 +87,8 @@ let mapleader = "\<Space>"
 nnoremap <leader>- :split<CR>
 nnoremap <leader>\ :vsplit<CR>
 nnoremap <leader>c :close<CR>
+nnoremap <leader>_ <C-W>_
+nnoremap <leader>= <C-W>=
 nnoremap <C-j> <C-W><C-J>
 nnoremap <C-k> <C-W><C-K>
 nnoremap <C-l> <C-W><C-L>
@@ -158,7 +160,7 @@ nnoremap <leader>p oimport IPython; shell = IPython.terminal.embed.InteractiveSh
 nnoremap <leader>pp :setlocal paste!<CR>
 
 " Terminal mode escaping
-tnoremap <Esc> <C-\><C-n>
+tnoremap <leader>jk <C-\><C-n>
 
 " Enable basic mouse behavior such as resizing buffers.
 set mouse=a
@@ -246,6 +248,7 @@ call plug#begin('~/.vim/bundle')
 
     " Syntax Checkers
     Plug 'vim-syntastic/syntastic'
+    Plug 'vim-scripts/taglist.vim'
 
     " Fuzzy Finding
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -253,6 +256,9 @@ call plug#begin('~/.vim/bundle')
 
     " File Managers
     Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+
+    " Buffer Manager
+    Plug 'jeetsukumaran/vim-buffergator'
 
     " Utilities
     Plug 'craigemery/vim-autotag'
@@ -302,7 +308,7 @@ call plug#end()
     if jedi#init_python()
       function! s:jedi_auto_force_py_version() abort
         let major_version = pyenv#python#get_internal_major_version()
-        call jedi#force_py_version(major_version)
+        call g:jedi#force_py_version(major_version)
       endfunction
       augroup vim-pyenv-custom-augroup
         autocmd! *
@@ -466,4 +472,15 @@ call plug#end()
     au BufNewFile,BufRead *.css,*.less,*.scss setlocal expandtab ts=2 sw=2
     au BufNewFile,BufRead *.yml,*.yaml setlocal expandtab ts=2 sw=2
 
+" }
+
+" Taglist {
+    let Tlist_Use_Right_Window=1
+    let Tlist_Auto_Open=0
+    let Tlist_Enable_Fold_Column=0
+    let Tlist_Compact_Format=0
+    let Tlist_WinWidth=28
+    let Tlist_Exit_OnlyWindow=1
+    let Tlist_File_Fold_Auto_Close = 1
+    nnoremap <leader>tl :Tlist<cr>
 " }
