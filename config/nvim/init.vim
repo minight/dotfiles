@@ -1,8 +1,9 @@
 " General Vim Settings
 set t_Co=16
 syntax enable
+filetype off
 colorscheme Tomorrow-Night
-filetype plugin indent on
+
 set nu
 
 set exrc
@@ -180,6 +181,14 @@ nnoremap <space><space> za
 "let g:python2_host_prog = '/usr/local/bin/python2'
 "let g:python_host_prog = '/usr/local/bin/python3'
 "let g:pymode_python = 'python3'
+"
+if exists("$VIRTUAL_ENV")
+    let g:python_host_prog=substitute(system("which -a python | head -n2 | tail -n1"), "\n", '', 'g')
+    let g:python3_host_prog=substitute(system("which -a python3 | head -n2 | tail -n1"), "\n", '', 'g')
+else
+    let g:python_host_prog=substitute(system("which python"), "\n", '', 'g')
+    let g:python3_host_prog=substitute(system("which python3"), "\n", '', 'g')
+endif
 
 "python with virtualenv support
 py << EOF
@@ -245,6 +254,12 @@ call plug#begin('~/.vim/bundle')
     " Autocomplete Engines
     Plug 'davidhalter/jedi-vim'
     Plug 'Valloric/YouCompleteMe', { 'dir': '~/.config/nvim/bundle/YouCompleteMe', 'do' : 'python3 install.py --clang-complete --tern-completer'}
+    "Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
+    "Plug 'zchee/deoplete-jedi'
+
+    " Snippets
+    Plug 'SirVer/ultisnips'
+    Plug 'honza/vim-snippets'
 
     " Syntax Checkers
     Plug 'vim-syntastic/syntastic'
@@ -267,6 +282,8 @@ call plug#begin('~/.vim/bundle')
     Plug 'vim-scripts/indentpython.vim'
     Plug 'tpope/vim-surround'
     Plug 'tpope/vim-fugitive'
+    Plug 'majutsushi/tagbar'
+    Plug 'airblade/vim-gitgutter'
 
     " Syntax & Highlighters
     Plug 'Glench/Vim-Jinja2-Syntax'
@@ -277,18 +294,21 @@ call plug#begin('~/.vim/bundle')
     Plug 'plasticboy/vim-markdown'
     Plug 'sheerun/vim-polyglot'
     Plug 'tmhedberg/SimpylFold'
-    Plug 'majutsushi/tagbar'
-    Plug 'airblade/vim-gitgutter'
 
     " Make it pretty
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
     "Plug 'bling/vim-bufferline'
 call plug#end()
+filetype plugin indent on
 
 " YCM {
-    let g:ycm_python_binary_path = 'python3'
+    let g:ycm_python_binary_path = 'python'
+    let g:ycm_complete_in_comments = 1
+    let g:ycm_seed_identifiers_with_syntax = 1
+    let g:ycm_collect_identifiers_from_comments_and_strings = 1
 " }
+"
 
 " JediVim {
     " Use jedivim for movement. but not for autocomplete
@@ -298,24 +318,25 @@ call plug#end()
     let g:jedi#completions_enabled    = 0
     let g:jedi#completions_command    = ""
     let g:jedi#show_call_signatures   = "1"
+    let g:jedi#show_call_signatures_delay = 0
     " On the other hand, jedivim does movement fucking amazing
     let g:jedi#goto_assignments_command = "<leader>pa"
     let g:jedi#goto_definitions_command = "<leader>pd"
     let g:jedi#documentation_command    = "<leader>pk"
     let g:jedi#usages_command           = "<leader>pu"
     let g:jedi#rename_command           = "<leader>pr"
-    let g:jedi#force_py_version = 3
-    if jedi#init_python()
-      function! s:jedi_auto_force_py_version() abort
-        let major_version = pyenv#python#get_internal_major_version()
-        call g:jedi#force_py_version(major_version)
-      endfunction
-      augroup vim-pyenv-custom-augroup
-        autocmd! *
-        autocmd User vim-pyenv-activate-post   call s:jedi_auto_force_py_version()
-        autocmd User vim-pyenv-deactivate-post call s:jedi_auto_force_py_version()
-      augroup END
-    endif
+    "let g:jedi#force_py_version = 3
+    "if jedi#init_python()
+    "  function! s:jedi_auto_force_py_version() abort
+    "    let major_version = pyenv#python#get_internal_major_version()
+    "    call g:jedi#force_py_version(major_version)
+    "  endfunction
+    "  augroup vim-pyenv-custom-augroup
+    "    autocmd! *
+    "    autocmd User vim-pyenv-activate-post   call s:jedi_auto_force_py_version()
+    "    autocmd User vim-pyenv-deactivate-post call s:jedi_auto_force_py_version()
+    "  augroup END
+    "endif
 " }
 
 " Vim-Airline {
@@ -469,6 +490,7 @@ call plug#end()
 " File types {
     au BufNewFile,BufRead *.json,*.js,*.jsx setlocal expandtab ts=2 sw=2
     au BufNewFile,BufRead *.html,*.htm setlocal expandtab ts=2 sw=2
+    au BufNewFile,BufRead *.markdown,*.md setlocal expandtab ts=2 sw=2
     au BufNewFile,BufRead *.css,*.less,*.scss setlocal expandtab ts=2 sw=2
     au BufNewFile,BufRead *.yml,*.yaml setlocal expandtab ts=2 sw=2
 
@@ -483,4 +505,13 @@ call plug#end()
     let Tlist_Exit_OnlyWindow=1
     let Tlist_File_Fold_Auto_Close = 1
     nnoremap <leader>tl :Tlist<cr>
+" }
+
+" UltiSnips {
+    let g:UltiSnipsExpandTrigger="<f13>"
+    let g:UltiSnipsJumpForwardTrigger="<f13>"
+    let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+    " If you want :UltiSnipsEdit to split your window.
+    let g:UltiSnipsEditSplit="vertical"
 " }
