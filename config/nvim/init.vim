@@ -50,6 +50,9 @@ set list listchars=tab:>-,trail:.,extends:>
 set nocursorcolumn
 set nocursorline
 
+" Able to switch buffers without saving
+set hid
+
 syntax sync minlines=256
 set synmaxcol=300
 set re=1
@@ -120,8 +123,8 @@ nnoremap <leader>s :e /tmp/scratch<CR>
 nnoremap <leader>bd :bp<CR>:bd#<CR>
 
 " Buffer movement
-nnoremap <Tab> :bnext!<CR>
-nnoremap <S-Tab> :bprevious!<CR>
+nnoremap <Tab> :bnext<CR>
+nnoremap <S-Tab> :bprevious<CR>
 
 " Easy escape from insert mode
 inoremap jj <ESC>
@@ -271,6 +274,8 @@ call plug#begin('~/.vim/bundle')
 
     " File Managers
     Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+    Plug 'Xuyuanp/nerdtree-git-plugin'
+
 
     " Buffer Manager
     Plug 'jeetsukumaran/vim-buffergator'
@@ -294,6 +299,7 @@ call plug#begin('~/.vim/bundle')
     Plug 'plasticboy/vim-markdown'
     Plug 'sheerun/vim-polyglot'
     Plug 'tmhedberg/SimpylFold'
+    Plug 'hdima/python-syntax'
 
     " Make it pretty
     Plug 'vim-airline/vim-airline'
@@ -445,8 +451,11 @@ filetype plugin indent on
     autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
     let NERDTreeShowHidden=1
-
     let NERDTreeIgnore=['\~$', '\.git$', '.DS_Store', '\.pyc$']
+    let NERDTreeMinimalUI = 1
+    let NERDTreeAutoDeleteBuffer = 1
+    let NERDTreeDirArrows = 1
+    let NERDTreeQuitOnOpen = 1
 " }
 
 " vim-markdown {
@@ -514,4 +523,9 @@ filetype plugin indent on
 
     " If you want :UltiSnipsEdit to split your window.
     let g:UltiSnipsEditSplit="vertical"
+" }
+
+" Python Syntax {
+    let python_highlight_all = 1
+    let python_version_2 = 1
 " }
