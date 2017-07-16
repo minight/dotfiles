@@ -42,7 +42,7 @@ set clipboard+=unnamedplus " so it works with ubuntu
 
 set display+=lastline
 set nostartofline       " Do not jump to first character with page commands.
-set esckeys             " Cursor keys in insert mode.
+" set esckeys             " Cursor keys in insert mode.
 
 set list listchars=tab:>-,trail:.,extends:>
 
@@ -97,11 +97,12 @@ nnoremap <C-j> <C-W><C-J>
 nnoremap <C-k> <C-W><C-K>
 nnoremap <C-l> <C-W><C-L>
 nnoremap <C-h> <C-W><C-H>
+nnoremap <bs> <C-W><C-H>
 nnoremap <leader>1 <C-6>
 
 " Tab Movement
 nnoremap <leader>tt :tabnew<CR>
-nnoremap <leader>tc :tabclose<CR>
+nnoremap <leader>tx :tabclose<CR>
 noremap <leader>1 1gt
 noremap <leader>2 2gt
 noremap <leader>3 3gt
@@ -177,6 +178,8 @@ set foldmethod=indent
 set foldlevel=99
 
 " Enable folding with the spacebar
+nnoremap <leader>fm :set foldmethod=manual<CR>
+nnoremap <leader>fi :set foldmethod=indent<CR>
 nnoremap <space><space> za
 
 " Something to get python3 working
@@ -289,6 +292,7 @@ call plug#begin('~/.vim/bundle')
     Plug 'tpope/vim-fugitive'
     Plug 'majutsushi/tagbar'
     Plug 'airblade/vim-gitgutter'
+    Plug 'scrooloose/nerdcommenter'
 
     " Syntax & Highlighters
     Plug 'Glench/Vim-Jinja2-Syntax'
