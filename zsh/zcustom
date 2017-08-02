@@ -12,6 +12,7 @@ export PATH=$PATH:/Users/sean/bin
 ~/documents/shell/base16-shell/base16-tomorrow.dark.sh
 
 # Z yo https://github.com/rupa/z
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 . ~/bin/z/z.sh
 . ~/bin/fz/fz.sh
 
