@@ -1,6 +1,34 @@
+autoload -Uz promptinit
+promptinit
+prompt steeef
 #PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")'
 
 #archey
 #export PATH=$PATH:/usr/local/m-cli:/Users/sean/bin
-#~/tmp/others/base16-shell/base16-tomorrow.dark.sh
-. ~/.bin/z/z.sh
+#
+export PATH=/usr/local/bin:$PATH
+export PATH=$PATH:/Users/sean/go/bin
+export PATH=$PATH:/Users/sean/bin
+~/documents/shell/base16-shell/base16-tomorrow.dark.sh
+
+# Z yo https://github.com/rupa/z
+. ~/bin/z/z.sh
+. ~/bin/fz/fz.sh
+
+unalias z
+z() {
+  if [[ -z "$*" ]]; then
+    cd "$(_z -l 2>&1 | fzf +s --tac | sed 's/^[0-9,.]* *//')"
+  else
+    _last_z_args="$@"
+    _z "$@"
+  fi
+}
+
+zz() {
+  cd "$(_z -l 2>&1 | sed 's/^[0-9,.]* *//' | fzf -q "$_last_z_args")"
+}
+
+alias j=z
+alias jj=zz
+

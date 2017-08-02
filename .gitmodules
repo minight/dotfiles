@@ -10,3 +10,6 @@
 [submodule "dotbot"]
 	path = dotbot
 	url = https://github.com/anishathalye/dotbot
+[submodule "bin/fz"]
+	path = bin/fz
+	url = https://github.com/changyuheng/fz.git

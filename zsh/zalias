@@ -8,6 +8,9 @@ alias ctftime="docker run -v /Users/sean/ctftime:/root/host-share --privileged -
 alias ls='ls --color=auto'
 alias awk=gawk
 alias myip="curl ifconfig.co"
+alias vim="nvim"
+export FZF_DEFAULT_COMMAND='ag -g ""'
+
 
 
 rmdupe() {
