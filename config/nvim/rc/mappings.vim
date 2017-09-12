@@ -111,3 +111,5 @@ nnoremap <leader>ev :<C-u>edit ~/.config/nvim/<CR>
 " This rewires n and N to do the highlighing...
 nnoremap <silent> n nzz:call HLNext(0.2)<cr>
 nnoremap <silent> N Nzz:call HLNext(0.2)<cr>
+
+autocmd FileType python nnoremap <leader>py :0,$!yapf<Cr><C-o>

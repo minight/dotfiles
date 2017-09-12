@@ -47,6 +47,8 @@ call s:source_rc('mappings.vim')
 
 call s:source_rc('plugins.vim')
 
+call s:source_rc('syntax.vim')
+
 "---------------------------------------------------------------------------
 set secure
 
