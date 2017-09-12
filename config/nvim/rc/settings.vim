@@ -13,7 +13,7 @@ set nobackup
 set ruler
 set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
-set relativenumber
+" set relativenumber
 
 " Tab stuff
 set shiftwidth=4
@@ -31,7 +31,6 @@ set ignorecase
 set hlsearch
 set showmatch
 set showmode
-set showcmd
 set formatoptions+=o    " Continue comment marker in new lines.
 
 set autoread
@@ -48,12 +47,14 @@ set list listchars=tab:>-,trail:.,extends:>
 " speed up syntax highlighting
 set nocursorcolumn
 set nocursorline
+set nolazyredraw
+set noshowcmd
 
 " Able to switch buffers without saving
 set hid
 
 syntax sync minlines=256
-set synmaxcol=300
+set synmaxcol=180
 set re=1
 
 set notimeout
