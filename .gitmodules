@@ -13,3 +13,7 @@
 [submodule "bin/fz"]
 	path = bin/fz
 	url = https://github.com/changyuheng/fz.git
+[submodule "zsh/plugins/zsh-syntax-highlighting"]
+	path = zsh/plugins/zsh-syntax-highlighting
+	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
+	branch = master
