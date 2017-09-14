@@ -3,7 +3,7 @@
 	url = https://github.com/minight/prezto.git
 [submodule "bin/z"]
 	path = bin/z
-	url = https://github.com/rupa/z.git
+	url = https://github.com/minight/z.git
 [submodule "config/fonts/powerline"]
 	path = config/fonts/powerline
 	url = https://github.com/powerline/fonts.git
