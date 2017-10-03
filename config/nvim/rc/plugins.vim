@@ -71,7 +71,7 @@ call plug#begin('~/.vim/bundle')
     
     augroup load_insert
         autocmd!
-        autocmd InsertEnter * call plug#load( 'ultisnips', 'YouCompleteMe', 'syntastic')
+        autocmd InsertEnter * call plug#load( 'ultisnips', 'YouCompleteMe', 'syntastic', 'jedi-vim')
                             \| autocmd! load_insert
     augroup END
     augroup load_after_gui
@@ -317,4 +317,9 @@ filetype plugin indent on
 
     " Enable trimming of trailing whitespace when uncommenting
     let g:NERDTrimTrailingWhitespace = 1
+" }
+
+" Buffergator {
+    " nnoremap <leader>bb :BuffergatorToggle<CR>
+    " nnoremap <leader>bt :BuffergatorTabsToggle<CR>
 " }
