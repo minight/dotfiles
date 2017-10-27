@@ -1,0 +1,20 @@
+snippet if
+	if
+	:: (${1}) -> ${2}
+	:: ${0}
+	fi
+snippet for
+	for (i .. ${1}) {
+		${0}
+
+snippet chans
+	if
+		:: chans[mychans[0]] ? ${1} -> skip
+		:: chans[mychans[1]] ? ${1} -> skip
+		:: chans[mychans[2]] ? ${1} -> skip
+		:: chans[mychans[3]] ? ${1} -> skip
+		:: chans[mychans[4]] ? ${1} -> skip
+		:: chans[mychans[5]] ? ${1} -> skip
+	fi
+
+	${0}

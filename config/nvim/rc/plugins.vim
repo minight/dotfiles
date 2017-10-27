@@ -12,8 +12,8 @@ call plug#begin('~/.vim/bundle')
     " Autocomplete Engines
     Plug 'davidhalter/jedi-vim', { 'on': [] }
     Plug 'Valloric/YouCompleteMe', { 'dir': '~/.config/nvim/bundle/YouCompleteMe', 'do' : 'python3 install.py --clang-complete --tern-completer', 'on':[] }
-    " Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
-    " Plug 'zchee/deoplete-jedi'
+    " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'}
+    Plug 'zchee/deoplete-jedi'
     " Plug 'fatih/vim-go'
 
     " Snippets
@@ -68,10 +68,11 @@ call plug#begin('~/.vim/bundle')
     Plug 'vim-airline/vim-airline', { 'on': [] }
     Plug 'vim-airline/vim-airline-themes', { 'on': [] }
     Plug 'bling/vim-bufferline'
-    
+
     augroup load_insert
         autocmd!
         autocmd InsertEnter * call plug#load( 'ultisnips', 'YouCompleteMe', 'syntastic', 'jedi-vim')
+        " autocmd InsertEnter * call plug#load( 'ultisnips', 'syntastic', 'jedi-vim')
                             \| autocmd! load_insert
     augroup END
     augroup load_after_gui
@@ -279,11 +280,14 @@ filetype plugin indent on
 
 " UltiSnips {
     let g:UltiSnipsExpandTrigger="<f13>"
+    let g:UltiSnipsListSnippets="<c-f13>"
     let g:UltiSnipsJumpForwardTrigger="<f13>"
     let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
     " If you want :UltiSnipsEdit to split your window.
     let g:UltiSnipsEditSplit="vertical"
+    let g:UltiSnipsSnippetsDir = '~/.config/nvim/snippets'
+    let g:UltiSnipsSnippetDirectories = ['~/.config/nvim/snippets', '~/.config/nvim/bundle/vim-snippets/snippets', '~/.config/nvim/bundle/vim-snippets/UltiSnips']
 " }
 
 " Python Syntax {
@@ -292,13 +296,33 @@ filetype plugin indent on
 " }
 
 " Deoplete {
-    "let g:deoplete#enable_at_startup=1
-    "let g:deoplete#enable_refresh_always=1
-    ""nnoremap <leader>td deoplete#toggle()
-
-	"" <C-h>, <BS>: close popup and delete backword char.
-	"inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
-	"inoremap <expr><BS>  deoplete#smart_close_popup()."\<C-h>"
+    " let g:deoplete#enable_at_startup = 1
+    " let g:deoplete#enable_refresh_always = 1
+    " " let g:deoplete#sources = {}
+    " " let g:deoplete#sources._ = ['buffer', 'tag']
+    " let g:deoplete#sources#jedi#show_docstring = 1
+    " nnoremap <expr><leader>td deoplete#toggle()
+    "
+    " inoremap <silent><expr> <TAB>
+    "     \ pumvisible() ? "\<C-n>" :
+    "     \ <SID>check_back_space() ? "\<TAB>" :
+    "     \ deoplete#manual_complete()
+    " function! s:check_back_space() abort "{{{
+    " let col = col('.') - 1
+    " return !col || getline('.')[col - 1]  =~ '\s'
+    " endfunction"}}}
+    "
+    " " <S-TAB>: completion back.
+    " inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<C-h>"
+    "
+    " " <C-h>, <BS>: close popup and delete backword char.
+    " inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
+    " inoremap <expr><BS> deoplete#smart_close_popup()."\<C-h>"
+    "
+    " " inoremap <expr><C-g> deoplete#undo_completion()
+    " " <C-l>: redraw candidates
+    " inoremap <expr><C-g>       deoplete#refresh()
+    " inoremap <silent><expr><C-l>       deoplete#complete_common_string()
 
 " }
 

@@ -1,0 +1,45 @@
+snippet pwn "pwntools template"
+	from pwn import *
+
+	IP = ['']
+	PORT = 5004
+
+	context.log_level = 'info'
+	#tube = remote(IP[0], PORT)
+	tube = process("${1}")
+	${0:${VISUAL: # hax}}
+	tube.interactive()
+snippet b64 "base64 imports"
+	import base64
+	b64d = base64.b64decode
+	b64e = base64.b64encode
+	${0}
+snippet csv "csv reader"
+	import csv
+	with open(${1}, newline='') as csvfile:
+		reader = csv.reader(csvfile)
+		for row in reader:
+			${0}
+snippet fread "file reader"
+	with open(${1:${VISUAL:infile}}, 'r') as f:
+		data = f.read()
+	${0}
+snippet infile "in file requirement"
+	import sys
+	if len(sys.argv) != 2:
+		print("Usage: python %s infile" % (__file__))
+		exit(-1)
+	infile = sys.argv[1]
+snippet inoutfile "inout file"
+	import sys
+	if len(sys.argv) != 3:
+		print("Usage: python %s infile outfile" % (__file__))
+		exit(-1)
+	infile = sys.argv[1]
+	outfile = sys.argv[2]
+snippet pnlist "print a list"
+	print("\n".join(${1:${VISUAL}}))
+	${0}
+snippet pdict "print a dict"
+	print("\n".join("%s: %s" % (k, v) for k, v in ${1:{$VISUAL}}.items()))
+	${0}
