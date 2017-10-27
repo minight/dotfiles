@@ -10,7 +10,7 @@ bind - split-window -v
 
 # screen mode
 #set -g default-terminal "screen"
-set -g default-terminal "screen-256color"
+set -g default-terminal "xterm-256color"
 
 # buffer clearing
 bind -n C-k clear-history
@@ -29,6 +29,7 @@ set -g history-limit 5000
 
 # allow terminal scrolling
 set-option -g terminal-overrides 'xterm*:smcup@:rmcup@'
+set-option -g default-command "reattach-to-user-namespace -l zsh"
 
 # copy mode
 unbind [
@@ -39,25 +40,25 @@ bind ] paste-buffer
 # use vi mode
 setw -g mode-keys vi
 set -g status-keys vi
-setw -g utf8 on
+# setw -g utf8 on
 # use mouse in copy mode
-setw -g mode-mouse on
+# setw -g mode-mouse on
 
 # panes
-set -g mouse-select-pane on
+# set -g mouse-select-pane on
 set -g pane-border-fg colour6
 set -g pane-active-border-fg brightred
-set -g pane-active-border-attr blink
+# set -g pane-active-border-attr blink
 # resize panes with mouse (drag borders)
-set -g mouse-select-pane on
-set -g mouse-resize-pane on
+# set -g mouse-select-pane on
+# set -g mouse-resize-pane on
 
 set-option -g renumber-windows on
 set -g base-index 1
 setw -g pane-base-index 1
 
 # status line
-set -g status-utf8 on
+# set -g status-utf8 on
 set -g status-justify left
 set -g status-bg default
 set -g status-fg colour12
@@ -86,15 +87,15 @@ setw -g window-status-current-fg colour11
 setw -g window-status-current-attr dim
 setw -g window-status-bg green
 setw -g window-status-fg black
-setw -g window-status-attr reverse
-setw -g window-status-content-bg colour0
-setw -g window-status-content-fg colour11
-setw -g window-status-content-attr bold,blink,reverse
+# setw -g window-status-attr reverse
+# setw -g window-status-content-bg colour0
+# setw -g window-status-content-fg colour11
+# setw -g window-status-content-attr bold,blink,reverse
 
 
 # Info on right (requires stlarch-terminusmod font)
 set -g status-right-length 60
 set -g status-right '#[fg=brightgreen]%a %H:%M'
 
-source ~/.local/lib/python2.7/site-packages/powerline/bindings/tmux/powerline.conf
+# source ~/.local/lib/python2.7/site-packages/powerline/bindings/tmux/powerline.conf
 set-option -g default-terminal "screen-256color"
