@@ -106,7 +106,7 @@ nnoremap <leader>sp
 nnoremap <leader>w
       \ :<C-u>call vimrc#toggle_option('wrap')<CR>
 
-nnoremap <leader>ev :<C-u>edit ~/.config/nvim/<CR>
+nnoremap <leader>ev :NERDTree ~/.config/nvim/<CR>
 
 " This rewires n and N to do the highlighing...
 nnoremap <silent> n nzz:call HLNext(0.2)<cr>

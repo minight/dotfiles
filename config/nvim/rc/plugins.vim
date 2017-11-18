@@ -279,9 +279,9 @@ filetype plugin indent on
 " }
 
 " UltiSnips {
-    let g:UltiSnipsExpandTrigger="<f13>"
-    let g:UltiSnipsListSnippets="<c-f13>"
-    let g:UltiSnipsJumpForwardTrigger="<f13>"
+    let g:UltiSnipsExpandTrigger="<c-a>"
+    let g:UltiSnipsListSnippets="<c-s>"
+    let g:UltiSnipsJumpForwardTrigger="<c-a>"
     let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
     " If you want :UltiSnipsEdit to split your window.

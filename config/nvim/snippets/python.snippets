@@ -43,3 +43,10 @@ snippet pnlist "print a list"
 snippet pdict "print a dict"
 	print("\n".join("%s: %s" % (k, v) for k, v in ${1:{$VISUAL}}.items()))
 	${0}
+snippet p2ue "urlenode"
+	import urllib
+	ue = lambda x: urllib.quote_plus(x).encode('utf-8')
+snippet p3ue "urlencode"
+	import urllib.parse
+	ue = lambda x: urllib.parse.quote_plus(x).encode('utf-8')
+
