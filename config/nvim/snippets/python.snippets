@@ -50,3 +50,9 @@ snippet p3ue "urlencode"
 	import urllib.parse
 	ue = lambda x: urllib.parse.quote_plus(x).encode('utf-8')
 
+snippet chunk "chunking"
+	def chunk(iterable, n):
+		return [iterable[i:i+n] for i in range(0, len(iterable), n)]
+	chunk(${1:${VISUAL}}, ${2})
+	${0}
+	
