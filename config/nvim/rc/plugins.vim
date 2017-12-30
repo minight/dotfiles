@@ -9,15 +9,10 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/bundle')
-    " Autocomplete Engines
-    Plug 'davidhalter/jedi-vim', { 'on': [] }
-    Plug 'Valloric/YouCompleteMe', { 'dir': '~/.config/nvim/bundle/YouCompleteMe', 'do' : 'python3 install.py --clang-complete --tern-completer', 'on':[] }
-    " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'}
-    Plug 'zchee/deoplete-jedi'
-    " Plug 'fatih/vim-go'
 
     " Snippets
-    Plug 'SirVer/ultisnips', { 'on': [] }
+    " Plug 'SirVer/ultisnips', { 'on': [] }
+    Plug 'SirVer/ultisnips'
     Plug 'honza/vim-snippets'
 
     " Syntax Checkers
@@ -46,6 +41,7 @@ call plug#begin('~/.vim/bundle')
     Plug 'majutsushi/tagbar'
     Plug 'airblade/vim-gitgutter'
     Plug 'scrooloose/nerdcommenter'
+    Plug 'rizzatti/dash.vim'
 
     " Syntax & Highlighters
     Plug 'Glench/Vim-Jinja2-Syntax'
@@ -63,6 +59,16 @@ call plug#begin('~/.vim/bundle')
     Plug 'vim-scripts/Latex-Text-Formatter'
     Plug 'vim-scripts/nginx.vim'
 
+    " Autocomplete Engines
+    Plug 'davidhalter/jedi-vim', { 'on': [] }
+    Plug 'Valloric/YouCompleteMe', { 'dir': '~/.config/nvim/bundle/YouCompleteMe', 'do' : 'python3 install.py --clang-complete --tern-completer', 'on':[] }
+    " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'}
+    " Plug 'zchee/deoplete-jedi'
+    Plug 'fatih/vim-go'
+    " New autocomplete engines
+    " Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+    " Plug 'Shougo/echodoc.vim'
+    " Plug 'roxma/nvim-completion-manager'
 
     " Make it pretty
     Plug 'vim-airline/vim-airline', { 'on': [] }
@@ -73,6 +79,8 @@ call plug#begin('~/.vim/bundle')
         autocmd!
         autocmd InsertEnter * call plug#load( 'ultisnips', 'YouCompleteMe', 'syntastic', 'jedi-vim')
         " autocmd InsertEnter * call plug#load( 'ultisnips', 'syntastic', 'jedi-vim')
+        " autocmd InsertEnter * call plug#load( 'ultisnips', 'syntastic')
+        autocmd InsertEnter * call plug#load('syntastic')
                             \| autocmd! load_insert
     augroup END
     augroup load_after_gui
@@ -136,6 +144,8 @@ filetype plugin indent on
     nnoremap <leader>fl :Lines<CR>
     nnoremap <leader>ft :Tags<CR>
     nnoremap <leader>fh :History:<CR>
+    nnoremap <c-s> :Snippets<CR>
+    inoremap <expr> <c-s> :Snippets<CR>
 
     " This is the default extra key bindings
     let g:fzf_action = {
@@ -280,7 +290,7 @@ filetype plugin indent on
 
 " UltiSnips {
     let g:UltiSnipsExpandTrigger="<c-a>"
-    let g:UltiSnipsListSnippets="<c-s>"
+    " let g:UltiSnipsListSnippets="<c-s>"
     let g:UltiSnipsJumpForwardTrigger="<c-a>"
     let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
@@ -323,7 +333,7 @@ filetype plugin indent on
     " " <C-l>: redraw candidates
     " inoremap <expr><C-g>       deoplete#refresh()
     " inoremap <silent><expr><C-l>       deoplete#complete_common_string()
-
+    "
 " }
 
 " Nerd Commenter {
@@ -346,4 +356,38 @@ filetype plugin indent on
 " Buffergator {
     " nnoremap <leader>bb :BuffergatorToggle<CR>
     " nnoremap <leader>bt :BuffergatorTabsToggle<CR>
+" }
+
+" Language Server {
+
+    " let g:LanguageClient_autoStart = 1
+    "
+    " let g:LanguageClient_serverCommands = {
+    "     \ 'python': ['pyls'],
+    "     \ }
+    "
+    " nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
+    " nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+    " nnoremap <silent> gn :call LanguageClient_textDocument_rename()<CR>
+    " nnoremap <silent> gs :call LanguageClient_textDocument_documentSymbol()<CR>
+    " nnoremap <silent> gr :call LanguageClient_textDocument_references()<CR>
+    " nnoremap <silent> gf :call LanguageClient_textDocument_formatting()<CR>
+    " set formatexpr=LanguageClient_textDocument_rangeFormatting()
+    "
+" }
+"
+" " nvim completion manager {
+"     inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+"     inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+"     inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+"     let $NVIM_PYTHON_LOG_FILE="/tmp/nvim_log"
+"     let $NVIM_NCM_LOG_LEVEL="DEBUG"
+"     let $NVIM_NCM_MULTI_THREAD=0
+" " }
+
+" echodoc settings {
+    " set cmdheight=2
+    " set noshowmode
+    " let g:echodoc#enable_at_startup = 1
+    "
 " }

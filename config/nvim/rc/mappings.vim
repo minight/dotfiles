@@ -113,3 +113,4 @@ nnoremap <silent> n nzz:call HLNext(0.2)<cr>
 nnoremap <silent> N Nzz:call HLNext(0.2)<cr>
 
 autocmd FileType python nnoremap <leader>py :0,$!yapf<Cr><C-o>
+autocmd FileType python nnoremap <leader>pi :!isort %<CR><CR>
