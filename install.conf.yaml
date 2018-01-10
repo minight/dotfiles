@@ -17,7 +17,8 @@
     ~/.zprezto:             zsh/zprezto
     ~/.zcustom:             zsh/zcustom
     ~/.zalias:              zsh/zalias
-    ~/bin/z:               bin/z
+    ~/tools/shell/z:               bin/z
+    ~/tools/shell/fz:               bin/fz
     ~/.gitconfig:           git/config
     ~/.config/nvim:         config/nvim
     ~/.config/i3:           config/i3
