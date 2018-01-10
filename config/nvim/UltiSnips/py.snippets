@@ -1,35 +1,43 @@
 snippet pwn "pwntools template"
 	from pwn import *
+	context.log_level = 'info'
 
 	IP = ['']
-	PORT = 5004
+	PORT = 9447
+	filename = "${1:${VISUAL: derp}}"
+	if IP:
+		tube = remote(IP[0], PORT)
+	else:
+		tube = process(filename)
 
-	context.log_level = 'info'
-	#tube = remote(IP[0], PORT)
-	tube = process("${1}")
 	${0:${VISUAL: # hax}}
 	tube.interactive()
+endsnippet
 snippet b64 "base64 imports"
 	import base64
 	b64d = base64.b64decode
 	b64e = base64.b64encode
 	${0}
+endsnippet
 snippet csv "csv reader"
 	import csv
 	with open(${1}, newline='') as csvfile:
 		reader = csv.reader(csvfile)
 		for row in reader:
 			${0}
+endsnippet
 snippet fread "file reader"
 	with open(${1:${VISUAL:infile}}, 'r') as f:
 		data = f.read()
 	${0}
+endsnippet
 snippet infile "in file requirement"
 	import sys
 	if len(sys.argv) != 2:
 		print("Usage: python %s infile" % (__file__))
 		exit(-1)
 	infile = sys.argv[1]
+endsnippet
 snippet inoutfile "inout file"
 	import sys
 	if len(sys.argv) != 3:
@@ -37,22 +45,51 @@ snippet inoutfile "inout file"
 		exit(-1)
 	infile = sys.argv[1]
 	outfile = sys.argv[2]
+endsnippet
 snippet pnlist "print a list"
 	print("\n".join(${1:${VISUAL}}))
 	${0}
+endsnippet
 snippet pdict "print a dict"
 	print("\n".join("%s: %s" % (k, v) for k, v in ${1:{$VISUAL}}.items()))
 	${0}
+endsnippet
+
 snippet p2ue "urlenode"
 	import urllib
 	ue = lambda x: urllib.quote_plus(x).encode('utf-8')
+endsnippet
+
 snippet p3ue "urlencode"
 	import urllib.parse
 	ue = lambda x: urllib.parse.quote_plus(x).encode('utf-8')
+endsnippet
 
 snippet chunk "chunking"
 	def chunk(iterable, n):
 		return [iterable[i:i+n] for i in range(0, len(iterable), n)]
 	chunk(${1:${VISUAL}}, ${2})
 	${0}
-	
+endsnippet
+
+priority 5
+snippet glog
+	import logging
+	log = logging.getLogger(${0:__name__})
+endsnippet
+snippet le
+	log.error(${0:msg})
+# conflict with lambda=ld, therefor we change into Logger.debuG
+endsnippet
+snippet lg
+	log.debug(${0:msg})
+endsnippet
+snippet lw
+	log.warning(${0:msg})
+endsnippet
+snippet lc
+	log.critical(${0:msg})
+endsnippet
+snippet li
+	log.info(${0:msg})
+endsnippet
