@@ -46,6 +46,7 @@ endif
 call s:source_rc('mappings.vim')
 
 call s:source_rc('plugins.vim')
+filetype plugin indent on
 
 call s:source_rc('syntax.vim')
 

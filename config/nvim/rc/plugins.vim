@@ -8,7 +8,7 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall | nested source $MYVIMRC
 endif
 
-call plug#begin('~/.vim/bundle')
+call plug#begin('~/.config/nvim/bundle')
 
     " Snippets
     " Plug 'SirVer/ultisnips', { 'on': [] }
@@ -16,7 +16,8 @@ call plug#begin('~/.vim/bundle')
     Plug 'honza/vim-snippets'
 
     " Syntax Checkers
-    Plug 'vim-syntastic/syntastic', { 'on': []}
+    " Plug 'vim-syntastic/syntastic', { 'on': []}
+    Plug 'vim-syntastic/syntastic'
     Plug 'vim-scripts/taglist.vim'
 
     " Fuzzy Finding
@@ -29,10 +30,10 @@ call plug#begin('~/.vim/bundle')
 
 
     " Buffer Manager
-    Plug 'jeetsukumaran/vim-buffergator'
+    " Plug 'jeetsukumaran/vim-buffergator'
 
     " Utilities
-    Plug 'craigemery/vim-autotag'
+    Plug 'craigemery/vim-autotag', { 'on': [] }
     Plug 'jiangmiao/auto-pairs'
     Plug 'terryma/vim-multiple-cursors'
     Plug 'vim-scripts/indentpython.vim'
@@ -55,8 +56,8 @@ call plug#begin('~/.vim/bundle')
     Plug 'hdima/python-syntax'
     Plug 'vim-scripts/promela.vim'
     Plug 'lervag/vimtex'
-    Plug 'xuhdev/vim-latex-live-preview'
-    Plug 'vim-scripts/Latex-Text-Formatter'
+    " Plug 'xuhdev/vim-latex-live-preview'
+    " Plug 'vim-scripts/Latex-Text-Formatter'
     Plug 'vim-scripts/nginx.vim'
 
     " Autocomplete Engines
@@ -71,22 +72,24 @@ call plug#begin('~/.vim/bundle')
     " Plug 'roxma/nvim-completion-manager'
 
     " Make it pretty
-    Plug 'vim-airline/vim-airline', { 'on': [] }
+    " Plug 'vim-airline/vim-airline', { 'on': [] }
+    Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes', { 'on': [] }
     Plug 'bling/vim-bufferline'
 
     augroup load_insert
         autocmd!
-        autocmd InsertEnter * call plug#load( 'ultisnips', 'YouCompleteMe', 'syntastic', 'jedi-vim')
-        " autocmd InsertEnter * call plug#load( 'ultisnips', 'syntastic', 'jedi-vim')
-        " autocmd InsertEnter * call plug#load( 'ultisnips', 'syntastic')
-        autocmd InsertEnter * call plug#load('syntastic')
-                            \| autocmd! load_insert
+        autocmd InsertEnter * call plug#load( 'ultisnips')
+        autocmd InsertEnter * call plug#load( 'YouCompleteMe')
+        autocmd InsertEnter * call plug#load( 'jedi-vim')
+        autocmd InsertEnter *.c call plug#load( 'vim-autotag')
+        " autocmd InsertEnter * call plug#load( 'syntastic')
+                             \| autocmd! load_insert
     augroup END
     augroup load_after_gui
         autocmd!
-        autocmd Vimenter * call plug#load( 'vim-airline', 'vim-airline-themes')
-                            \| autocmd! load_after_gui
+        autocmd Vimenter * call plug#load(  'vim-airline-themes')
+                             \| autocmd! load_after_gui
     augroup END
 call plug#end()
 filetype plugin indent on
@@ -143,7 +146,8 @@ filetype plugin indent on
     nnoremap <leader>fb :Buffers<CR>
     nnoremap <leader>fl :Lines<CR>
     nnoremap <leader>ft :Tags<CR>
-    nnoremap <leader>fh :History:<CR>
+    nnoremap <leader>fh :History<CR>
+    nnoremap <leader>fs :Snippets<CR>
     nnoremap <c-s> :Snippets<CR>
     inoremap <expr> <c-s> :Snippets<CR>
 
@@ -267,10 +271,15 @@ filetype plugin indent on
     set statusline+=%*
     let g:syntastic_always_populate_loc_list = 1
     let g:syntastic_auto_loc_list = 1
+    let g:syntastic_aggregate_errors = 1
     let g:syntastic_check_on_open = 1
     let g:syntastic_check_on_wq = 0
+    let g:syntastic_loc_list_height = 5
     let g:syntastic_python_checkers = ['flake8']
     let g:syntastic_php_checkers = ['php']
+    let g:syntastic_mode_map = { 'mode': 'passive',
+                                \ 'active_filetypes': [],
+                                \ 'passive_filetypes': ['html', 'javascript'] }
 " }
 
 " Tagbar {
@@ -296,8 +305,8 @@ filetype plugin indent on
 
     " If you want :UltiSnipsEdit to split your window.
     let g:UltiSnipsEditSplit="vertical"
-    let g:UltiSnipsSnippetsDir = '~/.config/nvim/snippets'
-    let g:UltiSnipsSnippetDirectories = ['~/.config/nvim/snippets', '~/.config/nvim/bundle/vim-snippets/snippets', '~/.config/nvim/bundle/vim-snippets/UltiSnips']
+    let g:UltiSnipsSnippetsDir = '~/.config/nvim/UltiSnips'
+    let g:UltiSnipsSnippetDirectories = ['UltiSnips', '~/.config/nvim/bundle/vim-snippets/snippets', '~/.config/nvim/bundle/vim-snippets/UltiSnips']
 " }
 
 " Python Syntax {
