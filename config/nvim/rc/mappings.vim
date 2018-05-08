@@ -83,8 +83,11 @@ nnoremap <esc> :noh<return><esc>
 " Clean spaces
 nnoremap <leader>ds :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 
+" Clean empty lines
+vnoremap <leader>dl :g/^\s*$/d<CR>
+
 " Most useful snippet binding i've ever made
-nnoremap <leader>p oimport IPython; shell = IPython.terminal.embed.InteractiveShellEmbed(); shell.mainloop()<ESC>
+nnoremap <leader>ip oimport IPython; shell = IPython.terminal.embed.InteractiveShellEmbed(); shell.mainloop()<ESC>
 
 " Toggle Paste mode
 nnoremap <leader>pp :setlocal paste!<CR>

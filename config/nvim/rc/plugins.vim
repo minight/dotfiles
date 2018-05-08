@@ -60,6 +60,9 @@ call plug#begin('~/.config/nvim/bundle')
     " Plug 'vim-scripts/Latex-Text-Formatter'
     Plug 'vim-scripts/nginx.vim'
 
+    " Magic Engines
+    Plug 'jalvesaq/vimcmdline'
+
     " Autocomplete Engines
     Plug 'davidhalter/jedi-vim', { 'on': [] }
     Plug 'Valloric/YouCompleteMe', { 'dir': '~/.config/nvim/bundle/YouCompleteMe', 'do' : 'python3 install.py --clang-complete --tern-completer', 'on':[] }
@@ -70,6 +73,8 @@ call plug#begin('~/.config/nvim/bundle')
     " Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
     " Plug 'Shougo/echodoc.vim'
     " Plug 'roxma/nvim-completion-manager'
+    " Plug 'dzhou121/gonvim-fuzzy'       " Vim plug
+    " Plug 'equalsraf/neovim-gui-shim'       " Vim plug
 
     " Make it pretty
     " Plug 'vim-airline/vim-airline', { 'on': [] }
@@ -117,8 +122,10 @@ filetype plugin indent on
     let g:jedi#documentation_command    = "<leader>pk"
     let g:jedi#usages_command           = "<leader>pu"
     let g:jedi#rename_command           = "<leader>pr"
+    "let g:jedi#force_py_version(3)      = "<leader>py3"
+    "let g:jedi#force_py_version(2)      = "<leader>py2"
     "let g:jedi#force_py_version = 3
-    "if jedi#init_python()
+    "if g:jedi#init_python()
     "  function! s:jedi_auto_force_py_version() abort
     "    let major_version = pyenv#python#get_internal_major_version()
     "    call g:jedi#force_py_version(major_version)
@@ -393,10 +400,43 @@ filetype plugin indent on
 "     let $NVIM_NCM_LOG_LEVEL="DEBUG"
 "     let $NVIM_NCM_MULTI_THREAD=0
 " " }
+"
+" Vim Airline settings {
+  let g:airline_left_sep = ''
+  let g:airline_left_alt_sep = ''
+  let g:airline_right_sep = ''
+  let g:airline_right_alt_sep = ''
+  "let g:airline_symbols.branch = ''
+  "let g:airline_symbols.readonly = ''
+  "let g:airline_symbols.linenr = '☰'
+  "let g:airline_symbols.maxlinenr = ''
+
+" }
 
 " echodoc settings {
-    " set cmdheight=2
+    " set cmdheight=1
     " set noshowmode
     " let g:echodoc#enable_at_startup = 1
     "
+" }
+
+" vimcmdline {
+
+    " vimcmdline mappings
+    let cmdline_map_start          = '<LocalLeader>ml'
+    let cmdline_map_send           = '<LocalLeader>m'
+    let cmdline_map_send_and_stay  = '<LocalLeader>ms'
+    let cmdline_map_source_fun     = '<LocalLeader>mf'
+    let cmdline_map_send_paragraph = '<LocalLeader>mp'
+    let cmdline_map_send_block     = '<LocalLeader>mb'
+    let cmdline_map_quit           = '<LocalLeader>mq'
+
+    " vimcmdline options
+    let cmdline_vsplit      = 1      " Split the window vertically
+    let cmdline_esc_term    = 1      " Remap <Esc> to :stopinsert in Neovim's terminal
+    let cmdline_in_buffer   = 1      " Start the interpreter in a Neovim's terminal
+    let cmdline_term_height = 15     " Initial height of interpreter window or pane
+    let cmdline_term_width  = 80     " Initial width of interpreter window or pane
+    let cmdline_tmp_dir     = '/tmp' " Temporary directory to save files
+    let cmdline_outhl       = 1      " Syntax highlight the output
 " }

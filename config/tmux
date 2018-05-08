@@ -25,11 +25,19 @@ bind k select-pane -U
 bind l select-pane -R
 
 # history
-set -g history-limit 5000
+set -g history-limit 50000
 
 # allow terminal scrolling
 set-option -g terminal-overrides 'xterm*:smcup@:rmcup@'
 set-option -g default-command "reattach-to-user-namespace -l zsh"
+
+bind-key -T copy-mode-vi WheelUpPane send -X scroll-up
+bind-key -T copy-mode-vi WheelDownPane send -X scroll-down
+
+# # Vi copypaste
+setw -g mode-keys vi
+bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "reattach-to-user-namespace pbcopy"
+bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "reattach-to-user-namespace pbcopy" \; display-message "highlighted selection copied to system clipboard"
 
 # copy mode
 unbind [
@@ -42,7 +50,7 @@ setw -g mode-keys vi
 set -g status-keys vi
 # setw -g utf8 on
 # use mouse in copy mode
-# setw -g mode-mouse on
+setw -g mouse on
 
 # panes
 # set -g mouse-select-pane on
@@ -78,8 +86,8 @@ setw -g mode-fg colour0
 
 
 # window status
-#setw -g window-status-format " #F#I:#W#F "
-#setw -g window-status-current-format " #F#I:#W#F "
+setw -g window-status-format " #F#I:#W#F "
+setw -g window-status-current-format " #F#I:#W#F "
 setw -g window-status-format "#[fg=magenta]#[bg=black] #I #[bg=cyan]#[fg=colour8] #W "
 setw -g window-status-current-format "#[bg=brightmagenta]#[fg=colour8] #I #[fg=colour8]#[bg=colour14] #W "
 setw -g window-status-current-bg colour0

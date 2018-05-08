@@ -1,22 +1,30 @@
 autoload -Uz promptinit
 promptinit
-prompt steeef
+prompt pure
+# prompt steeef
 #PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")'
 
 #archey
 #export PATH=$PATH:/usr/local/m-cli:/Users/sean/bin
 #
+export GOPATH="$HOME/.go"
 export PATH=/usr/local/bin:$PATH
-export PATH=$PATH:/Users/sean/go/bin
+export PATH="/usr/local/opt/python@2/bin:$PATH"
+export PATH="/usr/local/opt/python@2/libexec/bin:$PATH"
+export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+export PATH=$PATH:/Users/sean/.go/bin
 export PATH=$PATH:/Users/sean/bin
-~/documents/shell/base16-shell/base16-tomorrow.dark.sh
+export PATH="/Users/sean/Library/Python/2.7/bin:$PATH"
+export PATH="/Users/sean/Library/Python/3.6/bin:$PATH"
+# ~/Documents/shell/base16-shell/scripts/base16-tomorrow-night.sh
 
 # Z yo https://github.com/rupa/z
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-. ~/bin/z/z.sh
-. ~/bin/fz/fz.sh
+. ~/tools/shell/z/z.sh
+. ~/tools/shell/fz/fz.sh
 
 unalias z
+unalias zz
 z() {
   if [[ -z "$*" ]]; then
     cd "$(_z -l 2>&1 | fzf +s --tac | sed 's/^[0-9,.]* *//')"
@@ -33,3 +41,19 @@ zz() {
 alias j=z
 alias jj=zz
 
+function f_notifyme {
+  LAST_EXIT_CODE=$?
+  CMD=$(fc -ln -1)
+  # No point in waiting for the command to complete
+  notifyme "$CMD" "$LAST_EXIT_CODE" &
+}
+
+export PS1='$(f_notifyme)'$PS1
+
+# Pretty syntax highlighting
+source /Users/sean/.dotfiles/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+
+# Google Cloud
+. /Users/sean/bin/google-cloud-sdk/completion.zsh.inc
+. /Users/sean/bin/google-cloud-sdk/path.zsh.inc
