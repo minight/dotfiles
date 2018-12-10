@@ -4,7 +4,7 @@
 - clean: ['~']
 - shell:
     - [mkdir -p ~/.config, Creating .config directory]
-    - [mkdir -p ~/bin, Creating bin directory]
+    - [mkdir -p ~/tools/shell, Creating bin directory]
 - link:
     ~/.dotfiles:            ''
     ~/.tmux.conf:           config/tmux
