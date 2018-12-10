@@ -23,6 +23,7 @@ call plug#begin('~/.config/nvim/bundle')
     " Fuzzy Finding
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
+    Plug 'jremmen/vim-ripgrep'
 
     " File Managers
     Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
@@ -65,13 +66,13 @@ call plug#begin('~/.config/nvim/bundle')
 
     " Autocomplete Engines
     Plug 'davidhalter/jedi-vim', { 'on': [] }
-    Plug 'Valloric/YouCompleteMe', { 'dir': '~/.config/nvim/bundle/YouCompleteMe', 'do' : 'python3 install.py --clang-complete --tern-completer', 'on':[] }
-    " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'}
-    " Plug 'zchee/deoplete-jedi'
+    " Plug 'Valloric/YouCompleteMe', { 'dir': '~/.config/nvim/bundle/YouCompleteMe', 'do' : 'python3 install.py --clang-complete --tern-completer', 'on':[] }
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'}
+    Plug 'zchee/deoplete-jedi'
     Plug 'fatih/vim-go'
     " New autocomplete engines
     " Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
-    " Plug 'Shougo/echodoc.vim'
+    Plug 'Shougo/echodoc.vim'
     " Plug 'roxma/nvim-completion-manager'
     " Plug 'dzhou121/gonvim-fuzzy'       " Vim plug
     " Plug 'equalsraf/neovim-gui-shim'       " Vim plug
@@ -85,7 +86,7 @@ call plug#begin('~/.config/nvim/bundle')
     augroup load_insert
         autocmd!
         autocmd InsertEnter * call plug#load( 'ultisnips')
-        autocmd InsertEnter * call plug#load( 'YouCompleteMe')
+        " autocmd InsertEnter * call plug#load( 'YouCompleteMe')
         autocmd InsertEnter * call plug#load( 'jedi-vim')
         autocmd InsertEnter *.c call plug#load( 'vim-autotag')
         " autocmd InsertEnter * call plug#load( 'syntastic')
@@ -322,33 +323,39 @@ filetype plugin indent on
 " }
 
 " Deoplete {
-    " let g:deoplete#enable_at_startup = 1
-    " let g:deoplete#enable_refresh_always = 1
-    " " let g:deoplete#sources = {}
-    " " let g:deoplete#sources._ = ['buffer', 'tag']
-    " let g:deoplete#sources#jedi#show_docstring = 1
+    let g:deoplete#enable_at_startup = 1
+    let g:deoplete#enable_refresh_always = 1
+    " let g:deoplete#sources = {}
+    " call deoplete#custom#option('sources', {
+    " \ '_': ['buffer', 'tag'],
+    " \ 'cpp': ['buffer', 'tag'],
+    "
+    " \})
+    call deoplete#custom#option('ultisnips',{'matchers': ['matcher_fuzzy']})
+
+    let g:deoplete#sources#jedi#show_docstring = 1
     " nnoremap <expr><leader>td deoplete#toggle()
     "
-    " inoremap <silent><expr> <TAB>
-    "     \ pumvisible() ? "\<C-n>" :
-    "     \ <SID>check_back_space() ? "\<TAB>" :
-    "     \ deoplete#manual_complete()
-    " function! s:check_back_space() abort "{{{
-    " let col = col('.') - 1
-    " return !col || getline('.')[col - 1]  =~ '\s'
-    " endfunction"}}}
+    inoremap <silent><expr> <TAB>
+        \ pumvisible() ? "\<C-n>" :
+        \ <SID>check_back_space() ? "\<TAB>" :
+        \ deoplete#manual_complete()
+    function! s:check_back_space() abort "{{{
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+    endfunction"}}}
     "
     " " <S-TAB>: completion back.
-    " inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<C-h>"
+    inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<C-h>"
     "
     " " <C-h>, <BS>: close popup and delete backword char.
-    " inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
-    " inoremap <expr><BS> deoplete#smart_close_popup()."\<C-h>"
+    inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
+    inoremap <expr><BS> deoplete#smart_close_popup()."\<C-h>"
     "
-    " " inoremap <expr><C-g> deoplete#undo_completion()
+    inoremap <expr><C-g> deoplete#undo_completion()
     " " <C-l>: redraw candidates
-    " inoremap <expr><C-g>       deoplete#refresh()
-    " inoremap <silent><expr><C-l>       deoplete#complete_common_string()
+    inoremap <expr><C-g>       deoplete#refresh()
+    inoremap <silent><expr><C-l>       deoplete#complete_common_string()
     "
 " }
 
