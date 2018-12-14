@@ -1,24 +1,37 @@
 snippet pwn "pwntools template"
+#!/usr/bin/env python2
+# -*- coding: utf-8 -*-
 from pwn import *
-import struct
+
 context.log_level = 'info'
+context.update(arch='amd64')
+exe = './${1:${VISUAL:pwn}}'
+libc = './${2:${VISUAL:libc.so.6}}'
 
-IP = ['']
-PORT = 9447
-FILENAME = "${1:${VISUAL: derp}}"
-if IP:
-	tube = remote(IP[0], PORT)
-else:
-	tube = process(FILENAME)
 
-# hax
-payload = ''
-payload += struct.pack("<I", 0x41414141)
+def start(argv=[], *a, **kw):
+    '''Start the exploit against the target.'''
+    if args.GDB:
+        return gdb.debug([exe] + argv, gdbscript=gdbscript, *a, **kw)
+    elif args.REMOTE:
+        return remote('${3:${VISUAL:}}', ${4:${VISUAL:9447}})
+    else:
+        return process([exe] + argv, env={'LD_PRELOAD': libc}, *a, **kw)
+
+# gdb
+gdbscript = '''
+continue
+'''.format(**locals())
+
+io = start()
+elf = ELF(exe)
+libc = ELF(libc)
+
+#===========================================================
+#                    EXPLOIT GOES HERE
+#===========================================================
 ${0:${VISUAL: # hax}}
 
-tube.recvuntil("> ")
-tube.sendline(payload)
-tube.interactive()
 endsnippet
 
 snippet b64 "base64 imports"
