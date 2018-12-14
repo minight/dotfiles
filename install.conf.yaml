@@ -16,9 +16,10 @@
     ~/.zshenv:              zsh/zprezto/runcoms/zshenv
     ~/.zprezto:             zsh/zprezto
     ~/.zcustom:             zsh/zcustom
+    ~/.zwindows:            zsh/zwindows
     ~/.zalias:              zsh/zalias
-    ~/tools/shell/z:               bin/z
-    ~/tools/shell/fz:               bin/fz
+    ~/tools/shell/z:        bin/z
+    ~/tools/shell/fz:       bin/fz
     ~/.gitconfig:           git/config
     ~/.config/nvim:         config/nvim
     ~/.config/i3:           config/i3
