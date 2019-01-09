@@ -1,0 +1,12 @@
+#!/bin/bash
+
+VM_IP=172.19.26.19
+VM_SSH_PORT=22
+echo netcatting "${VM_IP}" "${VM_SSH_PORT}"
+nc -zv -w 1 "${VM_IP}" "${VM_SSH_PORT}"
+if [ $? -eq 0 ]; then
+    echo Host is up. connecting...
+    ssh "sean@${VM_IP}" -p "${VM_SSH_PORT}" -i ~/.ssh/id_ecdsa
+else
+    echo Failed to connect to VM: "{$VM_IP} ${VM_SSH_PORT}"
+fi

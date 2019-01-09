@@ -17,6 +17,7 @@
     ~/.zprezto:             zsh/zprezto
     ~/.zcustom:             zsh/zcustom
     ~/.zwindows:            zsh/zwindows
+    ~/.zlinux:              zsh/zlinux
     ~/.zalias:              zsh/zalias
     ~/tools/shell/z:        bin/z
     ~/tools/shell/fz:       bin/fz
