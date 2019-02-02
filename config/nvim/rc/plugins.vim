@@ -24,11 +24,30 @@ call plug#begin('~/.config/nvim/bundle')
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
     Plug 'jremmen/vim-ripgrep'
+    Plug 'cbxsn/vim-gitmoji'
 
     " File Managers
     Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
     Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
+    "Plug 'tpope/vim-vinegar'
 
+    " Autocomplete Engines
+    Plug 'davidhalter/jedi-vim', { 'on': [] }
+    " Plug 'Valloric/YouCompleteMe', { 'dir': '~/.config/nvim/bundle/YouCompleteMe', 'do' : 'python3 install.py --clang-complete --tern-completer', 'on':[] }
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'}
+    Plug 'zchee/deoplete-jedi'
+    Plug 'zchee/deoplete-go', { 'do': 'make'}
+    Plug 'fszymanski/deoplete-emoji'
+
+    Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+    " Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/bundle/gocode/nvim/symlink.sh' }
+
+    " New autocomplete engines
+    " Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+    Plug 'Shougo/echodoc.vim'
+    " Plug 'roxma/nvim-completion-manager'
+    " Plug 'dzhou121/gonvim-fuzzy'       " Vim plug
+    " Plug 'equalsraf/neovim-gui-shim'       " Vim plug
 
     " Buffer Manager
     " Plug 'jeetsukumaran/vim-buffergator'
@@ -44,6 +63,8 @@ call plug#begin('~/.config/nvim/bundle')
     Plug 'airblade/vim-gitgutter'
     Plug 'scrooloose/nerdcommenter'
     Plug 'rizzatti/dash.vim'
+    Plug 'AndrewRadev/splitjoin.vim'
+    Plug 'mgedmin/coverage-highlight.vim'
 
     " Syntax & Highlighters
     Plug 'Glench/Vim-Jinja2-Syntax'
@@ -81,7 +102,7 @@ call plug#begin('~/.config/nvim/bundle')
     " Plug 'vim-airline/vim-airline', { 'on': [] }
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes', { 'on': [] }
-    Plug 'bling/vim-bufferline'
+    " Plug 'bling/vim-bufferline'
 
     augroup load_insert
         autocmd!
@@ -100,6 +121,10 @@ call plug#begin('~/.config/nvim/bundle')
 call plug#end()
 filetype plugin indent on
 
+" vim-polyglot {
+    let g:polyglot_disabled = ['go']
+" }
+
 " YCM {
     let g:ycm_python_binary_path = 'python'
     let g:ycm_complete_in_comments = 1
@@ -117,14 +142,26 @@ filetype plugin indent on
     let g:jedi#completions_command    = ""
     let g:jedi#show_call_signatures   = "1"
     let g:jedi#show_call_signatures_delay = 0
+
     " On the other hand, jedivim does movement fucking amazing
-    let g:jedi#goto_assignments_command = "<leader>pa"
-    let g:jedi#goto_definitions_command = "<leader>pd"
-    let g:jedi#documentation_command    = "<leader>pk"
-    let g:jedi#usages_command           = "<leader>pu"
-    let g:jedi#rename_command           = "<leader>pr"
-    "let g:jedi#force_py_version(3)      = "<leader>py3"
-    "let g:jedi#force_py_version(2)      = "<leader>py2"
+    nnoremap <leader>pa :call jedi#goto_assignments()<CR>
+    nnoremap <leader>pd :call jedi#goto_definitions()<CR>
+    nnoremap <leader>pk :call jedi#documentation()<CR>
+    nnoremap <leader>pu :call jedi#usages()<CR>
+    nnoremap <leader>pr :call jedi#rename()<CR>
+
+	nnoremap <leader>pytt :let g:jedi#force_py_version=3 <bar> :call jedi#reinit_python()<CR>
+	nnoremap <leader>pytw :let g:jedi#force_py_version=2 <bar> :call jedi#reinit_python()<CR>
+
+    "let g:jedi#goto_assignments_command = "<leader>pa"
+    "let g:jedi#goto_definitions_command = "<leader>pd"
+    "let g:jedi#documentation_command    = "<leader>pk"
+    "let g:jedi#usages_command           = "<leader>pu"
+    "let g:jedi#rename_command           = "<leader>pr"
+
+    "let g:jedi#force_py_version(3)      = "<leader>pytt"
+    "let g:jedi#force_py_version(2)      = "<leader>pytw"
+
     "let g:jedi#force_py_version = 3
     "if g:jedi#init_python()
     "  function! s:jedi_auto_force_py_version() abort
@@ -212,6 +249,7 @@ filetype plugin indent on
     " [Commands] --expect expression for directly executing the command
     let g:fzf_commands_expect = 'alt-enter,ctrl-x'
 
+    let $FZF_DEFAULT_COMMAND = 'ag -g ""'
     " Augmenting Ag command using fzf#vim#with_preview function
     "   * fzf#vim#with_preview([[options], preview window, [toggle keys...]])
     "   * Preview script requires Ruby
@@ -421,22 +459,22 @@ filetype plugin indent on
 " }
 
 " echodoc settings {
-    " set cmdheight=1
-    " set noshowmode
-    " let g:echodoc#enable_at_startup = 1
+    set cmdheight=1
+    set noshowmode
+    let g:echodoc#enable_at_startup = 1
     "
 " }
 
 " vimcmdline {
 
     " vimcmdline mappings
-    let cmdline_map_start          = '<LocalLeader>ml'
-    let cmdline_map_send           = '<LocalLeader>m'
-    let cmdline_map_send_and_stay  = '<LocalLeader>ms'
-    let cmdline_map_source_fun     = '<LocalLeader>mf'
-    let cmdline_map_send_paragraph = '<LocalLeader>mp'
-    let cmdline_map_send_block     = '<LocalLeader>mb'
-    let cmdline_map_quit           = '<LocalLeader>mq'
+    let cmdline_map_start          = '<Leader>ml'
+    let cmdline_map_send           = '<Leader>m'
+    let cmdline_map_send_and_stay  = '<Leader>ms'
+    let cmdline_map_source_fun     = '<Leader>mf'
+    let cmdline_map_send_paragraph = '<Leader>mp'
+    let cmdline_map_send_block     = '<Leader>mb'
+    let cmdline_map_quit           = '<Leader>mq'
 
     " vimcmdline options
     let cmdline_vsplit      = 1      " Split the window vertically
@@ -446,4 +484,63 @@ filetype plugin indent on
     let cmdline_term_width  = 80     " Initial width of interpreter window or pane
     let cmdline_tmp_dir     = '/tmp' " Temporary directory to save files
     let cmdline_outhl       = 1      " Syntax highlight the output
+" }
+" vim-go {
+    " run :GoBuild or :GoTestCompile based on the go file
+    function! s:build_go_files()
+    let l:file = expand('%')
+    if l:file =~# '^\f\+_test\.go$'
+        call go#test#Test(0, 1)
+    elseif l:file =~# '^\f\+\.go$'
+        call go#cmd#Build(0)
+    endif
+    endfunction
+
+    let g:go_highlight_build_constraints = 1
+    let g:go_highlight_extra_types = 1
+    let g:go_highlight_fields = 1
+    let g:go_highlight_functions = 1
+    let g:go_highlight_methods = 1
+    let g:go_highlight_operators = 1
+    let g:go_highlight_structs = 1
+    let g:go_highlight_types = 1
+    let g:go_auto_sameids = 1
+    let g:go_auto_type_info = 1
+
+    autocmd FileType go nmap <leader>gb <Plug>(go-build)
+    autocmd FileType go nmap <leader>gt <Plug>(go-test)
+    autocmd FileType go nmap <leader>gc <Plug>(go-coverage-toggle)
+    autocmd FileType go nmap <leader>grr <Plug>(go-run)
+    autocmd FileType go nmap <leader>grn <Plug>(go-rename)
+    autocmd FileType go nmap <Leader>gi <Plug>(go-info)
+    autocmd FileType go nmap <Leader>gd <Plug>(go-def)
+    autocmd FileType go nmap <Leader>gh <Plug>(go-describe)
+    autocmd FileType go nmap <Leader>gf <Plug>(go-freevars)
+    autocmd Filetype go nmap <leader>ga <Plug>(go-alternate-edit)
+    autocmd Filetype go nmap <leader>gah <Plug>(go-alternate-split)
+    autocmd Filetype go nmap <leader>gav <Plug>(go-alternate-vertical)
+
+    noremap <C-w> :cnext<CR>
+    noremap <C-e> :cprevious<CR>
+    nnoremap <leader>a :cclose<CR>
+
+    "let g:go_auto_sameids = 1
+    set updatetime=100
+" }
+"
+" fugitive {
+    nnoremap <leader>gp :Gpush<CR>
+    nnoremap <leader>gs :Gstatus<CR>
+"
+" }
+"
+" deoplete-go {
+    let g:deoplete#sources#go#pointer = 1
+    let g:deoplete#sources#go#source_importer = 0
+    let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
+    let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+" }
+"
+" cxzbnzb gitmoji  {
+    inoremap <expr> <C-W><C-E> gitmoji#complete()
 " }

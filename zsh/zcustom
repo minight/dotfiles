@@ -4,6 +4,10 @@ prompt sean
 # prompt steeef
 #PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")'
 
+# Google Cloud
+. ~/bin/google-cloud-sdk/completion.zsh.inc
+. ~/bin/google-cloud-sdk/path.zsh.inc
+
 #archey
 #export PATH=$PATH:/usr/local/m-cli:$HOME/bin
 #
@@ -67,6 +71,7 @@ source $HOME/.dotfiles/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighti
 # elif [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then
 #     source ~/.zlinux
 # fi
+source ~/.bountyalias
 
 AWS_AUTOCOMPLETE="$HOME/.local/bin/aws_zsh_completer.sh"
 if [ -f "${AWS_AUTOCOMPLETE}" ]; then
