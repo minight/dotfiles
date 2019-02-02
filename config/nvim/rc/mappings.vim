@@ -16,8 +16,8 @@ nnoremap <space><space> za
 nnoremap <leader>- :split<CR>
 nnoremap <leader>\ :vsplit<CR>
 nnoremap <leader>c :close<CR>
-nnoremap <leader>_ <C-W>_
-nnoremap <leader>= <C-W>=
+" nnoremap <leader>_ <C-W>_
+" nnoremap <leader>= <C-W>=
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-k> <C-W><C-K>
 nnoremap <C-l> <C-W><C-L>
@@ -110,6 +110,7 @@ nnoremap <leader>w
       \ :<C-u>call vimrc#toggle_option('wrap')<CR>
 
 nnoremap <leader>ev :NERDTree ~/.config/nvim/<CR>
+nnoremap <leader>rr :source $MYVIMRC<CR>
 
 " This rewires n and N to do the highlighing...
 nnoremap <silent> n nzz:call HLNext(0.2)<cr>

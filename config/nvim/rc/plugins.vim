@@ -1,4 +1,3 @@
-
 " PLUGIN TIME
 
 " vim-plug autoconfig if not already installed
@@ -9,14 +8,11 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.config/nvim/bundle')
-
     " Snippets
-    " Plug 'SirVer/ultisnips', { 'on': [] }
     Plug 'SirVer/ultisnips'
     Plug 'honza/vim-snippets'
 
     " Syntax Checkers
-    " Plug 'vim-syntastic/syntastic', { 'on': []}
     Plug 'vim-syntastic/syntastic'
     Plug 'vim-scripts/taglist.vim'
 
@@ -32,22 +28,34 @@ call plug#begin('~/.config/nvim/bundle')
     "Plug 'tpope/vim-vinegar'
 
     " Autocomplete Engines
-    Plug 'davidhalter/jedi-vim', { 'on': [] }
-    " Plug 'Valloric/YouCompleteMe', { 'dir': '~/.config/nvim/bundle/YouCompleteMe', 'do' : 'python3 install.py --clang-complete --tern-completer', 'on':[] }
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'}
+    Plug 'Shougo/echodoc.vim'
     Plug 'zchee/deoplete-jedi'
     Plug 'zchee/deoplete-go', { 'do': 'make'}
+    Plug 'zchee/deoplete-clang'
     Plug 'fszymanski/deoplete-emoji'
+    " Plug 'Valloric/YouCompleteMe', { 'dir': '~/.config/nvim/bundle/YouCompleteMe', 'do' : 'python3 install.py --clang-complete --tern-completer', 'on':[] }
+    " Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install() }}
+    " Plug 'w0rp/ale'
 
+    " Language Engines
+    Plug 'autozimu/LanguageClient-neovim', {
+        \ 'branch': 'next',
+        \ 'do': 'make release',
+        \ }
     Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+    Plug 'davidhalter/jedi-vim', { 'on': [] }
+
+    Plug 'Shougo/neoinclude.vim'
+    Plug 'neomake/neomake'
     " Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/bundle/gocode/nvim/symlink.sh' }
 
-    " New autocomplete engines
-    " Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
-    Plug 'Shougo/echodoc.vim'
-    " Plug 'roxma/nvim-completion-manager'
-    " Plug 'dzhou121/gonvim-fuzzy'       " Vim plug
-    " Plug 'equalsraf/neovim-gui-shim'       " Vim plug
+    " Code Formatter
+    Plug 'google/vim-maktaba'
+    Plug 'google/vim-codefmt'
+    " Also add Glaive, which is used to configure codefmt's maktaba flags. See
+    " " `:help :Glaive` for usage.
+    Plug 'google/vim-glaive'
 
     " Buffer Manager
     " Plug 'jeetsukumaran/vim-buffergator'
@@ -62,8 +70,8 @@ call plug#begin('~/.config/nvim/bundle')
     Plug 'majutsushi/tagbar'
     Plug 'airblade/vim-gitgutter'
     Plug 'scrooloose/nerdcommenter'
-    Plug 'rizzatti/dash.vim'
-    Plug 'AndrewRadev/splitjoin.vim'
+    " Plug 'rizzatti/dash.vim'
+    " Plug 'AndrewRadev/splitjoin.vim'
     Plug 'mgedmin/coverage-highlight.vim'
 
     " Syntax & Highlighters
@@ -78,59 +86,22 @@ call plug#begin('~/.config/nvim/bundle')
     Plug 'hdima/python-syntax'
     Plug 'vim-scripts/promela.vim'
     Plug 'lervag/vimtex'
+    Plug 'vim-scripts/nginx.vim'
     " Plug 'xuhdev/vim-latex-live-preview'
     " Plug 'vim-scripts/Latex-Text-Formatter'
-    Plug 'vim-scripts/nginx.vim'
+
     " Magic Engines
     Plug 'jalvesaq/vimcmdline'
 
-    " Autocomplete Engines
-    Plug 'davidhalter/jedi-vim', { 'on': [] }
-    " Plug 'Valloric/YouCompleteMe', { 'dir': '~/.config/nvim/bundle/YouCompleteMe', 'do' : 'python3 install.py --clang-complete --tern-completer', 'on':[] }
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'}
-    Plug 'zchee/deoplete-jedi'
-    Plug 'zchee/deoplete-clang'
-    Plug 'Shougo/neoinclude.vim'
-    Plug 'neomake/neomake'
-
-    " LSP
-    Plug 'autozimu/LanguageClient-neovim', {
-        \ 'branch': 'next',
-        \ 'do': 'make release',
-        \ }
-
-    " Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install() }}
-    " Plug 'w0rp/ale'
-
-    Plug 'google/vim-maktaba'
-    Plug 'google/vim-codefmt'
-    " Also add Glaive, which is used to configure codefmt's maktaba flags. See
-    " " `:help :Glaive` for usage.
-    Plug 'google/vim-glaive'
-
-
-
-    Plug 'fatih/vim-go'
-    " New autocomplete engines
-    " Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
-    Plug 'Shougo/echodoc.vim'
-    " Plug 'roxma/nvim-completion-manager'
-    " Plug 'dzhou121/gonvim-fuzzy'       " Vim plug
-    " Plug 'equalsraf/neovim-gui-shim'       " Vim plug
-
     " Make it pretty
-    " Plug 'vim-airline/vim-airline', { 'on': [] }
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes', { 'on': [] }
-    " Plug 'bling/vim-bufferline'
 
     augroup load_insert
         autocmd!
         autocmd InsertEnter * call plug#load( 'ultisnips')
-        " autocmd InsertEnter * call plug#load( 'YouCompleteMe')
         autocmd InsertEnter * call plug#load( 'jedi-vim')
         autocmd InsertEnter *.c call plug#load( 'vim-autotag')
-        " autocmd InsertEnter * call plug#load( 'syntastic')
                              \| autocmd! load_insert
     augroup END
     augroup load_after_gui
@@ -150,10 +121,10 @@ filetype plugin indent on
 " }
 
 " YCM {
-    let g:ycm_python_binary_path = 'python'
-    let g:ycm_complete_in_comments = 1
-    let g:ycm_seed_identifiers_with_syntax = 1
-    let g:ycm_collect_identifiers_from_comments_and_strings = 1
+    " let g:ycm_python_binary_path = 'python'
+    " let g:ycm_complete_in_comments = 1
+    " let g:ycm_seed_identifiers_with_syntax = 1
+    " let g:ycm_collect_identifiers_from_comments_and_strings = 1
 " }
 "
 
@@ -173,9 +144,9 @@ filetype plugin indent on
     nnoremap <leader>pk :call jedi#documentation()<CR>
     nnoremap <leader>pu :call jedi#usages()<CR>
     nnoremap <leader>pr :call jedi#rename()<CR>
-
-	nnoremap <leader>pytt :let g:jedi#force_py_version=3 <bar> :call jedi#reinit_python()<CR>
-	nnoremap <leader>pytw :let g:jedi#force_py_version=2 <bar> :call jedi#reinit_python()<CR>
+    "
+    nnoremap <leader>pytt :let g:jedi#force_py_version=3 <bar> :call jedi#reinit_python()<CR>
+    nnoremap <leader>pytw :let g:jedi#force_py_version=2 <bar> :call jedi#reinit_python()<CR>
 
     "let g:jedi#goto_assignments_command = "<leader>pa"
     "let g:jedi#goto_definitions_command = "<leader>pd"

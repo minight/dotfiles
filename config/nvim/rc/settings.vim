@@ -1,7 +1,7 @@
 set t_Co=16
 syntax enable
 filetype off
-" colorscheme Tomorrow-Night
+colorscheme Tomorrow-Night
 
 set nu
 
