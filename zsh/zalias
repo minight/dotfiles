@@ -24,7 +24,6 @@ alias burp="java -jar /Users/sean/tools/burp/burp-latest &; /Applications/Google
 alias burpo="java -jar /Users/sean/tools/burp/burp-latest &"
 alias ctftime="docker run -v /Users/sean/ctftime:/root/host-share --privileged -it --workdir=/root ctfhacker/epictreasure"
 alias rot13="tr '[A-Za-z]' '[N-ZA-Mn-za-m]’"
-alias ls='ls --color=auto'
 alias awk=gawk
 alias wtf="echo -n 'ಠ_ಠ' | pbcopy"
 alias dc=docker-compose
