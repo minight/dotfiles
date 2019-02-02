@@ -37,6 +37,18 @@ set autoread
 
 set clipboard=unnamed
 set clipboard+=unnamedplus " so it works with ubuntu
+let g:clipboard = {
+        \   'name': 'tmuxclip',
+        \   'copy': {
+        \      '+': 'xclip -i',
+        \      '*': 'xclip -i',
+        \    },
+        \   'paste': {
+        \      '+': 'xclip -o',
+        \      '*': 'xclip -o',
+        \   },
+        \   'cache_enabled': 1,
+        \ }
 
 set display+=lastline
 set nostartofline       " Do not jump to first character with page commands.

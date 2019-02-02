@@ -1,6 +1,6 @@
 autoload -Uz promptinit
 promptinit
-prompt pure
+prompt sean
 # prompt steeef
 #PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")'
 
@@ -9,6 +9,8 @@ prompt pure
 #
 export GOPATH="$HOME/.go"
 export PATH=/usr/local/bin:$PATH
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$PATH:/usr/local/go/bin"
 export PATH="/usr/local/opt/python@2/bin:$PATH"
 export PATH="/usr/local/opt/python@2/libexec/bin:$PATH"
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
@@ -17,33 +19,35 @@ export PATH=$PATH:$HOME/bin
 export PATH="$HOME/Library/Python/2.7/bin:$PATH"
 export PATH="$HOME/Library/Python/3.6/bin:$PATH"
 export PATH="$PATH:$HOME/cheri/output/sdk/bin"
+
+export EDITOR="vim"
 # ~/Documents/shell/base16-shell/scripts/base16-tomorrow-night.sh
 
 # Z yo https://github.com/rupa/z
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-# . ~/tools/shell/z/z.sh
-# . ~/tools/shell/fz/fz.sh
+. ~/tools/shell/z/z.sh
+. ~/tools/shell/fz/fz.sh
 
-# export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 
 
-# unalias z
-# unalias zz
-# z() {
-#   if [[ -z "$*" ]]; then
-#     cd "$(_z -l 2>&1 | fzf +s --tac | sed 's/^[0-9,.]* *//')"
-#   else
-#     _last_z_args="$@"
-#     _z "$@"
-#   fi
-# }
-#
-# zz() {
-#   cd "$(_z -l 2>&1 | sed 's/^[0-9,.]* *//' | fzf -q "$_last_z_args")"
-# }
-#
-# alias j=z
-# alias jj=zz
+unalias z
+unalias zz
+z() {
+  if [[ -z "$*" ]]; then
+    cd "$(_z -l 2>&1 | fzf +s --tac | sed 's/^[0-9,.]* *//')"
+  else
+    _last_z_args="$@"
+    _z "$@"
+  fi
+}
+
+zz() {
+  cd "$(_z -l 2>&1 | sed 's/^[0-9,.]* *//' | fzf -q "$_last_z_args")"
+}
+
+alias j=z
+alias jj=zz
 
 # function f_notifyme {
 #   LAST_EXIT_CODE=$?
@@ -58,11 +62,20 @@ export PATH="$PATH:$HOME/cheri/output/sdk/bin"
 source $HOME/.dotfiles/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # source $HOME/.zwindows
-if [ "$(uname)" = "Darwin" ]; then
-    # Do something under Mac OS X platform
-elif [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then
-    source ~/.zlinux
+# if [ "$(uname)" = "Darwin" ]; then
+#     # Do something under Mac OS X platform
+# elif [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then
+#     source ~/.zlinux
+# fi
+
+AWS_AUTOCOMPLETE="$HOME/.local/bin/aws_zsh_completer.sh"
+if [ -f "${AWS_AUTOCOMPLETE}" ]; then
+    source "${AWS_AUTOCOMPLETE}"
 fi
+
+
+# kubernetes
+source <(kubectl completion zsh)
 
 # Google Cloud
 # . $HOME/bin/google-cloud-sdk/completion.zsh.inc

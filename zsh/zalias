@@ -7,7 +7,7 @@ alias debserver="ssh debianlocal"
 alias flushdns="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder; say DNS cache flushed"
 alias reload="source ~/.zshrc"
 alias ip2="ipython2"
-alias ip="ipython"
+# alias ip="ipython"
 alias ip3="ipython3"
 alias ctfpy="ipython2 --profile=ctf"
 recomp() {
@@ -39,6 +39,8 @@ alias pipenvreq="pipenv install \$(< requirements.txt)"
 alias mss="sudo masscan --ports 0-65535 --open --banners --rate 1000000"
 alias pcp="pwd | pbcopy"
 alias cdp="cd \"\$(pbpaste)\""
+alias k=kubectl
+
 
 ff() {
     vim $(fzf)
