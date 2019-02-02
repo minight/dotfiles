@@ -10,6 +10,9 @@ alias ip2="ipython2"
 # alias ip="ipython"
 alias ip3="ipython3"
 alias ctfpy="ipython2 --profile=ctf"
+alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
+
+
 recomp() {
     if [ -f '~/.zcompdump' ]; then
         rm -rf ~/.zcompdump*
@@ -21,7 +24,6 @@ alias burp="java -jar /Users/sean/tools/burp/burp-latest &; /Applications/Google
 alias burpo="java -jar /Users/sean/tools/burp/burp-latest &"
 alias ctftime="docker run -v /Users/sean/ctftime:/root/host-share --privileged -it --workdir=/root ctfhacker/epictreasure"
 alias rot13="tr '[A-Za-z]' '[N-ZA-Mn-za-m]’"
-alias ls='ls --color=auto'
 alias awk=gawk
 alias wtf="echo -n 'ಠ_ಠ' | pbcopy"
 alias dc=docker-compose
@@ -33,6 +35,7 @@ alias checkssl="gnutls-cli --print-cert"
 alias aosmark="cd /Users/sean/google-drive/Uni/Courses/COMP/9242-aos/project/comp9242-aos; open /Users/sean/google-drive/Uni/Courses/COMP/9242-aos/Milestone\ marking\ -\ CSE\ Operating\ Systems\ -\ UNSW\ Confluence.pdf "
 alias white="bash /Users/sean/offline/base16-shell/scripts/base16-tomorrow.sh"
 alias drma="docker rm \$(docker ps -a -f status=exited -q)"
+alias drka="docker kill \$(docker ps -a -f status=running -q)"
 alias drmi="docker rmi \$(docker images -q)"
 alias uncolor='echo -ne "\033[0m"'
 alias pipenvreq="pipenv install \$(< requirements.txt)"
@@ -40,8 +43,13 @@ alias mss="sudo masscan --ports 0-65535 --open --banners --rate 1000000"
 alias pcp="pwd | pbcopy"
 alias cdp="cd \"\$(pbpaste)\""
 alias k=kubectl
+alias untilgood="while [ $? -ne 0 ]; do !!; done"
 
+alias ndu="ncdu --color dark -rr -x --exclude .git --exclude node_modules"
 
+dockerssh() {
+    ssh docker@$1 -o IdentitiesOnly=yes -o "StrictHostKeyChecking false" -o "UserKnownHostsFile /dev/null" -i ~/.ssh/cs6443-master.pem
+}
 ff() {
     vim $(fzf)
 }
@@ -61,100 +69,6 @@ gce() {
 
 gcedel() {
     gcloud compute instances delete $1
-}
-
-ec2config="/Users/sean/.ec2config.json"
-
-ec2ls() {
-    region="$1"
-    if [ -z "$1" ]; then
-        region="ap-southeast-2"
-    fi
-    echo region: $region
-    aws ec2 describe-instances \
-        --region "${region}" \
-        --output text \
-        --query 'Reservations[*].Instances[*].{ID:InstanceId,IP:PublicIpAddress,State:State.Name,Type:InstanceType}' | \
-    grep -v 'terminated'
-}
-
-ec2rm() {
-    region="$2"
-    if [ -z "$2" ]; then
-        region="ap-southeast-2"
-    fi
-    echo region: $region
-    aws ec2 terminate-instances --instance-ids $1 --region "${region}"
-}
-
-ec2rm1() {
-    region="$2"
-    if [ -z "$2" ]; then
-        region="ap-southeast-2"
-    fi
-    ec2rm $(ec2ls "$region" | cut -f1)
-}
-
-ec2ssh() {
-    region="$2"
-    if [ -z "$2" ]; then
-        region="ap-southeast-2"
-    fi
-
-    user="$3"
-    if [ -z "$3" ]; then
-        user="ubuntu"
-    fi
-
-    echo region: $region
-    private_key=$(jq -r ".\"$region\".\"private-key\"" "${ec2config}")
-    echo pk: $private_key
-    sshi "$user"@$1 "${private_key}" 
-}
-
-ec2go() {
-    region="$1"
-    if [ -z "$1" ]; then
-        region="ap-southeast-2"
-    fi
-    echo region: $region
-
-    image_id=$(jq -r ".\"$region\".\"image-id\"" "${ec2config}")
-    security_group_ids=$(jq -r ".\"$region\".\"security-group-ids\"" "${ec2config}")
-    key_name=$(jq -r ".\"$region\".\"key-name\"" "${ec2config}")
-    private_key=$(jq -r ".\"$region\".\"private-key\"" "${ec2config}")
-
-    echo $image_id $security_group_ids $key_name $private_key
-
-    instance_id=$(aws ec2 run-instances \
-        --image-id "${image_id}" \
-        --instance-type t2.micro \
-        --security-group-ids "${security_group_ids}" \
-        --region "$region" \
-        --count 1 \
-        --key-name "${key_name}" \
-        --output text \
-        --query 'Instances[*].{ID:InstanceId}')
-
-    echo "instance_id: $instance_id"
-    while state=$(aws ec2 describe-instances --region "${region}" --instance-ids $instance_id --output text --query 'Reservations[*].Instances[*].State.Name'); test "$state" = "pending"; do
-        sleep 1; echo -n '.'
-    done;
-    echo ''
-    instance_ip=$(aws ec2 describe-instances --region "${region}" --instance-ids $instance_id --output text --query 'Reservations[*].Instances[*].PublicIpAddress')
-    echo "instance_ip: $instance_ip"
-    ssh ubuntu@$instance_ip -o "StrictHostKeyChecking false" -o "UserKnownHostsFile /dev/null" -o IdentitiesOnly=yes -i "${private_key}"
-    while [ $? -ne 0 ]; do
-        sleep 1
-        echo "."
-        ssh ubuntu@$instance_ip -o "StrictHostKeyChecking false" -o "UserKnownHostsFile /dev/null" -o IdentitiesOnly=yes -i "${private_key}"
-
-    done
-
-}
-
-sshi() {
-    ssh $1 -o IdentitiesOnly=yes -o "StrictHostKeyChecking false" -o "UserKnownHostsFile /dev/null" -i $2
 }
 
 gerl() {
@@ -187,3 +101,9 @@ rng() {
     od -tu2 -vAn -N$1 < /dev/urandom | tr '\n' ' ' | sed 's/ //g'
 }
 
+
+dockershell() {
+    docker exec -it "$@"
+}
+
+alias dsh="dockershell"

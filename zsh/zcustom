@@ -4,6 +4,10 @@ prompt sean
 # prompt steeef
 #PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")'
 
+# Google Cloud
+. ~/bin/google-cloud-sdk/completion.zsh.inc
+. ~/bin/google-cloud-sdk/path.zsh.inc
+
 #archey
 #export PATH=$PATH:/usr/local/m-cli:$HOME/bin
 #
@@ -19,6 +23,7 @@ export PATH=$PATH:$HOME/bin
 export PATH="$HOME/Library/Python/2.7/bin:$PATH"
 export PATH="$HOME/Library/Python/3.6/bin:$PATH"
 export PATH="$PATH:$HOME/cheri/output/sdk/bin"
+export PATH=$HOME/.cargo/bin:$PATH
 
 export EDITOR="vim"
 # ~/Documents/shell/base16-shell/scripts/base16-tomorrow-night.sh
@@ -67,6 +72,7 @@ source $HOME/.dotfiles/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighti
 # elif [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then
 #     source ~/.zlinux
 # fi
+source ~/.bountyalias
 
 AWS_AUTOCOMPLETE="$HOME/.local/bin/aws_zsh_completer.sh"
 if [ -f "${AWS_AUTOCOMPLETE}" ]; then
@@ -80,3 +86,4 @@ source <(kubectl completion zsh)
 # Google Cloud
 # . $HOME/bin/google-cloud-sdk/completion.zsh.inc
 # . $HOME/bin/google-cloud-sdk/path.zsh.inc
+export PATH="/home/sean/cheri/output/sdk/bin:$PATH"

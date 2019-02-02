@@ -24,11 +24,30 @@ call plug#begin('~/.config/nvim/bundle')
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
     Plug 'jremmen/vim-ripgrep'
+    Plug 'cbxsn/vim-gitmoji'
 
     " File Managers
     Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
     Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
+    "Plug 'tpope/vim-vinegar'
 
+    " Autocomplete Engines
+    Plug 'davidhalter/jedi-vim', { 'on': [] }
+    " Plug 'Valloric/YouCompleteMe', { 'dir': '~/.config/nvim/bundle/YouCompleteMe', 'do' : 'python3 install.py --clang-complete --tern-completer', 'on':[] }
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'}
+    Plug 'zchee/deoplete-jedi'
+    Plug 'zchee/deoplete-go', { 'do': 'make'}
+    Plug 'fszymanski/deoplete-emoji'
+
+    Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+    " Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/bundle/gocode/nvim/symlink.sh' }
+
+    " New autocomplete engines
+    " Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+    Plug 'Shougo/echodoc.vim'
+    " Plug 'roxma/nvim-completion-manager'
+    " Plug 'dzhou121/gonvim-fuzzy'       " Vim plug
+    " Plug 'equalsraf/neovim-gui-shim'       " Vim plug
 
     " Buffer Manager
     " Plug 'jeetsukumaran/vim-buffergator'
@@ -44,6 +63,8 @@ call plug#begin('~/.config/nvim/bundle')
     Plug 'airblade/vim-gitgutter'
     Plug 'scrooloose/nerdcommenter'
     Plug 'rizzatti/dash.vim'
+    Plug 'AndrewRadev/splitjoin.vim'
+    Plug 'mgedmin/coverage-highlight.vim'
 
     " Syntax & Highlighters
     Plug 'Glench/Vim-Jinja2-Syntax'
@@ -60,7 +81,6 @@ call plug#begin('~/.config/nvim/bundle')
     " Plug 'xuhdev/vim-latex-live-preview'
     " Plug 'vim-scripts/Latex-Text-Formatter'
     Plug 'vim-scripts/nginx.vim'
-
     " Magic Engines
     Plug 'jalvesaq/vimcmdline'
 
@@ -69,6 +89,27 @@ call plug#begin('~/.config/nvim/bundle')
     " Plug 'Valloric/YouCompleteMe', { 'dir': '~/.config/nvim/bundle/YouCompleteMe', 'do' : 'python3 install.py --clang-complete --tern-completer', 'on':[] }
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'}
     Plug 'zchee/deoplete-jedi'
+    Plug 'zchee/deoplete-clang'
+    Plug 'Shougo/neoinclude.vim'
+    Plug 'neomake/neomake'
+
+    " LSP
+    Plug 'autozimu/LanguageClient-neovim', {
+        \ 'branch': 'next',
+        \ 'do': 'make release',
+        \ }
+
+    " Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install() }}
+    " Plug 'w0rp/ale'
+
+    Plug 'google/vim-maktaba'
+    Plug 'google/vim-codefmt'
+    " Also add Glaive, which is used to configure codefmt's maktaba flags. See
+    " " `:help :Glaive` for usage.
+    Plug 'google/vim-glaive'
+
+
+
     Plug 'fatih/vim-go'
     " New autocomplete engines
     " Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
@@ -81,7 +122,7 @@ call plug#begin('~/.config/nvim/bundle')
     " Plug 'vim-airline/vim-airline', { 'on': [] }
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes', { 'on': [] }
-    Plug 'bling/vim-bufferline'
+    " Plug 'bling/vim-bufferline'
 
     augroup load_insert
         autocmd!
@@ -100,6 +141,14 @@ call plug#begin('~/.config/nvim/bundle')
 call plug#end()
 filetype plugin indent on
 
+" vim-polyglot {
+    let g:polyglot_disabled = ['go']
+" Glaive {
+    call glaive#Install()
+    " Optional: Enable codefmt's default mappings on the <Leader>= prefix.
+    Glaive codefmt plugin[mappings]
+" }
+
 " YCM {
     let g:ycm_python_binary_path = 'python'
     let g:ycm_complete_in_comments = 1
@@ -117,14 +166,26 @@ filetype plugin indent on
     let g:jedi#completions_command    = ""
     let g:jedi#show_call_signatures   = "1"
     let g:jedi#show_call_signatures_delay = 0
+
     " On the other hand, jedivim does movement fucking amazing
-    let g:jedi#goto_assignments_command = "<leader>pa"
-    let g:jedi#goto_definitions_command = "<leader>pd"
-    let g:jedi#documentation_command    = "<leader>pk"
-    let g:jedi#usages_command           = "<leader>pu"
-    let g:jedi#rename_command           = "<leader>pr"
-    "let g:jedi#force_py_version(3)      = "<leader>py3"
-    "let g:jedi#force_py_version(2)      = "<leader>py2"
+    nnoremap <leader>pa :call jedi#goto_assignments()<CR>
+    nnoremap <leader>pd :call jedi#goto_definitions()<CR>
+    nnoremap <leader>pk :call jedi#documentation()<CR>
+    nnoremap <leader>pu :call jedi#usages()<CR>
+    nnoremap <leader>pr :call jedi#rename()<CR>
+
+	nnoremap <leader>pytt :let g:jedi#force_py_version=3 <bar> :call jedi#reinit_python()<CR>
+	nnoremap <leader>pytw :let g:jedi#force_py_version=2 <bar> :call jedi#reinit_python()<CR>
+
+    "let g:jedi#goto_assignments_command = "<leader>pa"
+    "let g:jedi#goto_definitions_command = "<leader>pd"
+    "let g:jedi#documentation_command    = "<leader>pk"
+    "let g:jedi#usages_command           = "<leader>pu"
+    "let g:jedi#rename_command           = "<leader>pr"
+
+    "let g:jedi#force_py_version(3)      = "<leader>pytt"
+    "let g:jedi#force_py_version(2)      = "<leader>pytw"
+
     "let g:jedi#force_py_version = 3
     "if g:jedi#init_python()
     "  function! s:jedi_auto_force_py_version() abort
@@ -212,6 +273,7 @@ filetype plugin indent on
     " [Commands] --expect expression for directly executing the command
     let g:fzf_commands_expect = 'alt-enter,ctrl-x'
 
+    let $FZF_DEFAULT_COMMAND = 'ag -g ""'
     " Augmenting Ag command using fzf#vim#with_preview function
     "   * fzf#vim#with_preview([[options], preview window, [toggle keys...]])
     "   * Preview script requires Ruby
@@ -253,6 +315,21 @@ filetype plugin indent on
     let NERDTreeAutoDeleteBuffer = 1
     let NERDTreeDirArrows = 1
     let NERDTreeQuitOnOpen = 1
+" }
+"
+" NERDTree-Git {
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "*",
+    \ "Staged"    : "+",
+    \ "Untracked" : "?",
+    \ "Renamed"   : ">",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "x",
+    \ "Dirty"     : "?",
+    \ "Clean"     : "v",
+    \ 'Ignored'   : '-',
+    \ "Unknown"   : "?"
+    \ }
 " }
 
 " vim-markdown {
@@ -302,6 +379,8 @@ filetype plugin indent on
     let Tlist_WinWidth=28
     let Tlist_Exit_OnlyWindow=1
     let Tlist_File_Fold_Auto_Close = 1
+    let Tlist_Ctags_Cmd='/usr/local/bin/exctags'
+
     nnoremap <leader>tl :Tlist<cr>
 " }
 
@@ -383,19 +462,39 @@ filetype plugin indent on
 
 " Language Server {
 
-    " let g:LanguageClient_autoStart = 1
+    let g:LanguageClient_autoStart = 1
     "
     " let g:LanguageClient_serverCommands = {
     "     \ 'python': ['pyls'],
     "     \ }
     "
+    let g:LanguageClient_serverCommands = {
+    \ 'cpp': ['/usr/local/bin/cquery',
+    \ '--log-file=/tmp/cq.log',
+    \ '--init={"cacheDirectory":"/tmp/cquery/"}'],
+    \ 'python': ['pyls'],
+    \ 'javascript': ['tcp://127.0.0.1:2089'],
+    \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
+    \ }
+    " let g:LanguageClient_serverCommands = {
+    "     \ 'c': ['ccls', '--log-file=/tmp/cc.log'],
+    "     \ 'cpp': ['ccls', '--log-file=/tmp/cc.log'],
+    "     \ 'cuda': ['ccls', '--log-file=/tmp/cc.log'],
+    "     \ 'objc': ['ccls', '--log-file=/tmp/cc.log'],
+    "     \ }
+
+    " set cacheDirectory to /var/cquery may cause permission problem on linux
+    " set it to /tmp/cquery/ can fix it
+
+
+    set hidden
     " nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
-    " nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
-    " nnoremap <silent> gn :call LanguageClient_textDocument_rename()<CR>
-    " nnoremap <silent> gs :call LanguageClient_textDocument_documentSymbol()<CR>
-    " nnoremap <silent> gr :call LanguageClient_textDocument_references()<CR>
-    " nnoremap <silent> gf :call LanguageClient_textDocument_formatting()<CR>
-    " set formatexpr=LanguageClient_textDocument_rangeFormatting()
+    nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+    nnoremap <silent> gn :call LanguageClient_textDocument_rename()<CR>
+    nnoremap <silent> gs :call LanguageClient_textDocument_documentSymbol()<CR>
+    nnoremap <silent> gr :call LanguageClient_textDocument_references()<CR>
+    nnoremap <silent> gf :call LanguageClient_textDocument_formatting()<CR>
+    set formatexpr=LanguageClient_textDocument_rangeFormatting()
     "
 " }
 "
@@ -421,22 +520,22 @@ filetype plugin indent on
 " }
 
 " echodoc settings {
-    " set cmdheight=1
-    " set noshowmode
-    " let g:echodoc#enable_at_startup = 1
+    set cmdheight=1
+    set noshowmode
+    let g:echodoc#enable_at_startup = 1
     "
 " }
 
 " vimcmdline {
 
     " vimcmdline mappings
-    let cmdline_map_start          = '<LocalLeader>ml'
-    let cmdline_map_send           = '<LocalLeader>m'
-    let cmdline_map_send_and_stay  = '<LocalLeader>ms'
-    let cmdline_map_source_fun     = '<LocalLeader>mf'
-    let cmdline_map_send_paragraph = '<LocalLeader>mp'
-    let cmdline_map_send_block     = '<LocalLeader>mb'
-    let cmdline_map_quit           = '<LocalLeader>mq'
+    let cmdline_map_start          = '<Leader>ml'
+    let cmdline_map_send           = '<Leader>m'
+    let cmdline_map_send_and_stay  = '<Leader>ms'
+    let cmdline_map_source_fun     = '<Leader>mf'
+    let cmdline_map_send_paragraph = '<Leader>mp'
+    let cmdline_map_send_block     = '<Leader>mb'
+    let cmdline_map_quit           = '<Leader>mq'
 
     " vimcmdline options
     let cmdline_vsplit      = 1      " Split the window vertically
@@ -446,4 +545,155 @@ filetype plugin indent on
     let cmdline_term_width  = 80     " Initial width of interpreter window or pane
     let cmdline_tmp_dir     = '/tmp' " Temporary directory to save files
     let cmdline_outhl       = 1      " Syntax highlight the output
+" }
+"
+" vim-go {
+    " run :GoBuild or :GoTestCompile based on the go file
+    function! s:build_go_files()
+    let l:file = expand('%')
+    if l:file =~# '^\f\+_test\.go$'
+        call go#test#Test(0, 1)
+    elseif l:file =~# '^\f\+\.go$'
+        call go#cmd#Build(0)
+    endif
+    endfunction
+
+    let g:go_highlight_build_constraints = 1
+    let g:go_highlight_extra_types = 1
+    let g:go_highlight_fields = 1
+    let g:go_highlight_functions = 1
+    let g:go_highlight_methods = 1
+    let g:go_highlight_operators = 1
+    let g:go_highlight_structs = 1
+    let g:go_highlight_types = 1
+    let g:go_auto_sameids = 1
+    let g:go_auto_type_info = 1
+
+    autocmd FileType go nmap <leader>gb <Plug>(go-build)
+    autocmd FileType go nmap <leader>gt <Plug>(go-test)
+    autocmd FileType go nmap <leader>gc <Plug>(go-coverage-toggle)
+    autocmd FileType go nmap <leader>grr <Plug>(go-run)
+    autocmd FileType go nmap <leader>grn <Plug>(go-rename)
+    autocmd FileType go nmap <Leader>gi <Plug>(go-info)
+    autocmd FileType go nmap <Leader>gd <Plug>(go-def)
+    autocmd FileType go nmap <Leader>gh <Plug>(go-describe)
+    autocmd FileType go nmap <Leader>gf <Plug>(go-freevars)
+    autocmd Filetype go nmap <leader>ga <Plug>(go-alternate-edit)
+    autocmd Filetype go nmap <leader>gah <Plug>(go-alternate-split)
+    autocmd Filetype go nmap <leader>gav <Plug>(go-alternate-vertical)
+
+    noremap <C-w> :cnext<CR>
+    noremap <C-e> :cprevious<CR>
+    nnoremap <leader>a :cclose<CR>
+
+    "let g:go_auto_sameids = 1
+    set updatetime=100
+" }
+"
+" fugitive {
+    nnoremap <leader>gp :Gpush<CR>
+    nnoremap <leader>gs :Gstatus<CR>
+"
+" }
+"
+" deoplete-go {
+    let g:deoplete#sources#go#pointer = 1
+    let g:deoplete#sources#go#source_importer = 0
+    let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
+    let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+" }
+"
+" cxzbnzb gitmoji  {
+    inoremap <expr> <C-W><C-E> gitmoji#complete()
+"
+" Neomake {
+
+    " When writing a buffer (no delay).
+    call neomake#configure#automake('w')
+    " When writing a buffer (no delay), and on normal mode changes (after 750ms).
+    call neomake#configure#automake('nw', 750)
+    " When reading a buffer (after 1s), and when writing (no delay).
+    call neomake#configure#automake('rw', 1000)
+    " Full config: when writing or reading a buffer, and on changes in insert and
+    " normal mode (after 1s; no delay when writing).
+    call neomake#configure#automake('nrwi', 500)
+    let g:neomake_open_list = 2
+
+
+" }
+"
+" coc {
+"
+    " Use <c-space> for trigger completion.
+    " inoremap <silent><expr> <c-space> coc#refresh()
+    "
+    " " Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
+    " " Coc only does snippet and additional edit on confirm.
+    " inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+    "
+    " " Use `[c` and `]c` for navigate diagnostics
+    " nmap <silent> [c <Plug>(coc-diagnostic-prev)
+    " nmap <silent> ]c <Plug>(coc-diagnostic-next)
+    "
+    " " Remap keys for gotos
+    " nmap <silent> gd <Plug>(coc-definition)
+    " nmap <silent> gy <Plug>(coc-type-definition)
+    " nmap <silent> gi <Plug>(coc-implementation)
+    " nmap <silent> gr <Plug>(coc-references)
+    "
+    " " Use K for show documentation in preview window
+    " nnoremap <silent> K :call <SID>show_documentation()<CR>
+    "
+    " function! s:show_documentation()
+    " if &filetype == 'vim'
+    "     execute 'h '.expand('<cword>')
+    " else
+    "     call CocAction('doHover')
+    " endif
+    " endfunction
+    "
+    " " Highlight symbol under cursor on CursorHold
+    " autocmd CursorHold * silent call CocActionAsync('highlight')
+    "
+    " " Remap for rename current word
+    " nmap <leader>rn <Plug>(coc-rename)
+    "
+    " " Remap for format selected region
+    " vmap <leader>f  <Plug>(coc-format-selected)
+    " nmap <leader>f  <Plug>(coc-format-selected)
+    "
+    " augroup mygroup
+    " autocmd!
+    " " Setup formatexpr specified filetype(s).
+    " autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+    " " Update signature help on jump placeholder
+    " autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+    " augroup end
+    "
+    " " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+    " vmap <leader>a  <Plug>(coc-codeaction-selected)
+    " nmap <leader>a  <Plug>(coc-codeaction-selected)
+    "
+    " " Remap for do codeAction of current line
+    " nmap <leader>ac  <Plug>(coc-codeaction)
+    " " Fix autofix problem of current line
+    " nmap <leader>qf  <Plug>(coc-fix-current)
+    "
+    " " Use `:Format` for format current buffer
+    " command! -nargs=0 Format :call CocAction('format')
+    "
+    " " Use `:Fold` for fold current buffer
+    " command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+    "
+    " autocmd User CocQuickfixChange :call fzf_quickfix#run()
+" }
+"
+" ALE {
+
+" let g:ale_open_list = 1
+" Set this if you want to.
+" This can be useful if you are combining ALE with
+" some other plugin which sets quickfix errors, etc.
+" let g:ale_keep_list_window_open = 1
+
 " }
