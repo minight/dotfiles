@@ -5,8 +5,8 @@ prompt sean
 #PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")'
 
 # Google Cloud
-. ~/bin/google-cloud-sdk/completion.zsh.inc
-. ~/bin/google-cloud-sdk/path.zsh.inc
+# . ~/bin/google-cloud-sdk/completion.zsh.inc
+# . ~/bin/google-cloud-sdk/path.zsh.inc
 
 #archey
 #export PATH=$PATH:/usr/local/m-cli:$HOME/bin
@@ -33,7 +33,9 @@ export EDITOR="vim"
 . ~/tools/shell/z/z.sh
 . ~/tools/shell/fz/fz.sh
 
-export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+export FZF_DEFAULT_COMMAND='fd --hidden --exclude ".git" .'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+# export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 
 
 unalias z
@@ -72,7 +74,7 @@ source $HOME/.dotfiles/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighti
 # elif [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then
 #     source ~/.zlinux
 # fi
-source ~/.bountyalias
+# source ~/.bountyalias
 
 AWS_AUTOCOMPLETE="$HOME/.local/bin/aws_zsh_completer.sh"
 if [ -f "${AWS_AUTOCOMPLETE}" ]; then
@@ -86,4 +88,4 @@ source <(kubectl completion zsh)
 # Google Cloud
 # . $HOME/bin/google-cloud-sdk/completion.zsh.inc
 # . $HOME/bin/google-cloud-sdk/path.zsh.inc
-export PATH="/home/sean/cheri/output/sdk/bin:$PATH"
+# export PATH="/home/sean/cheri/output/sdk/bin:$PATH"

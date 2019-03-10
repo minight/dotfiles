@@ -1,0 +1,8 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_1='/tmp'
+let g:netrw_dirhist_2='/home/sean/Documents/projects/comp6443/comp6443-master/19t1/break/1-ext/sqli-slow'
+let g:netrw_dirhist_3='/home/sean/Documents/projects/comp6443/comp6443-master/19t1/break/1-ext/moonshot'
+let g:netrw_dirhist_4='/home/sean/Documents/work/assetnote/cs-deploy/.circleci'
+let g:netrw_dirhist_5='/home/sean/Documents/projects/comp6443/comp6443-master/19t1/midsem/easy-sqli'
+let g:netrw_dirhist_6='/home/sean/Documents/projects/comp6443/comp6443-master/19t1/midsem'

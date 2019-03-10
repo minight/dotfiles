@@ -19,7 +19,7 @@ nnoremap <leader>c :close<CR>
 " nnoremap <leader>_ <C-W>_
 " nnoremap <leader>= <C-W>=
 nnoremap <C-J> <C-W><C-J>
-nnoremap <C-k> <C-W><C-K>
+nnoremap <C-K> <C-W><C-K>
 nnoremap <C-l> <C-W><C-L>
 nnoremap <C-h> <C-W><C-H>
 nnoremap <bs> <C-W><C-H>
