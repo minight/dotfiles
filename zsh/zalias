@@ -10,7 +10,11 @@ alias ip2="ipython2"
 # alias ip="ipython"
 alias ip3="ipython3"
 alias ctfpy="ipython2 --profile=ctf"
-alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
+# alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
+alias kga=" k get svc,statefulset,deployment,pods,daemonset,hpa,replicaset"
+alias kctx="kubectx"
+alias k=kubectl
+alias s="git status -sb"
 
 
 recomp() {
@@ -42,7 +46,6 @@ alias pipenvreq="pipenv install \$(< requirements.txt)"
 alias mss="sudo masscan --ports 0-65535 --open --banners --rate 1000000"
 alias pcp="pwd | pbcopy"
 alias cdp="cd \"\$(pbpaste)\""
-alias k=kubectl
 alias untilgood="while [ $? -ne 0 ]; do !!; done"
 
 alias ndu="ncdu --color dark -rr -x --exclude .git --exclude node_modules"
@@ -80,10 +83,10 @@ gerl() {
 borg_backup() {
     borg create sean@southpole:/glacier/backups/sean::$1 ~ \
         --progress \
-        --exclude '/Users/sean/.Trash/' \
         --exclude '*.pyc' \
-        --exclude '._*' \
-        --exclude '/Users/sean/.z.*';
+        --exclude '/home/sean/.cache' \
+        --exclude '/home/sean/.z.*' \
+        --exclude '._*' \ && 
     borg check sean@southpole:/glacier/backups/sean
 }
 
@@ -101,9 +104,37 @@ rng() {
     od -tu2 -vAn -N$1 < /dev/urandom | tr '\n' ' ' | sed 's/ //g'
 }
 
+toast() {
+    curl "http://localhost:11001/notify?msg=$1"
+}
+
+alias notify="toast success || toast failed"
+
 
 dockershell() {
     docker exec -it "$@"
 }
 
 alias dsh="dockershell"
+
+alias whichk="kubectl config current-context"
+alias kgetc="kubectl config get-contexts"
+
+milestones() {
+  hub api --cache 3600 graphql -f query='
+    {
+      repository(owner: "{owner}", name: "{repo}") {
+        milestones(first: 100, states: OPEN, orderBy: {field:CREATED_AT, direction:DESC}) {
+          edges {
+            node {
+              title
+              number
+            }
+          }
+        }
+      }
+    }
+  ' | jq -r '.data.repository.milestones.edges[].node | [.number,.title] | @tsv'
+}
+
+alias gitms=milestones
