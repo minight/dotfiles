@@ -89,6 +89,8 @@ call plug#begin('~/.config/nvim/bundle')
     Plug 'hdima/python-syntax'
     Plug 'lervag/vimtex'
     Plug 'vim-scripts/nginx.vim'
+    Plug 'bazelbuild/vim-bazel'
+    Plug 'bazelbuild/vim-ft-bzl'
     " Plug 'vim-scripts/promela.vim'
     " Plug 'xuhdev/vim-latex-live-preview'
     " Plug 'vim-scripts/Latex-Text-Formatter'
@@ -123,6 +125,18 @@ filetype plugin indent on
     call glaive#Install()
     " Optional: Enable codefmt's default mappings on the <Leader>= prefix.
     Glaive codefmt plugin[mappings]
+    augroup autoformat_settings
+        autocmd FileType bzl AutoFormatBuffer buildifier
+        autocmd FileType c,cpp,proto,javascript AutoFormatBuffer clang-format
+        autocmd FileType dart AutoFormatBuffer dartfmt
+        autocmd FileType go AutoFormatBuffer gofmt
+        autocmd FileType gn AutoFormatBuffer gn
+        autocmd FileType html,css,sass,scss,less,json AutoFormatBuffer js-beautify
+        autocmd FileType java AutoFormatBuffer google-java-format
+        autocmd FileType python AutoFormatBuffer yapf
+        " Alternative: autocmd FileType python AutoFormatBuffer autopep8
+        autocmd FileType vue,yaml,yml AutoFormatBuffer prettier
+    augroup END
 " }
 
 " JediVim {
@@ -371,19 +385,20 @@ let g:NERDTreeIndicatorMapCustom = {
     \ 'python': ['pyls'],
     \ 'javascript': ['tcp://127.0.0.1:2089'],
     \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
-    \ 'go': ['bingo'],
+    \ 'go': ['gopls'],
     \ }
     " let g:LanguageClient_rootMarkers = {
     "     \ 'go': ['.git', 'go.mod'],
     "     \ }
+    " autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
 
     set hidden
-    " nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
+    nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
     nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 
     nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
     nnoremap <silent> gn :call LanguageClient_textDocument_rename()<CR>
-    nnoremap <silent> gs :call LanguageClient_textDocument_documentSymbol()<CR>
+    nnoremap <silent> gss :call LanguageClient_textDocument_documentSymbol()<CR>
     nnoremap <silent> gr :call LanguageClient_textDocument_references()<CR>
     nnoremap <silent> gf :call LanguageClient_textDocument_formatting()<CR>
     set formatexpr=LanguageClient_textDocument_rangeFormatting()
@@ -423,7 +438,7 @@ let g:NERDTreeIndicatorMapCustom = {
 " }
 "
 " vim-go {
-    run :GoBuild or :GoTestCompile based on the go file
+    " run :GoBuild or :GoTestCompile based on the go file
     function! s:build_go_files()
     let l:file = expand('%')
     if l:file =~# '^\f\+_test\.go$'
@@ -433,6 +448,8 @@ let g:NERDTreeIndicatorMapCustom = {
     endif
     endfunction
 
+    let g:go_def_mode='gopls'
+    let g:go_info_mode='gopls'
     let g:go_highlight_build_constraints = 1
     let g:go_highlight_extra_types = 1
     let g:go_highlight_fields = 1
@@ -450,9 +467,9 @@ let g:NERDTreeIndicatorMapCustom = {
     autocmd FileType go nmap <leader>grr <Plug>(go-run)
     autocmd FileType go nmap <leader>grn <Plug>(go-rename)
     autocmd FileType go nmap <Leader>gi <Plug>(go-info)
-    autocmd FileType go nmap <Leader>gd <Plug>(go-def)
+    " autocmd FileType go nmap <Leader>gd <Plug>(go-def)
     autocmd FileType go nmap <Leader>gh <Plug>(go-describe)
-    autocmd FileType go nmap <Leader>gf <Plug>(go-freevars)
+    " autocmd FileType go nmap <Leader>gf <Plug>(go-freevars)
     autocmd Filetype go nmap <leader>ga <Plug>(go-alternate-edit)
     autocmd Filetype go nmap <leader>gah <Plug>(go-alternate-split)
     autocmd Filetype go nmap <leader>gav <Plug>(go-alternate-vertical)
