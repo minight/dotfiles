@@ -75,10 +75,11 @@ nnoremap Y y$
 vnoremap p "_dP
 
 " Write as sudo
-cnoremap w!! w !sudo tee % >/dev/null
+" cnoremap w!! w !sudo tee % >/dev/null
+cnoremap w!! w suda://%
 
 " Search Clearing
-nnoremap <esc> :noh<return><esc>
+nnoremap <esc> :noh<return>:GoSameIdsClear<return><esc>
 
 " Clean spaces
 nnoremap <leader>ds :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>

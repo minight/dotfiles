@@ -35,7 +35,7 @@ set formatoptions+=o    " Continue comment marker in new lines.
 
 set autoread
 
-set clipboard=unnamed
+" set clipboard=unnamed
 set clipboard+=unnamedplus " so it works with ubuntu
 let g:clipboard = {
         \   'name': 'tmuxclip',

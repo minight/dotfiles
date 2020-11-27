@@ -1,0 +1,35 @@
+snippet testsuite
+package ${1}
+
+import (
+	"testing"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/suite"
+)
+
+type $2TestSuite struct {
+	suite.Suite
+}
+
+func (suite *$2TestSuite) SetupSuite() {
+}
+
+func (suite *$2TestSuite) SetupTest() {
+}
+
+func (suite *$2TestSuite) TearDownTest() {
+}
+
+func (suite *$2TestSuite) TearDownSuite() {
+}
+
+func (suite *$2TestSuite) Test${3:Foo}() {
+}
+
+func (suite *$2TestSuite) TestTimeoutPing() {
+}
+
+func Test$2TestSuite(t *testing.T) {
+	suite.Run(t, new(${2}TestSuite))
+}
+endsnippet

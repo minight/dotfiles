@@ -4,9 +4,10 @@ bind-key ` send-prefix
 setw -g mode-keys vi
 
 unbind % # Remove default binding since we’re replacing
-bind | split-window -h
-bind - split-window -v
+bind | split-window -h -c "#{pane_current_path}"
+bind - split-window -v -c "#{pane_current_path}"
 
+bind o set-window-option synchronize-panes\; display-message "synchronize-panes is now #{?pane_synchronized,on,off}"
 
 # screen mode
 #set -g default-terminal "screen"
@@ -36,6 +37,17 @@ set -g history-limit 50000
 
 # # Vi copypaste
 setw -g mode-keys vi
+
+# bind-key -t vi-copy v begin-selection
+# bind-key y copy-pipe "reattach-to-user-namespace pbcopy"
+
+set-option -s set-clipboard off
+bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "xclip -selection clipboard -i"
+bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "xclip -selection clipboard -i"
+# Update default binding of `Enter` to also use copy-pipe
+# unbind Enter
+# bind-key Enter copy-pipe "reattach-to-user-namespace pbcopy"
+
 # bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "reattach-to-user-namespace pbcopy"
 # bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "reattach-to-user-namespace pbcopy" \; display-message "highlighted selection copied to system clipboard"
 
@@ -54,8 +66,8 @@ setw -g mouse on
 
 # panes
 # set -g mouse-select-pane on
-set -g pane-border-fg colour6
-set -g pane-active-border-fg brightred
+# set -g pane-border-fg colour6
+# set -g pane-active-border-fg brightred
 # set -g pane-active-border-attr blink
 # resize panes with mouse (drag borders)
 # set -g mouse-select-pane on
@@ -74,27 +86,27 @@ set -g status-interval 2
 
 
 # messaging
-set -g message-fg black
-set -g message-bg yellow
-set -g message-command-fg blue
-set -g message-command-bg black
+# set -g message-fg black
+# set -g message-bg yellow
+# set -g message-command-fg blue
+# set -g message-command-bg black
 
 
 #window mode
-setw -g mode-bg colour5
-setw -g mode-fg colour0
+# setw -g mode-bg colour5
+# setw -g mode-fg colour0
 
 
 # window status
 setw -g window-status-format " #F#I:#W#F "
 setw -g window-status-current-format " #F#I:#W#F "
 setw -g window-status-format "#[fg=magenta]#[bg=black] #I #[bg=cyan]#[fg=colour8] #W "
-setw -g window-status-current-format "#[bg=brightmagenta]#[fg=colour8] #I #[fg=colour8]#[bg=colour14] #W "
-setw -g window-status-current-bg colour0
-setw -g window-status-current-fg colour11
-setw -g window-status-current-attr dim
-setw -g window-status-bg green
-setw -g window-status-fg black
+# setw -g window-status-current-format "#[bg=brightmagenta]#[fg=colour8] #I #[fg=colour8]#[bg=colour14] #W "
+# setw -g window-status-current-bg colour0
+# setw -g window-status-current-fg colour11
+# setw -g window-status-current-attr dim
+# setw -g window-status-bg green
+# setw -g window-status-fg black
 # setw -g window-status-attr reverse
 # setw -g window-status-content-bg colour0
 # setw -g window-status-content-fg colour11
@@ -108,7 +120,6 @@ set -g status-right '#[fg=brightgreen]%a %H:%M'
 # source ~/.local/lib/python2.7/site-packages/powerline/bindings/tmux/powerline.conf
 set-option -g default-terminal "screen-256color"
 
-set -g @continuum-restore 'on'
 
 # List of plugins
 set -g @plugin 'tmux-plugins/tpm'
@@ -119,9 +130,11 @@ set -g @plugin 'tmux-plugins/tmux-resurrect'
 set -g @plugin 'tmux-plugins/tmux-continuum'
 set -g @plugin 'tmux-plugins/tmux-copycat'
 set -g @plugin 'tmux-plugins/tmux-logging'
+set -g @plugin 'jimeh/tmux-themepack'
 
-
-
+set -g @themepack 'powerline/double/cyan'
+set -g @continuum-restore 'on'
+set -g @continuum-save-interval '5'
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
 run -b '~/.tmux/plugins/tpm/tpm'
 

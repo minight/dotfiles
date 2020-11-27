@@ -7,63 +7,65 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall | nested source $MYVIMRC
 endif
 
+" vim-polyglot {
+    let g:polyglot_disabled = ['go']
+" }
+
 call plug#begin('~/.config/nvim/bundle')
     " Snippets
     Plug 'SirVer/ultisnips'
     Plug 'honza/vim-snippets'
-    " "
-    " " " Syntax Checkers
+
+    " Syntax Checkers
     Plug 'vim-syntastic/syntastic'
     " Plug 'vim-scripts/taglist.vim'
-    " "
-    " " " Fuzzy Finding
+
+    " Fuzzy Finding
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
     Plug 'jremmen/vim-ripgrep'
-    Plug 'cbxsn/vim-gitmoji'
-    " "
-    " " " File Managers
+
+    " File Managers
     Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
     Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
-    " "Plug 'tpope/vim-vinegar'
-    "
+
     " Autocomplete Engines
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'}
     Plug 'Shougo/echodoc.vim'
     Plug 'Shougo/neosnippet.vim'
     Plug 'Shougo/neosnippet-snippets'
-    "
-    " " Language Engines
+
+    " Language Engines
     Plug 'autozimu/LanguageClient-neovim', {
         \ 'branch': 'next',
         \ 'do': 'bash install.sh',
         \ }
     Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
     " Plug 'davidhalter/jedi-vim', { 'on': [] }
-    "
+
     Plug 'Shougo/neoinclude.vim'
     Plug 'neomake/neomake'
-    " " Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/bundle/gocode/nvim/symlink.sh' }
-    "
-    " "
+    " Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/bundle/gocode/nvim/symlink.sh' }
+
     " Plug 'zchee/deoplete-jedi'
     " Plug 'zchee/deoplete-clang'
     Plug 'fszymanski/deoplete-emoji'
-    " " Plug 'Valloric/YouCompleteMe', { 'dir': '~/.config/nvim/bundle/YouCompleteMe', 'do' : 'python3 install.py --clang-complete --tern-completer', 'on':[] }
-    " " Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install() }}
-    " " Plug 'w0rp/ale'
-    "
-    " " Code Formatter
+    " Plug 'Valloric/YouCompleteMe', { 'dir': '~/.config/nvim/bundle/YouCompleteMe', 'do' : 'python3 install.py --clang-complete --tern-completer', 'on':[] }
+    " Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install() }}
+    " Plug 'w0rp/ale'
+
+    " Rust
+    Plug 'rust-lang/rust.vim'
+
+    "" Code Formatter
     Plug 'google/vim-maktaba'
     Plug 'google/vim-codefmt'
-    " Also add Glaive, which is used to configure codefmt's maktaba flags. See
-    " " `:help :Glaive` for usage.
     Plug 'google/vim-glaive'
-    " "
-    " " " Buffer Manager
-    " Plug 'jeetsukumaran/vim-buffergator'
-    " "
-    " " " Utilities
+
+    " Buffer Manager
+    Plug 'jeetsukumaran/vim-buffergator'
+
+    " Utilities
     Plug 'craigemery/vim-autotag', { 'on': [] }
     Plug 'jiangmiao/auto-pairs'
     Plug 'terryma/vim-multiple-cursors'
@@ -73,11 +75,13 @@ call plug#begin('~/.config/nvim/bundle')
     Plug 'majutsushi/tagbar'
     Plug 'airblade/vim-gitgutter'
     Plug 'scrooloose/nerdcommenter'
-    " " " Plug 'rizzatti/dash.vim'
-    " " " Plug 'AndrewRadev/splitjoin.vim'
+    Plug 'lambdalisue/suda.vim'
+    Plug 'vim-scripts/VisIncr'
+    " Plug 'rizzatti/dash.vim'
+    " Plug 'AndrewRadev/splitjoin.vim'
     " Plug 'mgedmin/coverage-highlight.vim'
-    " "
-    " " " Syntax & Highlighters
+
+    " Syntax & Highlighters
     Plug 'Glench/Vim-Jinja2-Syntax'
     Plug 'ap/vim-css-color'
     Plug 'bronson/vim-trailing-whitespace'
@@ -87,18 +91,17 @@ call plug#begin('~/.config/nvim/bundle')
     Plug 'sheerun/vim-polyglot'
     Plug 'tmhedberg/SimpylFold'
     Plug 'hdima/python-syntax'
-    Plug 'lervag/vimtex'
     Plug 'vim-scripts/nginx.vim'
     Plug 'bazelbuild/vim-bazel'
     Plug 'bazelbuild/vim-ft-bzl'
     " Plug 'vim-scripts/promela.vim'
     " Plug 'xuhdev/vim-latex-live-preview'
     " Plug 'vim-scripts/Latex-Text-Formatter'
-    "
-    " " Magic Engines
+
+    " Magic Engines
     Plug 'jalvesaq/vimcmdline'
-    "
-    " " Make it pretty
+
+    " Make it pretty
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes', { 'on': [] }
 
@@ -116,10 +119,6 @@ call plug#begin('~/.config/nvim/bundle')
     augroup END
 call plug#end()
 filetype plugin indent on
-
-" vim-polyglot {
-    let g:polyglot_disabled = ['go']
-" }
 
 " Glaive {
     call glaive#Install()
@@ -278,7 +277,7 @@ filetype plugin indent on
 " }
 "
 " NERDTree-Git {
-let g:NERDTreeIndicatorMapCustom = {
+let g:NERDTreeGitStatusIndicatorMapCustom = {
     \ "Modified"  : "*",
     \ "Staged"    : "+",
     \ "Untracked" : "?",
@@ -294,6 +293,8 @@ let g:NERDTreeIndicatorMapCustom = {
 
 " vim-markdown {
     let g:vim_markdown_fenced_languages = ['csharp=cs', 'python=py', 'py=py', 'js=js']
+    let g:vim_markdown_conceal = 0
+    let g:vim_markdown_conceal_code_blocks = 0
 " }
 
 " vim-multicursor {
@@ -379,18 +380,19 @@ let g:NERDTreeIndicatorMapCustom = {
     " set completefunc=LanguageClient#complete
 
     let g:LanguageClient_serverCommands = {
+    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
     \ 'cpp': ['/usr/local/bin/cquery',
     \ '--log-file=/tmp/cq.log',
     \ '--init={"cacheDirectory":"/tmp/cquery/"}'],
+    \ 'go': ['gopls'],
     \ 'python': ['pyls'],
     \ 'javascript': ['tcp://127.0.0.1:2089'],
     \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
-    \ 'go': ['gopls'],
     \ }
-    " let g:LanguageClient_rootMarkers = {
-    "     \ 'go': ['.git', 'go.mod'],
-    "     \ }
-    " autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
+    autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
+    let g:LanguageClient_rootMarkers = {
+        \ 'go': ['go.mod'],
+        \ }
 
     set hidden
     nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
@@ -448,8 +450,10 @@ let g:NERDTreeIndicatorMapCustom = {
     endif
     endfunction
 
+    let g:go_build_tags="integration,noextdeps"
     let g:go_def_mode='gopls'
     let g:go_info_mode='gopls'
+    let g:go_rename_command='gopls'
     let g:go_highlight_build_constraints = 1
     let g:go_highlight_extra_types = 1
     let g:go_highlight_fields = 1
@@ -495,7 +499,7 @@ let g:NERDTreeIndicatorMapCustom = {
 " }
 "
 " cxzbnzb gitmoji  {
-    inoremap <expr> <C-W><C-E> gitmoji#complete()
+    " inoremap <expr> <C-W><C-E> gitmoji#complete()
 "
 " Neomake {
     " call neomake#configure#automake('w') " When writing a buffer (no delay).
@@ -529,8 +533,10 @@ let g:NERDTreeIndicatorMapCustom = {
 
 " Deoplete {
     let g:deoplete#enable_at_startup = 1
-    let g:deoplete#enable_refresh_always = 1
-    let g:deoplete#sources = {}
+    call deoplete#custom#option({
+    \ 'enable_refresh_always': 1,
+    \ 'smart_case': v:true,
+    \ })
     " call deoplete#custom#option('sources', {
     " \ '_': ['buffer', 'tag'],
     " \ 'cpp': ['buffer', 'tag'],
@@ -576,9 +582,18 @@ let g:NERDTreeIndicatorMapCustom = {
     inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
     inoremap <expr><BS> deoplete#smart_close_popup()."\<C-h>"
 
-    inoremap <expr><C-g> deoplete#undo_completion()
+    inoremap <expr><C-u> deoplete#undo_completion()
     " " <C-l>: redraw candidates
     inoremap <expr><C-g>       deoplete#refresh()
     inoremap <silent><expr><C-l>       deoplete#complete_common_string()
 " }
 
+" Suda {
+    let g:suda_smart_edit = 0
+" }
+
+" rust.vim {
+    let g:rustfmt_autosave = 1
+" }
+"
+" let g:go_debug=["lsp"]

@@ -1,7 +1,7 @@
 autoload -Uz promptinit
 promptinit
-prompt sean
-# prompt steeef
+# prompt sean
+prompt steeef
 #PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")'
 
 # Google Cloud
@@ -14,6 +14,7 @@ prompt sean
 export GOPATH="$HOME/.go"
 export PATH=/usr/local/bin:$PATH
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/tools/custom:$PATH"
 export PATH="$PATH:/usr/local/go/bin"
 export PATH="/usr/local/opt/python@2/bin:$PATH"
 export PATH="/usr/local/opt/python@2/libexec/bin:$PATH"
@@ -24,6 +25,7 @@ export PATH="$HOME/Library/Python/2.7/bin:$PATH"
 export PATH="$HOME/Library/Python/3.6/bin:$PATH"
 export PATH="$PATH:$HOME/cheri/output/sdk/bin"
 export PATH=$HOME/.cargo/bin:$PATH
+export PATH="${PATH}:${HOME}/.krew/bin"
 
 export EDITOR="vim"
 # ~/Documents/shell/base16-shell/scripts/base16-tomorrow-night.sh
@@ -33,9 +35,9 @@ export EDITOR="vim"
 . ~/tools/shell/z/z.sh
 . ~/tools/shell/fz/fz.sh
 
-export FZF_DEFAULT_COMMAND='fd --hidden --exclude ".git" .'
+# export FZF_DEFAULT_COMMAND='fd --hidden --exclude ".git" .'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-# export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 
 
 unalias z
@@ -74,7 +76,7 @@ source $HOME/.dotfiles/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighti
 # elif [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then
 #     source ~/.zlinux
 # fi
-# source ~/.bountyalias
+source ~/.bountyalias
 
 AWS_AUTOCOMPLETE="$HOME/.local/bin/aws_zsh_completer.sh"
 if [ -f "${AWS_AUTOCOMPLETE}" ]; then
@@ -89,3 +91,15 @@ source <(kubectl completion zsh)
 # . $HOME/bin/google-cloud-sdk/completion.zsh.inc
 # . $HOME/bin/google-cloud-sdk/path.zsh.inc
 # export PATH="/home/sean/cheri/output/sdk/bin:$PATH"
+if test "$SSH_AUTH_SOCK" ; then
+    ln -sf $SSH_AUTH_SOCK ~/.ssh/ssh_auth_sock
+fi
+if [ -z "$SSH_AUTH_SOCK" ] ; then
+    eval `ssh-agent -s`
+    ssh-add
+fi
+
+source $HOME/.config/zsh/notifyosd.zsh
+GOPRIVATE=github.com/assetnote
+source $HOME/.zsecrets
+export PATH="/home/sean/tools/dev/git-fuzzy/bin:$PATH"
