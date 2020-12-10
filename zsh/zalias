@@ -1,8 +1,8 @@
 alias bt="wget http://cachefly.cachefly.net/100mb.test -O /dev/null"
+alias vim="nvim"
 alias lock="/System/Library/Frameworks/ScreenSaver.framework/Resources/ScreenSaverEngine.app/Contents/MacOS/ScreenSaverEngine"
 alias lash="ls -lash"
 alias mewy="ssh tunnel"
-alias fd=fdfind
 alias cse="ssh cse"
 alias debserver="ssh debianlocal"
 alias flushdns="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder; say DNS cache flushed"

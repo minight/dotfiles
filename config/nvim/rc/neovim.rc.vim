@@ -1,8 +1,8 @@
 " Something to get python3 working
-"let g:python3_host_prog = '/usr/local/bin/python3'
+let g:python3_host_prog = '/usr/local/bin/python3'
 "let g:python2_host_prog = '/usr/local/bin/python2'
-"let g:python_host_prog = '/usr/local/bin/python3'
-"let g:pymode_python = 'python3'
+let g:python_host_prog = '/usr/local/bin/python3'
+let g:pymode_python = 'python3'
 "
 if exists("$VIRTUAL_ENV")
     let g:python_host_prog=substitute(system("which -a python | head -n2 | tail -n1"), "\n", '', 'g')

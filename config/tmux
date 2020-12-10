@@ -4,6 +4,7 @@ bind-key ` send-prefix
 setw -g mode-keys vi
 
 unbind % # Remove default binding since we’re replacing
+unbind '"'
 bind | split-window -h -c "#{pane_current_path}"
 bind - split-window -v -c "#{pane_current_path}"
 
@@ -25,15 +26,17 @@ bind j select-pane -D
 bind k select-pane -U
 bind l select-pane -R
 
+bind o setw synchronize-panes
+
 # history
-set -g history-limit 50000
+set -g history-limit 100000
 
 # allow terminal scrolling
-# set-option -g terminal-overrides 'xterm*:smcup@:rmcup@'
-# set-option -g default-command "reattach-to-user-namespace -l zsh"
+set-option -g terminal-overrides 'xterm*:smcup@:rmcup@'
+set-option -g default-command "reattach-to-user-namespace -l zsh"
 
-# bind-key -T copy-mode-vi WheelUpPane send -X scroll-up
-# bind-key -T copy-mode-vi WheelDownPane send -X scroll-down
+bind-key -T copy-mode-vi WheelUpPane send -X scroll-up
+bind-key -T copy-mode-vi WheelDownPane send -X scroll-down
 
 # # Vi copypaste
 setw -g mode-keys vi
