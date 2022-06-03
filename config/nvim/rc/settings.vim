@@ -38,14 +38,14 @@ set autoread
 " set clipboard=unnamed
 set clipboard+=unnamedplus " so it works with ubuntu
 let g:clipboard = {
-        \   'name': 'tmuxclip',
+        \   'name': 'pb',
         \   'copy': {
-        \      '+': 'xclip -i',
-        \      '*': 'xclip -i',
+        \      '+': 'pbcopy',
+        \      '*': 'pbcopy',
         \    },
         \   'paste': {
-        \      '+': 'xclip -o',
-        \      '*': 'xclip -o',
+        \      '+': 'pbpaste',
+        \      '*': 'pbpaste',
         \   },
         \   'cache_enabled': 1,
         \ }

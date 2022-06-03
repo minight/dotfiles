@@ -32,9 +32,18 @@ recomp() {
     fi
     zsh
 }
+
+jar-decompile() {
+    SRC=$1
+    DST=$2
+    java -cp /usr/local/bin/java-decompiler.jar \
+        org.jetbrains.java.decompiler.main.decompiler.ConsoleDecompiler \
+        -dgs=true \
+        "${SRC}" "${DST}"
+}
 alias pg='ping 8.8.8.8'
 # alias burp="java -jar /Users/sean/tools/burp/burp-latest &; /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --profile-directory=\"Profile 4\" --disable-xss-auditor &"
-alias burpo="GDK_SCALE=2 java -jar /Users/sean/BurpSuitePro/burpsuite_pro.jar &"
+alias burpo="GDK_SCALE=2 java -jar /Users/seanyeoh/apps/burp/burp.jar &"
 alias ctftime="docker run -v /Users/sean/ctftime:/root/host-share --privileged -it --workdir=/root ctfhacker/epictreasure"
 alias rot13="tr '[A-Za-z]' '[N-ZA-Mn-za-m]’"
 alias awk=gawk

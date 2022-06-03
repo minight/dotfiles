@@ -30,17 +30,19 @@ call plug#begin('~/.config/nvim/bundle')
     Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
 
     " Autocomplete Engines
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'}
-    Plug 'Shougo/echodoc.vim'
-    Plug 'Shougo/neosnippet.vim'
-    Plug 'Shougo/neosnippet-snippets'
+    " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'}
+    " Plug 'Shougo/echodoc.vim'
+    " Plug 'Shougo/neosnippet.vim'
+    " Plug 'Shougo/neosnippet-snippets'
+
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
     " Language Engines
-    Plug 'autozimu/LanguageClient-neovim', {
-        \ 'branch': 'next',
-        \ 'do': 'bash install.sh',
-        \ }
-    Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+    " Plug 'autozimu/LanguageClient-neovim', {
+    "     \ 'branch': 'next',
+    "     \ 'do': 'bash install.sh',
+    "     \ }
+    " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
     " Plug 'davidhalter/jedi-vim', { 'on': [] }
 
     Plug 'Shougo/neoinclude.vim'
@@ -49,7 +51,7 @@ call plug#begin('~/.config/nvim/bundle')
 
     " Plug 'zchee/deoplete-jedi'
     " Plug 'zchee/deoplete-clang'
-    Plug 'fszymanski/deoplete-emoji'
+    " Plug 'fszymanski/deoplete-emoji'
     " Plug 'Valloric/YouCompleteMe', { 'dir': '~/.config/nvim/bundle/YouCompleteMe', 'do' : 'python3 install.py --clang-complete --tern-completer', 'on':[] }
     " Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install() }}
     " Plug 'w0rp/ale'
@@ -359,7 +361,7 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
 
 " Python Syntax {
     let python_highlight_all = 1
-    let python_version_2 = 1
+    let python_version_2 = 0
 " }
 
 " Nerd Commenter {
@@ -376,34 +378,34 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
 " }
 
 " Language Server {
-    let g:LanguageClient_autoStart = 1
-    " set completefunc=LanguageClient#complete
+    " let g:LanguageClient_autoStart = 1
+    " " set completefunc=LanguageClient#complete
 
-    let g:LanguageClient_serverCommands = {
-    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
-    \ 'cpp': ['/usr/local/bin/cquery',
-    \ '--log-file=/tmp/cq.log',
-    \ '--init={"cacheDirectory":"/tmp/cquery/"}'],
-    \ 'go': ['gopls'],
-    \ 'python': ['pyls'],
-    \ 'javascript': ['tcp://127.0.0.1:2089'],
-    \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
-    \ }
-    autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
-    let g:LanguageClient_rootMarkers = {
-        \ 'go': ['go.mod'],
-        \ }
+    " let g:LanguageClient_serverCommands = {
+    " \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+    " \ 'cpp': ['/usr/local/bin/cquery',
+    " \ '--log-file=/tmp/cq.log',
+    " \ '--init={"cacheDirectory":"/tmp/cquery/"}'],
+    " \ 'go': ['gopls'],
+    " \ 'python': ['pyls'],
+    " \ 'javascript': ['tcp://127.0.0.1:2089'],
+    " \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
+    " \ }
+    " autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
+    " let g:LanguageClient_rootMarkers = {
+    "     \ 'go': ['go.mod'],
+    "     \ }
 
-    set hidden
-    nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
-    nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+    " set hidden
+    " nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
+    " nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 
-    nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
-    nnoremap <silent> gn :call LanguageClient_textDocument_rename()<CR>
-    nnoremap <silent> gss :call LanguageClient_textDocument_documentSymbol()<CR>
-    nnoremap <silent> gr :call LanguageClient_textDocument_references()<CR>
-    nnoremap <silent> gf :call LanguageClient_textDocument_formatting()<CR>
-    set formatexpr=LanguageClient_textDocument_rangeFormatting()
+    " nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+    " nnoremap <silent> gn :call LanguageClient_textDocument_rename()<CR>
+    " nnoremap <silent> gss :call LanguageClient_textDocument_documentSymbol()<CR>
+    " nnoremap <silent> gr :call LanguageClient_textDocument_references()<CR>
+    " nnoremap <silent> gf :call LanguageClient_textDocument_formatting()<CR>
+    " set formatexpr=LanguageClient_textDocument_rangeFormatting()
 " }
 "
 " Vim Airline settings {
@@ -441,46 +443,46 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
 "
 " vim-go {
     " run :GoBuild or :GoTestCompile based on the go file
-    function! s:build_go_files()
-    let l:file = expand('%')
-    if l:file =~# '^\f\+_test\.go$'
-        call go#test#Test(0, 1)
-    elseif l:file =~# '^\f\+\.go$'
-        call go#cmd#Build(0)
-    endif
-    endfunction
+    " function! s:build_go_files()
+    " let l:file = expand('%')
+    " if l:file =~# '^\f\+_test\.go$'
+    "     call go#test#Test(0, 1)
+    " elseif l:file =~# '^\f\+\.go$'
+    "     call go#cmd#Build(0)
+    " endif
+    " endfunction
 
-    let g:go_build_tags="integration,noextdeps"
-    let g:go_def_mode='gopls'
-    let g:go_info_mode='gopls'
-    let g:go_rename_command='gopls'
-    let g:go_highlight_build_constraints = 1
-    let g:go_highlight_extra_types = 1
-    let g:go_highlight_fields = 1
-    let g:go_highlight_functions = 1
-    let g:go_highlight_methods = 1
-    let g:go_highlight_operators = 1
-    let g:go_highlight_structs = 1
-    let g:go_highlight_types = 1
-    let g:go_auto_sameids = 1
-    let g:go_auto_type_info = 1
+    " let g:go_build_tags="integration,noextdeps"
+    " let g:go_def_mode='gopls'
+    " let g:go_info_mode='gopls'
+    " let g:go_rename_command='gopls'
+    " let g:go_highlight_build_constraints = 1
+    " let g:go_highlight_extra_types = 1
+    " let g:go_highlight_fields = 1
+    " let g:go_highlight_functions = 1
+    " let g:go_highlight_methods = 1
+    " let g:go_highlight_operators = 1
+    " let g:go_highlight_structs = 1
+    " let g:go_highlight_types = 1
+    " let g:go_auto_sameids = 1
+    " let g:go_auto_type_info = 1
 
-    autocmd FileType go nmap <leader>gb <Plug>(go-build)
-    autocmd FileType go nmap <leader>gt <Plug>(go-test)
-    autocmd FileType go nmap <leader>gc <Plug>(go-coverage-toggle)
-    autocmd FileType go nmap <leader>grr <Plug>(go-run)
-    autocmd FileType go nmap <leader>grn <Plug>(go-rename)
-    autocmd FileType go nmap <Leader>gi <Plug>(go-info)
-    " autocmd FileType go nmap <Leader>gd <Plug>(go-def)
-    autocmd FileType go nmap <Leader>gh <Plug>(go-describe)
-    " autocmd FileType go nmap <Leader>gf <Plug>(go-freevars)
-    autocmd Filetype go nmap <leader>ga <Plug>(go-alternate-edit)
-    autocmd Filetype go nmap <leader>gah <Plug>(go-alternate-split)
-    autocmd Filetype go nmap <leader>gav <Plug>(go-alternate-vertical)
+    " autocmd FileType go nmap <leader>gb <Plug>(go-build)
+    " autocmd FileType go nmap <leader>gt <Plug>(go-test)
+    " autocmd FileType go nmap <leader>gc <Plug>(go-coverage-toggle)
+    " autocmd FileType go nmap <leader>grr <Plug>(go-run)
+    " autocmd FileType go nmap <leader>grn <Plug>(go-rename)
+    " autocmd FileType go nmap <Leader>gi <Plug>(go-info)
+    " " autocmd FileType go nmap <Leader>gd <Plug>(go-def)
+    " autocmd FileType go nmap <Leader>gh <Plug>(go-describe)
+    " " autocmd FileType go nmap <Leader>gf <Plug>(go-freevars)
+    " autocmd Filetype go nmap <leader>ga <Plug>(go-alternate-edit)
+    " autocmd Filetype go nmap <leader>gah <Plug>(go-alternate-split)
+    " autocmd Filetype go nmap <leader>gav <Plug>(go-alternate-vertical)
 
-    noremap <C-w> :cnext<CR>
-    noremap <C-e> :cprevious<CR>
-    nnoremap <leader>a :cclose<CR>
+    " noremap <C-w> :cnext<CR>
+    " noremap <C-e> :cprevious<CR>
+    " nnoremap <leader>a :cclose<CR>
 
     "let g:go_auto_sameids = 1
     set updatetime=100
@@ -533,59 +535,59 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
 
 " Deoplete {
     let g:deoplete#enable_at_startup = 1
-    call deoplete#custom#option({
-    \ 'enable_refresh_always': 1,
-    \ 'smart_case': v:true,
-    \ })
+    " call deoplete#custom#option({
+    " \ 'enable_refresh_always': 1,
+    " \ 'smart_case': v:true,
+    " \ })
     " call deoplete#custom#option('sources', {
     " \ '_': ['buffer', 'tag'],
     " \ 'cpp': ['buffer', 'tag'],
     " \})
-    call deoplete#custom#option('ultisnips',{'matchers': ['matcher_fuzzy']})
-    call deoplete#custom#source('LanguageClient','mark', 'ℰ')
-    call deoplete#custom#source('omni',          'mark', '⌾')
-    call deoplete#custom#source('flow',          'mark', '⌁')
-    call deoplete#custom#source('ternjs',        'mark', '⌁')
-    call deoplete#custom#source('go',            'mark', '⌁')
-    call deoplete#custom#source('jedi',          'mark', '⌁')
-    call deoplete#custom#source('vim',           'mark', '⌁')
-    call deoplete#custom#source('ultisnips',     'mark', '⌘')
-    call deoplete#custom#source('around',        'mark', '↻')
-    call deoplete#custom#source('buffer',        'mark', 'ℬ')
-    call deoplete#custom#source('tmux-complete', 'mark', '⊶')
-    call deoplete#custom#source('syntax',        'mark', '♯')
-    call deoplete#custom#source('member',        'mark', '.')
+    " call deoplete#custom#option('ultisnips',{'matchers': ['matcher_fuzzy']})
+    " call deoplete#custom#source('LanguageClient','mark', 'ℰ')
+    " call deoplete#custom#source('omni',          'mark', '⌾')
+    " call deoplete#custom#source('flow',          'mark', '⌁')
+    " call deoplete#custom#source('ternjs',        'mark', '⌁')
+    " call deoplete#custom#source('go',            'mark', '⌁')
+    " call deoplete#custom#source('jedi',          'mark', '⌁')
+    " call deoplete#custom#source('vim',           'mark', '⌁')
+    " call deoplete#custom#source('ultisnips',     'mark', '⌘')
+    " call deoplete#custom#source('around',        'mark', '↻')
+    " call deoplete#custom#source('buffer',        'mark', 'ℬ')
+    " call deoplete#custom#source('tmux-complete', 'mark', '⊶')
+    " call deoplete#custom#source('syntax',        'mark', '♯')
+    " call deoplete#custom#source('member',        'mark', '.')
 
 
     " let g:deoplete#sources#jedi#show_docstring = 1
     " nnoremap <expr><leader>td deoplete#toggle()
     "
-    inoremap <silent><expr> <TAB>
-        \ pumvisible() ? "\<C-n>" :
-        \ <SID>check_back_space() ? "\<TAB>" :
-        \ deoplete#manual_complete()
-    function! s:check_back_space() abort "{{{
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~ '\s'
-    endfunction"}}}
-    "
-    " <CR>: close popup and save indent.
-    inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-    function! s:my_cr_function() abort
-      return deoplete#close_popup() . "\<CR>"
-    endfunction
-
-    " <S-TAB>: completion back.
-    inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<C-h>"
-    "
-    " " <C-h>, <BS>: close popup and delete backword char.
-    inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
-    inoremap <expr><BS> deoplete#smart_close_popup()."\<C-h>"
-
-    inoremap <expr><C-u> deoplete#undo_completion()
-    " " <C-l>: redraw candidates
-    inoremap <expr><C-g>       deoplete#refresh()
-    inoremap <silent><expr><C-l>       deoplete#complete_common_string()
+"    inoremap <silent><expr> <TAB>
+"        \ pumvisible() ? "\<C-n>" :
+"        \ <SID>check_back_space() ? "\<TAB>" :
+"        \ deoplete#manual_complete()
+"    function! s:check_back_space() abort "{{{
+"    let col = col('.') - 1
+"    return !col || getline('.')[col - 1]  =~ '\s'
+"    endfunction"}}}
+"    "
+"    " <CR>: close popup and save indent.
+"    inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+"    function! s:my_cr_function() abort
+"      return deoplete#close_popup() . "\<CR>"
+"    endfunction
+"
+"    " <S-TAB>: completion back.
+"    inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<C-h>"
+"    "
+"    " " <C-h>, <BS>: close popup and delete backword char.
+"    inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
+"    inoremap <expr><BS> deoplete#smart_close_popup()."\<C-h>"
+"
+"    inoremap <expr><C-u> deoplete#undo_completion()
+"    " " <C-l>: redraw candidates
+"    inoremap <expr><C-g>       deoplete#refresh()
+"    inoremap <silent><expr><C-l>       deoplete#complete_common_string()
 " }
 
 " Suda {
@@ -597,3 +599,151 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
 " }
 "
 " let g:go_debug=["lsp"]
+"
+" coc {
+    " Use <C-l> for trigger snippet expand.
+    imap <C-l> <Plug>(coc-snippets-expand)
+
+    " Use <C-j> for select text for visual placeholder of snippet.
+    vmap <C-j> <Plug>(coc-snippets-select)
+
+    " Use <C-j> for jump to next placeholder, it's default of coc.nvim
+    let g:coc_snippet_next = '<c-j>'
+
+    " Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+    let g:coc_snippet_prev = '<c-k>'
+
+    " Use <C-j> for both expand and jump (make expand higher priority.)
+    imap <C-j> <Plug>(coc-snippets-expand-jump)
+
+    " Use <leader>x for convert visual selected code to snippet
+    xmap <leader>x  <Plug>(coc-convert-snippet)
+
+    inoremap <silent><expr> <TAB>
+        \ pumvisible() ? coc#_select_confirm() :
+        \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+        \ <SID>check_back_space() ? "\<TAB>" :
+        \ coc#refresh()
+
+    function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
+    endfunction
+
+    let g:coc_snippet_next = '<tab>'
+
+    " Make <CR> auto-select the first completion item and notify coc.nvim to
+    " format on enter, <cr> could be remapped by other vim plugin
+    inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                                \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+    " Use `[g` and `]g` to navigate diagnostics
+    " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+    nmap <silent> [g <Plug>(coc-diagnostic-prev)
+    nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+    " GoTo code navigation.
+    nmap <silent> gd <Plug>(coc-definition)
+    nmap <silent> gy <Plug>(coc-type-definition)
+    nmap <silent> gi <Plug>(coc-implementation)
+    nmap <silent> gr <Plug>(coc-references)
+
+    " Use K to show documentation in preview window.
+    nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+    function! s:show_documentation()
+    if (index(['vim','help'], &filetype) >= 0)
+        execute 'h '.expand('<cword>')
+    elseif (coc#rpc#ready())
+        call CocActionAsync('doHover')
+    else
+        execute '!' . &keywordprg . " " . expand('<cword>')
+    endif
+    endfunction
+
+    " Highlight the symbol and its references when holding the cursor.
+    autocmd CursorHold * silent call CocActionAsync('highlight')
+
+    " Symbol renaming.
+    nmap <leader>crn <Plug>(coc-rename)
+
+    " Formatting selected code.
+    xmap <leader>cf  <Plug>(coc-format-selected)
+    nmap <leader>cf  <Plug>(coc-format-selected)
+
+    augroup mygroup
+    autocmd!
+    " Setup formatexpr specified filetype(s).
+    autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+    " Update signature help on jump placeholder.
+    autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+    augroup end
+
+    " Applying codeAction to the selected region.
+    " Example: `<leader>aap` for current paragraph
+    xmap <leader>ca  <Plug>(coc-codeaction-selected)
+    nmap <leader>ca  <Plug>(coc-codeaction-selected)
+
+    " Remap keys for applying codeAction to the current buffer.
+    nmap <leader>ac  <Plug>(coc-codeaction)
+    " Apply AutoFix to problem on the current line.
+    nmap <leader>qf  <Plug>(coc-fix-current)
+
+    " Map function and class text objects
+    " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+    xmap if <Plug>(coc-funcobj-i)
+    omap if <Plug>(coc-funcobj-i)
+    xmap af <Plug>(coc-funcobj-a)
+    omap af <Plug>(coc-funcobj-a)
+    xmap ic <Plug>(coc-classobj-i)
+    omap ic <Plug>(coc-classobj-i)
+    xmap ac <Plug>(coc-classobj-a)
+    omap ac <Plug>(coc-classobj-a)
+
+    " Remap <C-f> and <C-b> for scroll float windows/popups.
+    if has('nvim-0.4.0') || has('patch-8.2.0750')
+    nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+    nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+    inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+    inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+    vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+    vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+    endif
+
+    " Use CTRL-S for selections ranges.
+    " Requires 'textDocument/selectionRange' support of language server.
+    nmap <silent> <C-s> <Plug>(coc-range-select)
+    xmap <silent> <C-s> <Plug>(coc-range-select)
+
+    " Add `:Format` command to format current buffer.
+    command! -nargs=0 Format :call CocAction('format')
+
+    " Add `:Fold` command to fold current buffer.
+    command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+    " Add `:OR` command for organize imports of the current buffer.
+    command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+    " Add (Neo)Vim's native statusline support.
+    " NOTE: Please see `:h coc-status` for integrations with external plugins that
+    " provide custom statusline: lightline.vim, vim-airline.
+    set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+    " Mappings for CoCList
+    " Show all diagnostics.
+    nnoremap <silent><nowait> <space>ca  :<C-u>CocList diagnostics<cr>
+    " Manage extensions.
+    nnoremap <silent><nowait> <space>ce  :<C-u>CocList extensions<cr>
+    " Show commands.
+    nnoremap <silent><nowait> <space>cc  :<C-u>CocList commands<cr>
+    " Find symbol of current document.
+    nnoremap <silent><nowait> <space>co  :<C-u>CocList outline<cr>
+    " Search workspace symbols.
+    nnoremap <silent><nowait> <space>cs  :<C-u>CocList -I symbols<cr>
+    " Do default action for next item.
+    nnoremap <silent><nowait> <space>cj  :<C-u>CocNext<CR>
+    " Do default action for previous item.
+    nnoremap <silent><nowait> <space>ck  :<C-u>CocPrev<CR>
+    " Resume latest coc list.
+    nnoremap <silent><nowait> <space>cp  :<C-u>CocListResume<CR>
+" }

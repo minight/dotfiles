@@ -5,10 +5,10 @@ let g:python_host_prog = '/usr/local/bin/python3'
 let g:pymode_python = 'python3'
 "
 if exists("$VIRTUAL_ENV")
-    let g:python_host_prog=substitute(system("which -a python | head -n2 | tail -n1"), "\n", '', 'g')
+    let g:python_host_prog=substitute(system("which -a python3 | head -n2 | tail -n1"), "\n", '', 'g')
     let g:python3_host_prog=substitute(system("which -a python3 | head -n2 | tail -n1"), "\n", '', 'g')
 else
-    let g:python_host_prog=substitute(system("which python"), "\n", '', 'g')
+    let g:python_host_prog=substitute(system("which python3"), "\n", '', 'g')
     let g:python3_host_prog=substitute(system("which python3"), "\n", '', 'g')
 endif
 

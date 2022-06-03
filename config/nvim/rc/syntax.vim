@@ -6,6 +6,7 @@
     au BufNewFile,BufRead *.css,*.less,*.scss setlocal expandtab ts=2 sw=2
     au BufNewFile,BufRead *.yml,*.yaml,*.yaml.gotmpl setlocal expandtab ts=2 sw=2
     au BufNewFile,BufRead *.yml,*.yaml,*.yaml.gotmpl set filetype=yaml
+    autocmd FileType json syntax match Comment +\/\/.\+$+
 
 " }
 

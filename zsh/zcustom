@@ -30,6 +30,10 @@ export PATH="$HOME/Library/Python/3.9/bin:$PATH"
 export PATH="$PATH:$HOME/cheri/output/sdk/bin"
 export PATH=$HOME/.cargo/bin:$PATH
 export PATH="${PATH}:${HOME}/.krew/bin"
+export PATH="$PATH:/usr/local/lib/ruby/gems/3.0.0/bin"
+
+export LDFLAGS="-L/usr/local/opt/libffi/lib"
+export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
 
 export EDITOR="vim"
 # ~/Documents/shell/base16-shell/scripts/base16-tomorrow-night.sh
