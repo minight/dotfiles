@@ -1,0 +1,15 @@
+export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+export PATH="/opt/homebrew/bin:$PATH"
+
+# Created by `pipx` on 2023-11-21 02:45:37
+export PATH="$PATH:$HOME/.local/bin"
+
+# Golang
+export PATH="$PATH:$HOME/go/bin"
+export PATH="$PATH:$HOME/Projects/bin"
+export PATH="$PATH:$HOME/Projects/pyscripts"
+
+# python
+export PATH="$PATH:$HOME/Library/Python/3.11/bin"
+export PATH="$PATH:$HOME/.bun/bin"
+

@@ -1,0 +1,80 @@
+source "${HOME}/.config/zsh/.zgenom/zgenom.zsh"
+
+zgenom autoupdate
+
+if ! zgenom saved; then
+    echo "Creating a zgenom save"
+
+    # Add this if you experience issues with missing completions or errors mentioning compdef.
+    # zgenom compdef
+
+    # Ohmyzsh base library
+    zgenom ohmyzsh
+
+    # plugins
+    zgenom ohmyzsh plugins/git
+    zgenom ohmyzsh plugins/sudo
+    # just load the completions
+    zgenom ohmyzsh --completion plugins/docker-compose
+
+    # Install ohmyzsh osx plugin if on macOS
+    [[ "$(uname -s)" = Darwin ]] && zgenom ohmyzsh plugins/macos
+
+    # prezto options
+    zgenom prezto editor key-bindings 'emacs'
+    zgenom prezto prompt theme 'steeef'
+
+    # prezto and modules
+    # If you use prezto and ohmyzsh - load ohmyzsh first.
+    zgenom prezto
+
+    # Load prezto tmux when tmux is installed
+    if hash tmux &>/dev/null; then
+        zgenom prezto tmux
+    fi
+
+    zgenom load zsh-users/zsh-syntax-highlighting
+
+    # add binaries
+    zgenom bin tj/git-extras
+
+    # completions
+    zgenom load zsh-users/zsh-completions
+    zgenom load https://github.com/andrewferrier/fzf-z
+
+    # theme
+    # zgenom ohmyzsh themes/arrow
+
+    # save all to init script
+    zgenom save
+
+    # Compile your zsh files
+    zgenom compile "$HOME/.zshrc"
+    # Uncomment if you set ZDOTDIR manually
+    # zgenom compile $ZDOTDIR
+
+    # You can perform other "time consuming" maintenance tasks here as well.
+    # If you use `zgenom autoupdate` you're making sure it gets
+    # executed every 7 days.
+
+    # rbenv rehash
+fi
+
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+eval "$(devbox global shellenv)"
+source $(brew --prefix)/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+
+. $HOME/.config/zsh/path
+. $HOME/.config/zsh/z/z.sh
+. $HOME/.config/zsh/aliases
+. $HOME/.config/zsh/completion
+
+
+
+# bun completions
+[ -s "/Users/user/.bun/_bun" ] && source "/Users/user/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

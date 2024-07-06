@@ -1,0 +1,23 @@
+alias httpx-all="httpx -ct -cl -sc -title -t 250 -server -location"
+
+function ffuf-all () {
+	domain="${1#http://}"
+	domain="${domain#https://}"
+	ffuf -w ~/Projects/wordlist/final-fucking-wordlist.txt -u $1/FUZZ -c -e aspx,asp,js,html -D -ac -t 500 | tee $domain.ffuf.txt
+}
+
+alias add-alias="vi ~/.config/zsh/aliases"
+alias reload="source ~/.zshrc"
+
+function unpack-js-map() {
+	file="$1"
+	file_no_map="${1#.map}"
+	cwd="$(pwd)"
+	pushd $HOME/Bounties/dev-env
+	NODE_OPTIONS=--no-experimental-fetch yarn run unpack "$cwd/$file_no_map" "$cwd/$file" 
+	popd
+}
+
+function gpy() {
+	source /Users/user/.local/share/virtualenvs/global-python-6vOg0aO-/bin/activate
+}

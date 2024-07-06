@@ -1,0 +1,28 @@
+
+alias httpx-all="httpx -ct -cl -sc -title -t 250 -server -location"
+
+function ffuf-all () {
+	domain="${1#http://}"
+	domain="${domain#https://}"
+	ffuf -w ~/Projects/wordlist/final-fucking-wordlist.txt -u $1/FUZZ -c -e aspx,asp,js,html -D -ac -t 500 | tee $domain.ffuf.txt
+}
+function unpack-js-map() {
+	file="$1"
+	file_no_map="${1#.map}"
+	cwd="$(pwd)"
+	pushd $HOME/Bounties/dev-env
+	NODE_OPTIONS=--no-experimental-fetch yarn run unpack "$cwd/$file_no_map" "$cwd/$file" 
+	popd
+}
+alias ctftime="docker run -v $HOME/ctftime:/root/host-share --privileged -it --workdir=/root ctfhacker/epictreasure"
+
+
+function jar-decompile() {
+    SRC=$1
+    DST=$2
+    java -cp /usr/local/bin/java-decompiler.jar \
+        org.jetbrains.java.decompiler.main.decompiler.ConsoleDecompiler \
+        -dgs=true \
+        "${SRC}" "${DST}"
+}
+
