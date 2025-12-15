@@ -1,12 +1,13 @@
 alias bt="wget http://cachefly.cachefly.net/100mb.test -O /dev/null"
 alias vim="nvim"
+alias vi="nvim"
 alias lock="/System/Library/Frameworks/ScreenSaver.framework/Resources/ScreenSaverEngine.app/Contents/MacOS/ScreenSaverEngine"
 alias lash="ls -lash"
 alias mewy="ssh tunnel"
 alias cse="ssh cse"
 alias debserver="ssh debianlocal"
 alias flushdns="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder; say DNS cache flushed"
-alias reload="source ~/.zshrc"
+alias reload="source ~/.config/zsh/.zshrc"
 alias ip2="ipython2"
 # alias ip="ipython"
 alias ip3="ipython3"
@@ -16,6 +17,7 @@ alias kga=" k get svc,statefulset,deployment,pods,daemonset,hpa,replicaset"
 alias kctx="kubectx"
 alias k=kubectl
 alias s="git status -sb"
+alias sizeme="du -h -d 1 | sort -rh"
 
 gitpr() {
     BRANCH=$1
@@ -157,3 +159,7 @@ milestones() {
 
 alias gitms=milestones
 alias r70c="go run $HOME/Documents/work/assetnote/cs-engine/cmd/route70 check -"
+
+jdiff() {
+    diff -y <(jq --sort-keys . "$1") <(jq --sort-keys . "$2")
+}

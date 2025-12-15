@@ -10,10 +10,13 @@ prompt pure
 # Google Cloud
 # . ~/bin/google-cloud-sdk/completion.zsh.inc
 # . ~/bin/google-cloud-sdk/path.zsh.inc
+#
+export VISUAL=vim
 
 #archey
 #export PATH=$PATH:/usr/local/m-cli:$HOME/bin
 #
+export PATH="/opt/homebrew/bin:$PATH"
 export GOPATH="$HOME/.go"
 export PATH=/usr/local/bin:$PATH
 export PATH="$HOME/.local/bin:$PATH"
@@ -31,6 +34,21 @@ export PATH="$PATH:$HOME/cheri/output/sdk/bin"
 export PATH=$HOME/.cargo/bin:$PATH
 export PATH="${PATH}:${HOME}/.krew/bin"
 export PATH="$PATH:/usr/local/lib/ruby/gems/3.0.0/bin"
+export PATH="$PATH:$(go env GOPATH)/bin"
+export PATH=$HOME/.local/bin:$PATH
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# fah
+export ANDROID_HOME="$HOME/Library/Android/sdk"
+export ANDROID_SDK_ROOT="$HOME/Library/Android/sdk"
+export ANDROID_AVD_HOME="$XDG_CONFIG_HOME/.android/avd"
+export PATH="$HOME/Library/Android/sdk/platform-tools:$PATH"
+export PATH="$HOME/Library/Android/sdk/emulator:$PATH"
+export PATH="$HOME/Library/Android/sdk/cmdline-tools/latest/bin:$PATH"
+export PATH="$HOME/Library/Android/sdk/build-tools/35.0.0:$PATH"
 
 export LDFLAGS="-L/usr/local/opt/libffi/lib"
 export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
@@ -84,7 +102,7 @@ source $HOME/.dotfiles/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighti
 # elif [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then
 #     source ~/.zlinux
 # fi
-source ~/.bountyalias
+# source ~/.bountyalias
 
 AWS_AUTOCOMPLETE="$HOME/.local/bin/aws_zsh_completer.sh"
 if [ -f "${AWS_AUTOCOMPLETE}" ]; then
@@ -93,21 +111,50 @@ fi
 
 
 # kubernetes
-source <(kubectl completion zsh)
+# source <(kubectl completion zsh)
 
 # Google Cloud
 # . $HOME/bin/google-cloud-sdk/completion.zsh.inc
 # . $HOME/bin/google-cloud-sdk/path.zsh.inc
 # export PATH="/home/sean/cheri/output/sdk/bin:$PATH"
-if test "$SSH_AUTH_SOCK" ; then
-    ln -sf $SSH_AUTH_SOCK ~/.ssh/ssh_auth_sock
-fi
-if [ -z "$SSH_AUTH_SOCK" ] ; then
-    eval `ssh-agent -s`
-    ssh-add
-fi
+# if test "$SSH_AUTH_SOCK" ; then
+#     ln -sf $SSH_AUTH_SOCK ~/.ssh/ssh_auth_sock
+# fi
+# if [ -z "$SSH_AUTH_SOCK" ] ; then
+#     eval `ssh-agent -s`
+#     ssh-add
+# fi
 
-source $HOME/.config/zsh/notifyosd.zsh
-GOPRIVATE=github.com/assetnote
-source $HOME/.zsecrets
+# source $HOME/.config/zsh/notifyosd.zsh
+# GOPRIVATE=github.com/assetnote
+source $HOME/.config/zsh/.zsecrets
 export PATH="/home/sean/tools/dev/git-fuzzy/bin:$PATH"
+
+# TIKTOK
+export METRICS_LOG_LEVEL=none
+
+gpy() {
+  pipx run poetry -C $HOME/tools/shell/py shell
+}
+
+alias poetry="pipx run poetry"
+
+lookup_psm () {
+  pushd /Users/bytedance/bytedance/tools/cloud_sherlock
+  /Users/bytedance/.local/share/virtualenvs/cloud_sherlock-7ZPtSwVC/bin/python codebase_from_psm.py $@
+  popd
+}
+
+lookup_tlb () {
+  pushd /Users/bytedance/bytedance/tools/cloud_sherlock
+  /Users/bytedance/.local/share/virtualenvs/cloud_sherlock-7ZPtSwVC/bin/python codebase_from_url.py $@
+  popd
+}
+
+clone_repo() {
+  pushd $HOME/bytedance
+  mkdir -p $1
+  git clone "https://code.byted.org/$1" $1
+  popd
+}
+
