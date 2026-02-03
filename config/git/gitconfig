@@ -7,7 +7,7 @@
 	default = simple
 [core]
 	editor = vim
-	excludesfile = /Users/sean/.global_ignore
+	excludesfile = ~/.global_ignore
 [mergetool]
 	keepBackup = true
 [mergetool "Kaleidoscope"]

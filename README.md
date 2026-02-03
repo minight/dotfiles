@@ -4,7 +4,7 @@ yet another dotfiles repo. should mostly be platform agnostic. might have some o
 
 ## dependencies
 
-- zsh
+- fish
 - i3
 - neovim
 - silversearcher-ag
@@ -18,6 +18,10 @@ git@github.com:minight/dotfiles.git
 cd dotfiles
 ./install
 bash /home/sean/tmp/dotfiles/.config/fonts/powerline/install.sh
-chsh -s /bin/zsh
+chsh -s "$(command -v fish)"
 ```
 
+## fish notes
+
+This repo links specific fish config files into `~/.config/fish`, but it does **not** manage `~/.config/fish/fish_variables`.
+That file stores fish “universal variables” (machine-local state), and keeping it local avoids accidental clobbering.

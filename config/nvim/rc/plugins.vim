@@ -62,10 +62,10 @@ call plug#begin('~/.config/nvim/bundle')
     " Rust
     Plug 'rust-lang/rust.vim'
 
-    "" Code Formatter
-    Plug 'google/vim-maktaba'
-    Plug 'google/vim-codefmt'
-    Plug 'google/vim-glaive'
+    "" Code Formatter (load on-demand)
+    Plug 'google/vim-maktaba', { 'on': 'AutoFormatBuffer' }
+    Plug 'google/vim-codefmt', { 'on': 'AutoFormatBuffer' }
+    Plug 'google/vim-glaive', { 'on': 'AutoFormatBuffer' }
 
     " Buffer Manager
     Plug 'jeetsukumaran/vim-buffergator'
@@ -97,7 +97,7 @@ call plug#begin('~/.config/nvim/bundle')
     Plug 'tmhedberg/SimpylFold'
     Plug 'hdima/python-syntax'
     Plug 'vim-scripts/nginx.vim'
-    Plug 'bazelbuild/vim-bazel'
+    Plug 'bazelbuild/vim-bazel', { 'for': 'bzl' }
     Plug 'bazelbuild/vim-ft-bzl'
     " Plug 'vim-scripts/promela.vim'
     " Plug 'xuhdev/vim-latex-live-preview'
@@ -125,23 +125,34 @@ call plug#begin('~/.config/nvim/bundle')
 call plug#end()
 filetype plugin indent on
 
-" Glaive {
-    call glaive#Install()
-    " Optional: Enable codefmt's default mappings on the <Leader>= prefix.
-    Glaive codefmt plugin[mappings]
-    augroup autoformat_settings
-        autocmd FileType bzl AutoFormatBuffer buildifier
-        autocmd FileType c,cpp,proto,javascript AutoFormatBuffer clang-format
-        autocmd FileType dart AutoFormatBuffer dartfmt
-        autocmd FileType go AutoFormatBuffer gofmt
-        autocmd FileType gn AutoFormatBuffer gn
-        autocmd FileType html,css,sass,scss,less,json AutoFormatBuffer js-beautify
-        autocmd FileType java AutoFormatBuffer google-java-format
-        autocmd FileType python AutoFormatBuffer yapf
-        " Alternative: autocmd FileType python AutoFormatBuffer autopep8
-        autocmd FileType vue,yaml,yml AutoFormatBuffer prettier
-    augroup END
-" }
+function! s:codefmt_format() abort
+    let ft = &filetype
+
+    if ft ==# 'bzl'
+        execute 'AutoFormatBuffer buildifier'
+    elseif ft =~# '^\%(c\|cpp\|proto\|javascript\)$'
+        execute 'AutoFormatBuffer clang-format'
+    elseif ft ==# 'dart'
+        execute 'AutoFormatBuffer dartfmt'
+    elseif ft ==# 'go'
+        execute 'AutoFormatBuffer gofmt'
+    elseif ft ==# 'gn'
+        execute 'AutoFormatBuffer gn'
+    elseif ft =~# '^\%(html\|css\|sass\|scss\|less\|json\)$'
+        execute 'AutoFormatBuffer js-beautify'
+    elseif ft ==# 'java'
+        execute 'AutoFormatBuffer google-java-format'
+    elseif ft ==# 'python'
+        execute 'AutoFormatBuffer yapf'
+    elseif ft =~# '^\%(vue\|yaml\|yml\|typescript\|typescriptreact\|javascriptreact\)$'
+        execute 'AutoFormatBuffer prettier'
+    else
+        execute 'AutoFormatBuffer'
+    endif
+endfunction
+
+command! -bar Format call <SID>codefmt_format()
+nnoremap <silent> <leader>= :Format<CR>
 
 " JediVim {
     " Use jedivim for movement. but not for autocomplete
@@ -750,12 +761,15 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
 " {
 
 lua <<EOF
-require("nvim-treesitter.configs").setup({
+local ok, configs = pcall(require, "nvim-treesitter.configs")
+if ok then
+  configs.setup({
     highlight = {
-        enable = true,
-        disable = { "python", "css", "clojure" },
+      enable = true,
+      disable = { "python", "css", "clojure" },
     },
-})
+  })
+end
 EOF
 
 " }

@@ -4,30 +4,87 @@
 - clean: ['~']
 - shell:
     - [mkdir -p ~/.config, Creating .config directory]
+    - [mkdir -p ~/.config/fish/conf.d ~/.config/fish/functions, Creating fish directories]
     - [mkdir -p ~/tools/shell, Creating bin directory]
 - link:
-    ~/.dotfiles:            ''
-    ~/.tmux.conf:           config/tmux
-    ~/.zshrc:               zsh/zprezto/runcoms/zshrc
-    ~/.zpreztorc:           zsh/zprezto/runcoms/zpreztorc
-    ~/.zlogin:              zsh/zprezto/runcoms/zlogin
-    ~/.zlogout:             zsh/zprezto/runcoms/zlogout
-    ~/.zprofile:            zsh/zprezto/runcoms/zprofile
-    ~/.zshenv:              zsh/zprezto/runcoms/zshenv
-    ~/.zprezto:             zsh/zprezto
-    ~/.zcustom:             zsh/zcustom
-    ~/.zwindows:            zsh/zwindows
-    ~/.zlinux:              zsh/zlinux
-    ~/.zalias:              zsh/zalias
-    ~/tools/shell/z:        bin/z
-    ~/tools/shell/fz:       bin/fz
-    ~/.gitconfig:           git/config
-    ~/.config/nvim:         config/nvim
-    ~/.config/i3:           config/i3
-    ~/.config/i3status:     config/i3status
-    ~/.config/shell:        config/shell
-    ~/.config/fonts:        config/fonts
+    ~/.dotfiles:                        ''
+    ~/.config/tmux/tmux.conf:           config/tmux
+    ~/.config/fish/config.fish:
+      path: fish/config.fish
+      force: true
+    ~/.config/fish/fish_plugins:
+      path: fish/fish_plugins
+      force: true
+    ~/.config/fish/conf.d/00-env.fish:
+      path: fish/conf.d/00-env.fish
+      force: true
+    ~/.config/fish/conf.d/10-path.fish:
+      path: fish/conf.d/10-path.fish
+      force: true
+    ~/.config/fish/conf.d/20-aliases.fish:
+      path: fish/conf.d/20-aliases.fish
+      force: true
+    ~/.config/fish/conf.d/25-cargo-env.fish:
+      path: fish/conf.d/25-cargo-env.fish
+      force: true
+    ~/.config/fish/conf.d/ruff.env.fish:
+      path: fish/conf.d/ruff.env.fish
+      force: true
+    ~/.config/fish/conf.d/uv.env.fish:
+      path: fish/conf.d/uv.env.fish
+      force: true
+    ~/.config/fish/conf.d/30-integrations.fish:
+      path: fish/conf.d/30-integrations.fish
+      force: true
+    ~/.config/fish/conf.d/99-secrets.fish:
+      path: fish/conf.d/99-secrets.fish
+      force: true
+    ~/.config/fish/functions/activate.fish: fish/functions/activate.fish
+    ~/.config/fish/functions/venv.fish: fish/functions/venv.fish
+    ~/.config/fish/functions/reload.fish: fish/functions/reload.fish
+    ~/.config/fish/functions/untilgood.fish: fish/functions/untilgood.fish
+    ~/.config/fish/functions/drma.fish: fish/functions/drma.fish
+    ~/.config/fish/functions/drka.fish: fish/functions/drka.fish
+    ~/.config/fish/functions/drmi.fish: fish/functions/drmi.fish
+    ~/.config/fish/functions/toast.fish: fish/functions/toast.fish
+    ~/.config/fish/functions/notify.fish: fish/functions/notify.fish
+    ~/.config/fish/functions/fbr.fish: fish/functions/fbr.fish
+    ~/.config/fish/functions/flog.fish: fish/functions/flog.fish
+    ~/.config/fish/functions/fkill.fish: fish/functions/fkill.fish
+    ~/.config/fish/functions/fe.fish: fish/functions/fe.fish
+    ~/.config/fish/functions/fcd.fish: fish/functions/fcd.fish
+    ~/.config/fish/functions/frg.fish: fish/functions/frg.fish
+    ~/.config/fish/functions/gitpr.fish: fish/functions/gitpr.fish
+    ~/.config/fish/functions/clone_repo.fish: fish/functions/clone_repo.fish
+    ~/.config/fish/functions/dockershell.fish: fish/functions/dockershell.fish
+    ~/.config/fish/functions/dockerssh.fish: fish/functions/dockerssh.fish
+    ~/.config/fish/functions/gcd.fish: fish/functions/gcd.fish
+    ~/.config/fish/functions/pipenvreq.fish: fish/functions/pipenvreq.fish
+    ~/.config/fish/functions/jar-decompile.fish: fish/functions/jar-decompile.fish
+    ~/.config/fish/functions/jdiff.fish: fish/functions/jdiff.fish
+    ~/.config/fish/functions/rmdupe.fish: fish/functions/rmdupe.fish
+    ~/.config/fish/functions/mmv.fish: fish/functions/mmv.fish
+    ~/.config/fish/functions/rng.fish: fish/functions/rng.fish
+    ~/.config/fish/functions/gpy.fish: fish/functions/gpy.fish
+    ~/.config/fish/functions/lookup_psm.fish: fish/functions/lookup_psm.fish
+    ~/.config/fish/functions/lookup_tlb.fish: fish/functions/lookup_tlb.fish
+    ~/tools/shell/z:                    bin/z
+    ~/tools/shell/fz:                   bin/fz
+    ~/.gitconfig:
+      path: config/git/gitconfig
+      force: true
+    ~/.global_ignore:
+      path: config/git/global_ignore
+      force: true
+    ~/.config/nvim:                     config/nvim
+    ~/.config/i3:                       config/i3
+    ~/.config/i3status:                 config/i3status
+    ~/.config/shell:                    config/shell
+    ~/.config/fonts:                    config/fonts
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
-    - [pip install neovim]
+    - ["git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm || true", Installing tmux plugin manager]
+    - ["~/.tmux/plugins/tpm/bin/install_plugins || true", Installing tmux plugins]
+    - ["python3 -m pip install --user pynvim || true", Installing pynvim]
     - [vim +PluginInstall +qall, Installing vim plugins]
+    - ["command -v fish >/dev/null 2>&1 && fish -c 'if not functions -q fisher; curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source; and fisher install jorgebucaran/fisher; end; fisher update' || true", Installing fish plugins]

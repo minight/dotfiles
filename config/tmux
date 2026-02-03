@@ -5,53 +5,103 @@ setw -g mode-keys vi
 
 set exit-empty off
 
-unbind % # Remove default binding since we’re replacing
+# =============================================================================
+# Splits
+# =============================================================================
+unbind % # Remove default binding since we're replacing
 unbind '"'
 bind | split-window -h -c "#{pane_current_path}"
 bind - split-window -v -c "#{pane_current_path}"
 
+# Synchronize panes toggle
 bind o set-window-option synchronize-panes\; display-message "synchronize-panes is now #{?pane_synchronized,on,off}"
 
-# screen mode
-#set -g default-terminal "screen"
-set -g default-terminal "screen-256color"
+# =============================================================================
+# Terminal Settings
+# =============================================================================
+set-option -g default-shell /opt/homebrew/bin/fish
+set-environment -g SHELL /opt/homebrew/bin/fish
+set -g default-terminal "tmux-256color"
+set -ga terminal-overrides ",xterm-256color:Tc"
+
+# Faster escape time (critical for vim)
+set -sg escape-time 0
+
+# Focus events for vim autoread
+set -g focus-events on
 
 # buffer clearing
 bind C-k clear-history
 
 # source config file
-bind r source-file ~/.tmux.conf
+bind r source-file ~/.config/tmux/tmux.conf \; display-message "Config reloaded"
 
-# vim pane movement
+# =============================================================================
+# Pane Navigation (vim-style)
+# =============================================================================
 bind h select-pane -L
 bind j select-pane -D
 bind k select-pane -U
 bind l select-pane -R
 
-bind o setw synchronize-panes
+# Pane resizing
+bind -r H resize-pane -L 5
+bind -r J resize-pane -D 5
+bind -r K resize-pane -U 5
+bind -r L resize-pane -R 5
 
-# history
+# =============================================================================
+# Window Management
+# =============================================================================
+# Quick window switching with Alt+number
+bind -n M-1 select-window -t 1
+bind -n M-2 select-window -t 2
+bind -n M-3 select-window -t 3
+bind -n M-4 select-window -t 4
+bind -n M-5 select-window -t 5
+bind -n M-6 select-window -t 6
+bind -n M-7 select-window -t 7
+bind -n M-8 select-window -t 8
+bind -n M-9 select-window -t 9
+
+# Window navigation
+bind -n M-h previous-window
+bind -n M-l next-window
+
+# Swap windows
+bind -r < swap-window -t -1\; select-window -t -1
+bind -r > swap-window -t +1\; select-window -t +1
+
+# =============================================================================
+# Session Management
+# =============================================================================
+bind S command-prompt -p "New session:" "new-session -s '%%'"
+bind X confirm-before -p "Kill session? (y/n)" kill-session
+
+# =============================================================================
+# History and Scrolling
+# =============================================================================
 set -g history-limit 100000
 
-# allow terminal scrolling
-set-option -g terminal-overrides 'xterm*:smcup@:rmcup@'
-set-option -g default-command "reattach-to-user-namespace -l zsh"
+# use mouse
+set -g mouse on
+set-option -g default-command "reattach-to-user-namespace -l /opt/homebrew/bin/fish -l"
 
-bind-key -T copy-mode-vi WheelUpPane send -X scroll-up
-bind-key -T copy-mode-vi WheelDownPane send -X scroll-down
-
-# # Vi copypaste
+# =============================================================================
+# Vi Copy Mode
+# =============================================================================
 setw -g mode-keys vi
+set -g status-keys vi
 
 set-option -s set-clipboard off
-# bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "xclip -selection clipboard -i"
-# bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "xclip -selection clipboard -i"
-# Update default binding of `Enter` to also use copy-pipe
-# unbind Enter
 set-window-option -g mode-keys vi
 bind-key -T copy-mode-vi 'v' send -X begin-selection
+bind-key -T copy-mode-vi 'V' send -X select-line
+bind-key -T copy-mode-vi 'r' send -X rectangle-toggle
 bind-key -T copy-mode-vi 'y' send -X copy-pipe-and-cancel "reattach-to-user-namespace pbcopy"
 
+# Enter copy mode and search
+bind / copy-mode \; send-keys ?
 
 # copy mode
 unbind [
@@ -59,71 +109,34 @@ bind [ copy-mode
 unbind ]
 bind ] paste-buffer
 
-# use vi mode
-setw -g mode-keys vi
-set -g status-keys vi
-# setw -g utf8 on
-# use mouse in copy mode
-setw -g mouse on
-
-# panes
-# set -g mouse-select-pane on
-# set -g pane-border-fg colour6
-# set -g pane-active-border-fg brightred
-# set -g pane-active-border-attr blink
-# resize panes with mouse (drag borders)
-# set -g mouse-select-pane on
-# set -g mouse-resize-pane on
-
+# =============================================================================
+# Window/Pane Settings
+# =============================================================================
 set-option -g renumber-windows on
 set -g base-index 1
 setw -g pane-base-index 1
 
-# status line
-# set -g status-utf8 on
+# =============================================================================
+# Status Line
+# =============================================================================
 set -g status-justify left
 set -g status-bg default
 set -g status-fg colour12
 set -g status-interval 2
 
-
-# messaging
-# set -g message-fg black
-# set -g message-bg yellow
-# set -g message-command-fg blue
-# set -g message-command-bg black
-
-
-#window mode
-# setw -g mode-bg colour5
-# setw -g mode-fg colour0
-
-
 # window status
-setw -g window-status-format " #F#I:#W#F "
-setw -g window-status-current-format " #F#I:#W#F "
+setw -g window-status-format " #I:#W "
+setw -g window-status-current-format " #I:#W "
 setw -g window-status-format "#[fg=magenta]#[bg=black] #I #[bg=cyan]#[fg=colour8] #W "
-# setw -g window-status-current-format "#[bg=brightmagenta]#[fg=colour8] #I #[fg=colour8]#[bg=colour14] #W "
-# setw -g window-status-current-bg colour0
-# setw -g window-status-current-fg colour11
-# setw -g window-status-current-attr dim
-# setw -g window-status-bg green
-# setw -g window-status-fg black
-# setw -g window-status-attr reverse
-# setw -g window-status-content-bg colour0
-# setw -g window-status-content-fg colour11
-# setw -g window-status-content-attr bold,blink,reverse
 
+# Status bar content
+set -g status-left-length 50
+set -g status-right-length 80
+set -g status-right '#[fg=colour244]#{pane_current_path} #[fg=brightgreen]| %a %H:%M'
 
-# Info on right (requires stlarch-terminusmod font)
-set -g status-right-length 60
-set -g status-right '#[fg=brightgreen]%a %H:%M'
-
-# source ~/.local/lib/python2.7/site-packages/powerline/bindings/tmux/powerline.conf
-set-option -g default-terminal "screen-256color"
-
-
-# List of plugins
+# =============================================================================
+# Plugins
+# =============================================================================
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-sensible'
 set -g @plugin 'tmux-plugins/tmux-yank'
@@ -133,12 +146,15 @@ set -g @plugin 'tmux-plugins/tmux-continuum'
 set -g @plugin 'tmux-plugins/tmux-copycat'
 set -g @plugin 'tmux-plugins/tmux-logging'
 set -g @plugin 'jimeh/tmux-themepack'
+set -g @plugin 'sainnhe/tmux-fzf'
 
 set -g @themepack 'powerline/double/cyan'
 set -g @continuum-restore 'on'
 set -g @continuum-save-interval '5'
 set -g @resurrect-capture-pane-contents 'on'
+
+# tmux-fzf settings
+TMUX_FZF_LAUNCH_KEY="C-f"
+
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
 run -b '~/.tmux/plugins/tpm/tpm'
-
-
