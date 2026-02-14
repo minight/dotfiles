@@ -26,8 +26,8 @@ call plug#begin('~/.config/nvim/bundle')
     Plug 'jremmen/vim-ripgrep'
 
     " File Managers
-    Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-    Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'mikavilpas/yazi.nvim'
 
     " Autocomplete Engines
     " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'}
@@ -276,35 +276,24 @@ nnoremap <silent> <leader>= :Format<CR>
     vnoremap <leader>a: :Tabularize /:\zs<CR>
 " }
 
-" NERDTree {
-    nnoremap <leader>tn :NERDTreeToggle<CR>
-    nnoremap <leader>tf :NERDTreeFind<CR>
-    autocmd StdinReadPre * let s:std_in=1
-    autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | exe 'NERDTree' | wincmd p | ene | endif
-    autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
-    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" yazi.nvim {
+    nnoremap <leader>tn :Yazi toggle<CR>
+    nnoremap <leader>tf :Yazi<CR>
 
-    let NERDTreeShowHidden=1
-    let NERDTreeIgnore=['\~$', '\.git$', '.DS_Store', '\.pyc$']
-    let NERDTreeMinimalUI = 1
-    let NERDTreeAutoDeleteBuffer = 1
-    let NERDTreeDirArrows = 1
-    let NERDTreeQuitOnOpen = 1
-" }
-"
-" NERDTree-Git {
-let g:NERDTreeGitStatusIndicatorMapCustom = {
-    \ "Modified"  : "*",
-    \ "Staged"    : "+",
-    \ "Untracked" : "?",
-    \ "Renamed"   : ">",
-    \ "Unmerged"  : "═",
-    \ "Deleted"   : "x",
-    \ "Dirty"     : "?",
-    \ "Clean"     : "v",
-    \ 'Ignored'   : '-',
-    \ "Unknown"   : "?"
-    \ }
+    autocmd StdinReadPre * let s:std_in=1
+    autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | silent! Yazi cwd | endif
+    autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | execute 'silent! Yazi ' . fnameescape(argv()[0]) | endif
+
+    if has('nvim')
+lua << EOF
+local ok, yazi = pcall(require, 'yazi')
+if ok then
+  yazi.setup({
+    open_for_directories = false,
+  })
+end
+EOF
+    endif
 " }
 
 " vim-markdown {

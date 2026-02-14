@@ -1,6 +1,7 @@
 # General
 alias vim nvim
 alias vi nvim
+alias md 'glow -w 160'
 
 # Go
 alias gob 'go build ./...'

@@ -110,7 +110,7 @@ nnoremap <leader>sp
 nnoremap <leader>w
       \ :<C-u>call vimrc#toggle_option('wrap')<CR>
 
-nnoremap <leader>ev :NERDTree ~/.config/nvim/<CR>
+nnoremap <leader>ev :lua local ok, yazi = pcall(require, 'yazi'); if ok then yazi.yazi({}, vim.fn.expand('~/.config/nvim')) end<CR>
 nnoremap <leader>rr :source $MYVIMRC<CR>
 
 " This rewires n and N to do the highlighing...

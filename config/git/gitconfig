@@ -8,6 +8,8 @@
     insteadOf = https://review.byted.org
 [url "git@code.byted.org:"]
     insteadOf = https://code.byted.org/
+[url "git@github.com:"]
+    insteadOf = https://github.com/
 
 [core]
 	editor = vim
@@ -42,3 +44,5 @@
 	clean = git-lfs clean -- %f
 [interactive]
 	diffFilter = diff-so-fancy --patch
+[safe]
+	directory = *

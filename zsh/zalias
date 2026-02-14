@@ -1,6 +1,7 @@
 alias bt="wget http://cachefly.cachefly.net/100mb.test -O /dev/null"
 alias vim="nvim"
 alias vi="nvim"
+alias md="glow -w 160 -t"
 alias lock="/System/Library/Frameworks/ScreenSaver.framework/Resources/ScreenSaverEngine.app/Contents/MacOS/ScreenSaverEngine"
 alias lash="ls -lash"
 alias mewy="ssh tunnel"

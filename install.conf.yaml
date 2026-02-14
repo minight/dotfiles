@@ -86,5 +86,5 @@
     - ["git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm || true", Installing tmux plugin manager]
     - ["~/.tmux/plugins/tpm/bin/install_plugins || true", Installing tmux plugins]
     - ["python3 -m pip install --user pynvim || true", Installing pynvim]
-    - [vim +PluginInstall +qall, Installing vim plugins]
+    - [nvim --headless +PlugInstall +qall, Installing nvim plugins]
     - ["command -v fish >/dev/null 2>&1 && fish -c 'if not functions -q fisher; curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source; and fisher install jorgebucaran/fisher; end; fisher update' || true", Installing fish plugins]
